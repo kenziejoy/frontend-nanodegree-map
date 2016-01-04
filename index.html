@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content=" An annotated map of the Alberta Arts Neighborhood in Portland, Oregon. ">
+		<meta name="author" content=" MacKenzie Rawcliffe">
+		
+		<title>Alberta Arts Map</title>
+		
+		<style>
+			html, body {
+				height: 100%;
+		 		margin: 0;
+		 		padding: 0;
+			}
+				#albertamap {
+				width: 100%;
+		  		height:50%;
+		  		padding:5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="header"></div>
+		<div id="albertamap"></div>
+		<div id="annotation">
+			<div id="filter"></div>
+			<div id="list"></div>
+		</div>
+		<script>
+			function initMap() {
+					// Create a map object and specify the DOM element for display.
+					var map = new google.maps.Map(document.getElementById('albertamap'), {
+				center: {lat: 45.5590561, lng: -122.6447018},
+				scrollwheel: false,
+				zoom: 16
+					});
+			}
+		</script>
+		<script type='text/javascript' src='knockout-3.4.0.js'></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAn5p6PtL-Jwr8M_kvXQHlXYWccMP1aC9Q&callback=initMap">
+		</script>
+	</body>
+</html>
