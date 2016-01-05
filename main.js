@@ -5,7 +5,7 @@ function initMap() {
 		center: {lat: 45.5590561, lng: -122.6447018},
 		scrollwheel: false,
 		zoom: 16
-		});
+	});
 }
 	setMarkers(map);
 
