@@ -2,6 +2,7 @@
 function initMap() {
 	// Create a map object and specify the DOM element for display.
 	"use strict";
+
 	var map = new google.maps.Map(document.getElementById('albertamap'), {
 		center: {
 			lat: 45.5590561,
@@ -10,11 +11,28 @@ function initMap() {
 		scrollwheel: false,
 		zoom: 16
 	});
+
+	var albertaPlaces = Model.places;
+
+	for (var i = 0; i< albertaPlaces.length, i++) {
+	var markerPos = new google.maps.LatLng(
+		albertaPlaces[i].lat,
+		albertaPlaces[i].long
+	);
+
+	var marker = new google.maps.Marker({
+		position:markerPos,
+		map: map;
+		title: albertaPlaces[i].name,
+		description: albertaPlaces[i].what
+	});
 }
-setMarkers(map);
+
+
 //**************Model***************
-var categories = ['all', 'eat', 'drink', 'soak', 'create', 'see'];
-var places = [{
+var Model = {
+	categories = ['all', 'eat', 'drink', 'soak', 'create', 'see'],
+	places: [{
 		name: 'Alberta Co-op',
 		categories: ['all', 'eat', 'drink'],
 		lat: 45.5589522,
@@ -68,7 +86,8 @@ var places = [{
 		lat: 45.5592015,
 		long: -122.646342,
 		what: 'The most creative flavors of ice cream'
-	}];
+	}]
+};
 	//**************ViewModel************
 
 function ViewModel() {
