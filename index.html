@@ -38,14 +38,19 @@
 		<div id="header"><hr><h1>Alberta Arts Neighborhood Map</h1><hr></div>
 		<div id="albertamap"></div>
 		<div id="annotation">
-			<div id="filter">1</div>
+			<div id="filter">
+				<h2>Explore the Hood</h2>
+			</div>
 			<div id="list">
-				<h2>These are my favorite places!</h2>
-				<ul>
-					<!--ko foreach: albertaPlaces -->
-					<li data-bind="text:name"></li>
-					<!--/ko-->
-				</ul>
+				<h3>These are my favorite places!</h3>
+				<table>
+					<tbody data-bind="foreach: albertaPlaces">
+						<tr>
+							<td data-bind="text:name"></td>
+							<td data-bind="text:what"></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<!--Add Knockout-->
@@ -68,12 +73,11 @@
 
 			function setMarkers(map) {
 				// Adds markers to the map.
-				for (var i = 0; i < albertaPlaces.length; i++) {
+				for (var i = 0; i < self.albertaPlaces.length; i++) {
 				var marker = new google.maps.Marker({
 					position: {lat: albertaPlaces.latlng[0], lng: albertaPlaces.latlng[1]},
 					map: map,
-					icon: image,
-					title: albertaPlaces.name,
+					icon: image
 					});
 				}
 			}
