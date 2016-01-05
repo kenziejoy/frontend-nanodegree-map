@@ -13,6 +13,7 @@
 				height: 100%;
 		 		margin: 0;
 		 		padding: 0;
+				position:relative;
 			}
 			#header {
 				text-align: center;
@@ -22,26 +23,37 @@
 		  		height:50%;
 		  		padding:5px;
 			}
+			#annotation {
+				display:flex;
+			}
+			#filter, #list {
+				width:50%;
+				border: black solid 1px;
+				padding:20px;
+			}
 		</style>
 	</head>
 	<body>
 		<div id="header"><hr><h1>Alberta Arts Neighborhood Map</h1><hr></div>
 		<div id="albertamap"></div>
 		<div id="annotation">
-			<div id="filter"></div>
-			<div id="list"></div>
+			<div id="filter">1</div>
+			<div id="list">2</div>
 		</div>
+		<!--Initialize and style base map-->
 		<script>
 			function initMap() {
-					// Create a map object and specify the DOM element for display.
-					var map = new google.maps.Map(document.getElementById('albertamap'), {
-				center: {lat: 45.5590561, lng: -122.6447018},
-				scrollwheel: false,
-				zoom: 16
-					 });
-}
+				// Create a map object and specify the DOM element for display.
+				var map = new google.maps.Map(document.getElementById('albertamap'), {
+					center: {lat: 45.5590561, lng: -122.6447018},
+					scrollwheel: false,
+					zoom: 16
+				});
+			}
 		</script>
+		<!--Add Knockout-->
 		<script type='text/javascript' src='knockout-3.4.0.js'></script>
+		<!--Link to Google Api key-->
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChKQpXGlF7yMHeCGcw0dafLRcU-eHUwls&callback=initMap">
 		</script>
 	</body>
