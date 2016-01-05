@@ -1,5 +1,10 @@
 Intro section
 
+This was a project of the Udacity Front End Development Nanodegree. The purpose was to create a map website using the Google api, javascript and knockout.js.
+
+Author: MacKenzie Rawcliffe
+Date: January 2015
+
 ## Table of Contents
 
 1. [Implementation](#implementation)
@@ -8,20 +13,22 @@ Intro section
 
 ## Implementation
 
+It is a website so you can proceed to the [demo](#demo) to implement.
+
 ### Dependencies
+
+1. Knockout.js
+2. Google Javascript Map Api
 
 ### Installation
 
-### Usage
-
-### API
-
-### Payload
+No installation neccessary
 
 **[Back to top](#table-of-contents)**
 
 ## Demo
 
+You can view the [demo site here](http://kenziejoy.github.io/frontend-nanodegree-map/).
 
 **[Back to top](#table-of-contents)**
 
