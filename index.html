@@ -20,7 +20,7 @@
 			}
 			#albertamap {
 				width: 100%;
-				height:30%;
+				height:40%;
 				padding:5px;
 				clear:both;
 			}
@@ -58,10 +58,31 @@
 		<!--Link to Google Api key-->
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChKQpXGlF7yMHeCGcw0dafLRcU-eHUwls&callback=initMap">
 		</script>
+
 		<!--Initialize and style base map-->
 		<script>
+		function initMap() {
+				// Create a map object and specify the DOM element for display.
+				var map = new google.maps.Map(document.getElementById('albertamap'), {
+					center: {lat: 45.5590561, lng: -122.6447018},
+					mapTypeId: google.maps.MapTypeId.SATELLITE,
+					scrollwheel: false,
+					zoom: 16
+				});
+				setMarkers(map);
+				}
 
-
+				function setMarkers(map) {
+				// Adds markers to the map.
+				for (var i = 0; i < self.albertaPlaces.length; i++) {
+				var marker = new google.maps.Marker({
+					position: {lat: albertaPlaces.latlng[0], lng: albertaPlaces.latlng[1]},
+					map: map,
+					icon: image
+					});
+				}
+				}
+			//The ViewModel
 			function ViewModel() {
 				var self = this;
 
@@ -71,7 +92,7 @@
 						latlng:'45.5589522,-122.6517163',
 						what: 'Yummy, fresh and good for the soul groceries',
 					},{
-						name: 'Alberta Rose Theatre',
+						name: 'Alberta Rose Theatre  ',
 						latlng:'45.5588269,-122.6367732',
 						what: 'Spectacular events',
 					},{
@@ -104,28 +125,6 @@
 						what: 'The most creative flavors of ice cream',
 					}
 				]);
-
-				function initMap() {
-				// Create a map object and specify the DOM element for display.
-				var map = new google.maps.Map(document.getElementById('albertamap'), {
-					center: {lat: 45.5590561, lng: -122.6447018},
-					mapTypeId: google.maps.MapTypeId.SATELLITE,
-					scrollwheel: false,
-					zoom: 16
-				});
-				setMarkers(map);
-				}
-
-				function setMarkers(map) {
-				// Adds markers to the map.
-				for (var i = 0; i < self.albertaPlaces.length; i++) {
-				var marker = new google.maps.Marker({
-					position: {lat: albertaPlaces.latlng[0], lng: albertaPlaces.latlng[1]},
-					map: map,
-					icon: image
-					});
-				}
-				}
 			};
 			var viewModel = new ViewModel();
 			ko.applyBindings(viewModel);
