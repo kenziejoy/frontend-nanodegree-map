@@ -6,7 +6,8 @@ function initMap() {
 		scrollwheel: false,
 		zoom: 16
 		});
-		//setMarkers(map);
+
+	setMarkers(map);
 	}
 function setMarkers(map) {
 	// Adds markers to the map.
