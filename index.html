@@ -39,23 +39,66 @@
 		<div id="albertamap"></div>
 		<div id="annotation">
 			<div id="filter">1</div>
-			<div id="list">2</div>
+			<div id="list">
+				<h2>These are my favorite places!</h2>
+				<ul>
+					<!--ko foreach: albertaPlaces -->
+					<li data-bind="text:name"></li>
+					<!--/ko-->
+				</ul>
+			</div>
 		</div>
+		<!--Add Knockout-->
+		<script type='text/javascript' src='knockout-3.4.0.js'></script>
+		<!--Link to Google Api key-->
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChKQpXGlF7yMHeCGcw0dafLRcU-eHUwls&callback=initMap">
+		</script>
 		<!--Initialize and style base map-->
 		<script>
 			function initMap() {
 				// Create a map object and specify the DOM element for display.
 				var map = new google.maps.Map(document.getElementById('albertamap'), {
 					center: {lat: 45.5590561, lng: -122.6447018},
+					mapTypeId: google.maps.MapTypeId.SATELLITE,
 					scrollwheel: false,
 					zoom: 16
 				});
 			}
 		</script>
-		<!--Add Knockout-->
-		<script type='text/javascript' src='knockout-3.4.0.js'></script>
-		<!--Link to Google Api key-->
-		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChKQpXGlF7yMHeCGcw0dafLRcU-eHUwls&callback=initMap">
+		<script>
+			function ViewModel() {
+				var self = this;
+
+				self.albertaPlaces = ko.observableArray([
+					{
+						name: 'Just Bob',
+						latlng:'45.5591434,-122.6430461',
+					}, {
+						name: 'Cruz Room',
+						latlng:'45.5592015,-122.646342,17',
+					}, {
+						name: 'Collage',
+						latlng:'45.5591757,-122.6500247',
+					}, {
+						name: 'Alberta Co-op',
+						latlng:'45.5589522,-122.6517163',
+					}, {
+						name: 'Pine State Biscuits',
+						latlng:'45.5592015,-122.646342',
+					}, {
+						name: 'Bolt',
+						latlng:'45.5588854,-122.6696039',
+					}, {
+						name: 'Salt & Straw',
+						latlng:'45.5592015,-122.646342',
+					},{
+						name: 'Alberta Rose Theatre',
+						latlng:'45.5588269,-122.6367732',
+					}
+				]);
+			};
+			var viewModel = new ViewModel();
+			ko.applyBindings(viewModel);
 		</script>
 	</body>
 </html>
