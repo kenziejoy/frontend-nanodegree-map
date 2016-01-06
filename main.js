@@ -1,5 +1,5 @@
 //**************Model***************
-var Model = {
+var model = {
 	categories: ['all', 'eat', 'drink', 'soak', 'create', 'see'],
 	places: [{
 		name: 'Alberta Co-op',
@@ -60,7 +60,7 @@ var Model = {
 
 //************View*****************
 
-var albertaPlaces = Model.places;
+var albertaPlaces = model.places;
 var marker;
 var i;
 var map;
@@ -103,14 +103,14 @@ function setMarkers(map) {
 
 marker.addListener('click', function() {
 	infowindow.open(map, marker);
-	});
+});
 
 	//**************ViewModel************
 
-function ViewModel() {
+function viewModel() {
 	var self = this;
-	self.albertaPlaces = ko.observableArray(Model.places);
+	self.albertaList = ko.observableArray(model.places);
 }
 
-var viewModel = new ViewModel();
+var viewModel = new viewModel();
 ko.applyBindings(viewModel);
