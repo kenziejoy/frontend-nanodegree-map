@@ -18,14 +18,14 @@ var model = {
 	}, {
 		name: 'Bolt',
 		categories: ['all', 'create'],
-		lat: 45.5590311,
-		long: -122.6674161,
+		lat: 45.5589988,
+		long: -122.6430478,
 		what: 'Fabrics, notions and patterns'
 	}, {
 		name: 'Collage',
 		categories: ['all', 'create'],
-		lat: 45.5591406,
-		long: -122.6674161,
+		lat: 45.559221,
+		long: -122.6479731,
 		what: 'All the crafts!'
 	}, {
 		name: 'Common Ground',
@@ -36,20 +36,20 @@ var model = {
 	}, {
 		name: 'Cruz Room',
 		categories: ['all', 'eat', 'drink'],
-		lat: 45.5589617,
-		long: -122.6411514,
+		lat: 45.5590117,
+		long: -122.6412912,
 		what: 'Tacos, drink and funky fresh'
 	}, {
 		name: 'Just Bob',
 		categories: ['all', 'eat', 'drink'],
-		lat: 45.5591434,
-		long: -122.6430461,
+		lat: 45.5591934,
+		long: -122.6409898,
 		what: 'Handpies, music, drink and comfy chairs'
 	}, {
 		name: 'Salt & Straw',
 		categories: ['all', 'eat', 'drink'],
-		lat: 45.5591978,
-		long: -122.6441533,
+		lat: 45.5592398,
+		long: -122.6442831,
 		what: 'The most creative flavors of ice cream'
 	}]
 };
@@ -59,15 +59,18 @@ var model = {
 //declaring variables outside of functions
 var albertaPlaces = model.places;
 var marker;
+var favplace;
 var i;
 var map;
-var infowindow;
+var infowindow = null;
 //icon image
 var image = 'artsy.png';
 //info content
-var contentString = '<div> marker.title </div>';
+var contentString = '<h2>' + albertaPlaces.name + '</h2>' + '<br />' + '<p>' + albertaPlaces.what + '<br />' + '<em>' + albertaPlaces.categories + '</em>' + '</p>';
+
 //setting map element
 var mapElement = document.getElementById('albertamap');
+
 //Map Options
 var mapOptions ={
 		center: {
@@ -91,15 +94,8 @@ var mapOptions ={
 function initMap() {
 	//create map
 	map = new google.maps.Map(mapElement,mapOptions);
-
 	// function set markers
 	setMarkers(map);
-
-	//infowindow content
-	infowindow = new google.maps.InfoWindow({
-			content: contentString,
-			maxWidth: 280
-		});
 
 	//markers
 	function setMarkers(map) {
@@ -109,14 +105,26 @@ function initMap() {
 			map: map,
 			icon: image,
 			title: albertaPlaces[i].name,
-			description: albertaPlaces[i].what
+			info: contentString
 			});
 		}
 	}
-	//click listener
-	marker.addListener('click', function() {
-	infowindow.open(map, marker);
-	});
+
+	//infowindow content
+	infowindow = new google.maps.InfoWindow({
+			content: contentString,
+			maxWidth: 280
+		});
+
+
+	//infowindow set up
+	//for (i = 0; i < albertaPlaces.length; i++) {
+	//	favplace = albertaPlaces[i];
+		google.maps.event.addListener(marker, 'click', function(){
+			infowindow.setContent(this.info);
+			infowindow.open(map,this);
+		});
+	}
 }
 //**************ViewModel************
 
