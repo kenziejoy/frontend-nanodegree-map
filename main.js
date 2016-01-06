@@ -70,6 +70,8 @@ var map;
 var infowindow;
 //icon image
 var image = 'artsy.png';
+//info content
+var contentString = 'hey!';
 
 // create a map object and specify the DOM element for display.
 function initMap() {
@@ -84,18 +86,15 @@ function initMap() {
 		});
 	// function set markers
 	setMarkers(map);
-}
 
-//infowindow content
-var contentString = 'hey!';
-function info() {
+	//infowindow content
 	infowindow = new google.maps.InfoWindow({
-		content: contentString,
-		maxWidth: 280
-	});
-}
-//markers
-function setMarkers(map) {
+			content: contentString,
+			maxWidth: 280
+		});
+
+	//markers
+	function setMarkers(map) {
 	for (i =0; i < albertaPlaces.length; i++) {
 		marker = new google.maps.Marker({
 			position: {lat: albertaPlaces[i].lat, lng: albertaPlaces[i].long},
@@ -107,11 +106,11 @@ function setMarkers(map) {
 	}
 }
 
-//click listener
-marker.addListener('click', function() {
+	//click listener
+	marker.addListener('click', function() {
 	infowindow.open(map, marker);
-});
-
+	});
+}
 //**************ViewModel************
 
 function viewModel() {
