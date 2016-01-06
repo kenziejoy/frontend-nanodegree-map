@@ -87,6 +87,7 @@ var mapOptions ={
 		styles: 	[{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
 		};
 
+
 // create a map object and specify the DOM element for display.
 function initMap() {
 	//create map
@@ -97,10 +98,6 @@ function initMap() {
 	//markers
 	function setMarkers(map) {
 	for (i = 0; i < albertaPlaces.length; i++) {
-
-		//info content
-		var contentString = '<h2>' + albertaPlaces[i].name + '</h2>' + '<p>' + albertaPlaces[i].what + '<br />' + '<em>' + albertaPlaces[i].categories + '</em>' + '</p>';
-
 		marker = new google.maps.Marker({
 			position: {lat: albertaPlaces[i].lat, lng: albertaPlaces[i].long},
 			map: map,
@@ -108,15 +105,16 @@ function initMap() {
 			title: albertaPlaces[i].name,
 			info: contentString
 			});
-
-		google.maps.event.addListener(marker, 'click', (function(marker,info,infowindow){
-			return function(){
-			infowindow.setContent(info);
+//TODO: try with this?
+		google.maps.event.addListener(marker, 'click', function(){
+			infowindow.setContent(this.info);
 			infowindow.open(map,marker);
-				};
-			})(marker,info,infowindow));
+			});
 		}
 	}
+
+	//info content
+	var contentString = '<h2>' + this.name + '</h2>' + '<p>' + this.what + '<br />' + '<em>' + this.categories + '</em>' + '</p>';
 
 	//infowindow content
 	infowindow = new google.maps.InfoWindow({
