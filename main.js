@@ -90,12 +90,13 @@ function initMap() {
 	//create map
 	map = new google.maps.Map(mapElement,mapOptions);
 	// function set markers
-	//setMarkers(map);
+	setMarkers(map);
 
 	var albertaPlaces = model.places;
-	var contentString = '<h1>' + albertaPlaces[i].name + '</h1>';
+
 	//markers
-	//function setMarkers(map) {
+	function setMarkers(map) {
+		var contentString = '<h1>' + this.name + '</h1>';
 		for (i = 0; i < albertaPlaces.length; i++) {
 			marker = new google.maps.Marker({
 				position: {lat: albertaPlaces[i].lat, lng: albertaPlaces[i].long},
