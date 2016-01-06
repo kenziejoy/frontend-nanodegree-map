@@ -64,8 +64,6 @@ var map;
 var infowindow = null;
 //icon image
 var image = 'artsy.png';
-//info content
-var contentString = '<h2>' + albertaPlaces[i].name + '</h2>' + '<p>' + albertaPlaces[i].what + '<br />' + '<em>' + albertaPlaces[i].categories + '</em>' + '</p>';
 
 //setting map element
 var mapElement = document.getElementById('albertamap');
@@ -99,6 +97,10 @@ function initMap() {
 	//markers
 	function setMarkers(map) {
 	for (i = 0; i < albertaPlaces.length; i++) {
+
+		//info content
+		var contentString = '<h2>' + albertaPlaces[i].name + '</h2>' + '<p>' + albertaPlaces[i].what + '<br />' + '<em>' + albertaPlaces[i].categories + '</em>' + '</p>';
+
 		marker = new google.maps.Marker({
 			position: {lat: albertaPlaces[i].lat, lng: albertaPlaces[i].long},
 			map: map,
@@ -121,7 +123,6 @@ function initMap() {
 			content: contentString,
 			maxWidth: 280
 		});
-
 }
 //**************ViewModel************
 
