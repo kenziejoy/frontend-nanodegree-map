@@ -1,4 +1,6 @@
 //**************Model***************
+
+//categories and place list
 var model = {
 	categories: ['all', 'eat', 'drink', 'soak', 'create', 'see'],
 	places: [{
@@ -60,16 +62,18 @@ var model = {
 
 //************View*****************
 
+//declaring variables
 var albertaPlaces = model.places;
 var marker;
 var i;
 var map;
-
+var infowindow;
+//icon image
 var image = 'artsy.png';
 
+// create a map object and specify the DOM element for display.
 function initMap() {
-	// Create a map object and specify the DOM element for display.
-
+	// centering the map
 	map = new google.maps.Map(document.getElementById('albertamap'), {
 		center: {
 			lat: 45.5590561,
@@ -78,17 +82,19 @@ function initMap() {
 		scrollwheel: false,
 		zoom: 16
 		});
-
+	// function set markers
 	setMarkers(map);
 }
 
+//infowindow content
 var contentString = 'hey!';
-
-var infowindow = new google.maps.InfoWindow({
-	content: contentString,
-	maxWidth: 280
-});
-
+function info() {
+	infowindow = new google.maps.InfoWindow({
+		content: contentString,
+		maxWidth: 280
+	});
+}
+//markers
 function setMarkers(map) {
 	for (i =0; i < albertaPlaces.length; i++) {
 		marker = new google.maps.Marker({
@@ -101,11 +107,12 @@ function setMarkers(map) {
 	}
 }
 
+//click listener
 marker.addListener('click', function() {
 	infowindow.open(map, marker);
 });
 
-	//**************ViewModel************
+//**************ViewModel************
 
 function viewModel() {
 	var self = this;
