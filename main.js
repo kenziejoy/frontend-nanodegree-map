@@ -124,7 +124,6 @@ function initMap() {
 			infowindow.setContent(this.info);
 			infowindow.open(map,this);
 		});
-	}
 }
 //**************ViewModel************
 
