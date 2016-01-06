@@ -18,14 +18,14 @@ var model = {
 	}, {
 		name: 'Bolt',
 		categories: ['all', 'create'],
-		lat: 45.5588854,
-		long: -122.6696039,
+		lat: 45.5590311,
+		long: -122.6674161,
 		what: 'Fabrics, notions and patterns'
 	}, {
 		name: 'Collage',
 		categories: ['all', 'create'],
-		lat: 45.5591757,
-		long: -122.6500247,
+		lat: 45.5591406,
+		long: -122.6674161,
 		what: 'All the crafts!'
 	}, {
 		name: 'Common Ground',
@@ -36,8 +36,8 @@ var model = {
 	}, {
 		name: 'Cruz Room',
 		categories: ['all', 'eat', 'drink'],
-		lat: 45.5592015,
-		long: -122.646342,
+		lat: 45.5589617,
+		long: -122.6411514,
 		what: 'Tacos, drink and funky fresh'
 	}, {
 		name: 'Just Bob',
