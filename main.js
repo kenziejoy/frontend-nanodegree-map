@@ -1,34 +1,3 @@
-//************View*****************
-var albertaPlaces = Model.places;
-
-function initMap() {
-	// Create a map object and specify the DOM element for display.
-	"use strict";
-
-	var map = new google.maps.Map(document.getElementById('albertamap'), {
-		center: {
-			lat: 45.5590561,
-			lng: -122.6447018
-		},
-		scrollwheel: false,
-		zoom: 16
-		});
-
-	setMarkers(map);
-	}
-var marker;
-
-	function setMarkers(map) {
-		for (var i =0; i < albertaPlaces.length; i++) {
-			marker = new google.maps.Marker({
-				position: {lat: albertaPlaces[i].lat, lng: albertaPlaces[i].long},
-				map: map,
-				title: albertaPlaces[i].name,
-				description: albertaPlaces[i].what
-			});
-		}
-	}
-
 //**************Model***************
 var Model = {
 	categories = ['all', 'eat', 'drink', 'soak', 'create', 'see'],
@@ -88,10 +57,43 @@ var Model = {
 		what: 'The most creative flavors of ice cream'
 	}]
 };
+
+//************View*****************
+
+var albertaPlaces = Model.places;
+var marker;
+var i;
+var map;
+
+function initMap() {
+	// Create a map object and specify the DOM element for display.
+
+	map = new google.maps.Map(document.getElementById('albertamap'), {
+		center: {
+			lat: 45.5590561,
+			lng: -122.6447018
+		},
+		scrollwheel: false,
+		zoom: 16
+		});
+
+	setMarkers(map);
+}
+	function setMarkers(map) {
+		for (i =0; i < albertaPlaces.length; i++) {
+			marker = new google.maps.Marker({
+				position: {lat: albertaPlaces[i].lat, lng: albertaPlaces[i].long},
+				map: map,
+				title: albertaPlaces[i].name,
+				description: albertaPlaces[i].what
+			});
+		}
+	}
+
+
 	//**************ViewModel************
 
 function ViewModel() {
-	"use strict";
 	var self = this;
 	self.albertaPlaces = ko.observableArray(places);
 }
