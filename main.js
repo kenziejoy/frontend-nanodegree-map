@@ -1,6 +1,6 @@
 //**************Model***************
 var Model = {
-	categories = ['all', 'eat', 'drink', 'soak', 'create', 'see'],
+	categories: ['all', 'eat', 'drink', 'soak', 'create', 'see'],
 	places: [{
 		name: 'Alberta Co-op',
 		categories: ['all', 'eat', 'drink'],
