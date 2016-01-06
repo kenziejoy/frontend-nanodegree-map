@@ -109,6 +109,7 @@ function initMap() {
 			albertaInfo(marker, albertaPlaces[i]);
 			bounceInfo();
 		}
+	}
 }
 
 // Attaches an info window to a marker with the provided message.
