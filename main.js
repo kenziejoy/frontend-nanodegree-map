@@ -119,7 +119,6 @@ function initMap() {
 	infowindow.open(map, marker);
 	});
 }
-}
 //**************ViewModel************
 
 function viewModel() {
