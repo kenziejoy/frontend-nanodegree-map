@@ -93,7 +93,6 @@ function initMap() {
 	setMarkers(map);
 	//markers
 	function setMarkers(map) {
-		var contentString = '<h1>' + this.name + '</h1>';
 		for (i = 0; i < albertaPlaces.length; i++) {
 			marker = new google.maps.Marker({
 				position: {lat: albertaPlaces[i].lat, lng: albertaPlaces[i].long},
@@ -104,13 +103,15 @@ function initMap() {
 				info: contentString
 			});
 			albertaInfo(marker, albertaPlaces[i]);
-			bounceInfo();
+			bounceSelect();
 		}
 	}
 }
 
 // Attaches an info window to a marker with the provided message.
 function albertaInfo(marker, contentString) {
+	var contentString = '<h1>' + marker.title + '</h1>';
+
 	var infowindow = new google.maps.InfoWindow({
 	content: contentString
 	});
@@ -120,7 +121,7 @@ function albertaInfo(marker, contentString) {
 	});
 }
 
-function toggleBounce() {
+function bounceSelect() {
 	if (marker.getAnimation() !== null) {
 		marker.setAnimation(null);
 	} else {
@@ -128,27 +129,6 @@ function toggleBounce() {
 	}
 	marker.addListener('click', toggleBounce);
 }
-
-
-		//******Animation only for the last marker?
-			//TODO: window from list and marker plus third party content
-			//google.maps.event.addListener(marker, 'click', function(){
-			//	infowindow.setContent(this.info);
-			//	infowindow.open(map,this);
-			//	});
-
-	//TODO: figure out the right content string
-	//infowindow content
-
-	//infowindow = new google.maps.InfoWindow({
-	//		content: contentString,
-	//		maxWidth: 280
-	//	});
-
-
-
-
-
 
 //**************ViewModel************
 //TODO: add input text area to filter list (listview) and markers
