@@ -91,7 +91,7 @@ google.maps.event.addDomListener(window, 'load', initMap);
 // create a map object and specify the DOM element for display.
 function initMap() {
 	//create map
-	map = new google.maps.Map(document.getElementById(mapElement,mapOptions);
+	map = new google.maps.Map(document.getElementById(mapElement,mapOptions));
 
 	// function set markers
 	setMarkers(map);
