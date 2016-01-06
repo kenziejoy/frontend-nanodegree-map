@@ -107,6 +107,11 @@ function initMap() {
 			title: albertaPlaces[i].name,
 			info: contentString
 			});
+
+		google.maps.event.addListener(marker, 'click', function(){
+			infowindow.setContent(this.info);
+			infowindow.open(map,this);
+		});
 		}
 	}
 
@@ -116,14 +121,6 @@ function initMap() {
 			maxWidth: 280
 		});
 
-
-	//infowindow set up
-	//for (i = 0; i < albertaPlaces.length; i++) {
-	//	favplace = albertaPlaces[i];
-		google.maps.event.addListener(marker, 'click', function(){
-			infowindow.setContent(this.info);
-			infowindow.open(map,this);
-		});
 }
 //**************ViewModel************
 
