@@ -46,16 +46,10 @@ var model = {
 		long: -122.6430461,
 		what: 'Handpies, music, drink and comfy chairs'
 	}, {
-		name: 'Pine State Biscuits',
-		categories: ['all', 'eat', 'drink'],
-		lat: 45.5592015,
-		long: -122.646342,
-		what: 'Great food'
-	}, {
 		name: 'Salt & Straw',
 		categories: ['all', 'eat', 'drink'],
-		lat: 45.5592015,
-		long: -122.646342,
+		lat: 45.5591978,
+		long: -122.6441533,
 		what: 'The most creative flavors of ice cream'
 	}]
 };
@@ -87,7 +81,7 @@ var mapOptions ={
 		zoomControl:false,
 		mapTypeControl:false,
 		scaleControl:false,
-		streetViewControl:false,
+		streetViewControl:true,
 		overviewMapControl:false,
 		rotateControl:false,
 		styles: 	[{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
@@ -109,7 +103,7 @@ function initMap() {
 
 	//markers
 	function setMarkers(map) {
-	for (i =0; i < albertaPlaces.length; i++) {
+	for (i = 0; i < albertaPlaces.length; i++) {
 		marker = new google.maps.Marker({
 			position: {lat: albertaPlaces[i].lat, lng: albertaPlaces[i].long},
 			map: map,
