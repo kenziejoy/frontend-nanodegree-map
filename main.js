@@ -82,9 +82,12 @@ function initMap() {
 	setMarkers(map);
 }
 
+var contentString = 'hey!';
+
 var infowindow = new google.maps.InfoWindow({
-	content: albertaPlaces[i].name
-	});
+	content: contentString,
+	maxWidth: 280
+});
 
 function setMarkers(map) {
 	for (i =0; i < albertaPlaces.length; i++) {
@@ -94,14 +97,13 @@ function setMarkers(map) {
 			icon: image,
 			title: albertaPlaces[i].name,
 			description: albertaPlaces[i].what
-			});
-		}
+		});
 	}
+}
 
 marker.addListener('click', function() {
 	infowindow.open(map, marker);
 	});
-
 
 	//**************ViewModel************
 
