@@ -126,7 +126,7 @@ function bounceSelect() {
 	} else {
 		marker.setAnimation(google.maps.Animation.BOUNCE);
 	}
-	marker.addListener('click', toggleBounce);
+	marker.addListener('click', bounceSelect);
 }
 
 //**************ViewModel************
