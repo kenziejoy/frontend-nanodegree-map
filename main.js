@@ -57,7 +57,7 @@ var model = {
 //************View*****************
 
 //declaring variables outside of functions
-var albertaPlaces = model.places;
+
 var marker;
 var i;
 var map;
@@ -90,47 +90,67 @@ function initMap() {
 	//create map
 	map = new google.maps.Map(mapElement,mapOptions);
 	// function set markers
-	setMarkers(map);
+	//setMarkers(map);
 
-//TODO - add animation when icon clicked and when list clicked
+	var albertaPlaces = model.places;
+	var contentString = '<h1>' + albertaPlaces[i].name + '</h1>';
 	//markers
-	function setMarkers(map) {
-	for (i = 0; i < albertaPlaces.length; i++) {
-		marker = new google.maps.Marker({
-			position: {lat: albertaPlaces[i].lat, lng: albertaPlaces[i].long},
-			map: map,
-			icon: image,
-			animation: google.maps.Animation.DROP,
-			title: albertaPlaces[i].name,
-			info: contentString
+	//function setMarkers(map) {
+		for (i = 0; i < albertaPlaces.length; i++) {
+			marker = new google.maps.Marker({
+				position: {lat: albertaPlaces[i].lat, lng: albertaPlaces[i].long},
+				map: map,
+				icon: image,
+				animation: google.maps.Animation.DROP,
+				title: albertaPlaces[i].name,
+				info: contentString
 			});
-		marker.addListener('click', toggleBounce);
-//TODO: need a different window for each
-//TODO: window from list and marker plus third party content
-		google.maps.event.addListener(marker, 'click', function(){
-			infowindow.setContent(this.info);
-			infowindow.open(map,this);
-			});
+			albertaInfo(marker, albertaPlaces[i]);
+			bounceInfo();
 		}
-	}
-//TODO: figure out the right content string
-	//info content
-	var contentString = '<h2>' + this.name + '</h2>' + '<p>' + this.what + '<br />' + '<em>' + this.categories + '</em>' + '</p>';
-
-	//infowindow content
-	infowindow = new google.maps.InfoWindow({
-			content: contentString,
-			maxWidth: 280
-		});
 }
+
+// Attaches an info window to a marker with the provided message.
+function albertaInfo(marker, contentString) {
+	var infowindow = new google.maps.InfoWindow({
+	content: contentString
+	});
+
+	marker.addListener('click', function() {
+	infowindow.open(marker.get('map'), marker);
+	});
+}
+
 
 function toggleBounce() {
 	if (marker.getAnimation() !== null) {
-	marker.setAnimation(null);
+		marker.setAnimation(null);
 	} else {
-	marker.setAnimation(google.maps.Animation.BOUNCE);
+		marker.setAnimation(google.maps.Animation.BOUNCE);
 	}
+	marker.addListener('click', toggleBounce);
 }
+
+
+		//******Animation only for the last marker?
+			//TODO: window from list and marker plus third party content
+			//google.maps.event.addListener(marker, 'click', function(){
+			//	infowindow.setContent(this.info);
+			//	infowindow.open(map,this);
+			//	});
+
+	//TODO: figure out the right content string
+	//infowindow content
+
+	//infowindow = new google.maps.InfoWindow({
+	//		content: contentString,
+	//		maxWidth: 280
+	//	});
+
+
+
+
+
 
 //**************ViewModel************
 //TODO: add input text area to filter list (listview) and markers
