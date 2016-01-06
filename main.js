@@ -59,7 +59,6 @@ var model = {
 //declaring variables outside of functions
 var albertaPlaces = model.places;
 var marker;
-var favplace;
 var i;
 var map;
 var infowindow = null;
@@ -108,10 +107,12 @@ function initMap() {
 			info: contentString
 			});
 
-		google.maps.event.addListener(marker, 'click', function(){
-			infowindow.setContent(this.info);
-			infowindow.open(map,this);
-		});
+		google.maps.event.addListener(marker, 'click', (function(marker,info,infowindow){
+			return function(){
+			infowindow.setContent(info);
+			infowindow.open(map,marker);
+				};
+			})(marker,info,infowindow));
 		}
 	}
 
