@@ -64,11 +64,9 @@ var map;
 var infowindow = null;
 //icon image
 var image = 'artsy.png';
-
 //setting map element
 var mapElement = document.getElementById('albertamap');
-
-//Map Options
+//Map Options and style
 var mapOptions ={
 		center: {
 			lat: 45.5590561,
@@ -87,7 +85,6 @@ var mapOptions ={
 		styles: 	[{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
 		};
 
-
 // create a map object and specify the DOM element for display.
 function initMap() {
 	//create map
@@ -95,6 +92,7 @@ function initMap() {
 	// function set markers
 	setMarkers(map);
 
+//TODO - add animation when icon clicked and when list clicked
 	//markers
 	function setMarkers(map) {
 	for (i = 0; i < albertaPlaces.length; i++) {
@@ -102,17 +100,20 @@ function initMap() {
 			position: {lat: albertaPlaces[i].lat, lng: albertaPlaces[i].long},
 			map: map,
 			icon: image,
+			animation: google.maps.Animation.DROP,
 			title: albertaPlaces[i].name,
 			info: contentString
 			});
-//TODO: try with this?
+		marker.addListener('click', toggleBounce);
+//TODO: need a different window for each
+//TODO: window from list and marker plus third party content
 		google.maps.event.addListener(marker, 'click', function(){
 			infowindow.setContent(this.info);
-			infowindow.open(map,marker);
+			infowindow.open(map,this);
 			});
 		}
 	}
-
+//TODO: figure out the right content string
 	//info content
 	var contentString = '<h2>' + this.name + '</h2>' + '<p>' + this.what + '<br />' + '<em>' + this.categories + '</em>' + '</p>';
 
@@ -122,8 +123,18 @@ function initMap() {
 			maxWidth: 280
 		});
 }
-//**************ViewModel************
 
+function toggleBounce() {
+	if (marker.getAnimation() !== null) {
+	marker.setAnimation(null);
+	} else {
+	marker.setAnimation(google.maps.Animation.BOUNCE);
+	}
+}
+
+//**************ViewModel************
+//TODO: add input text area to filter list (listview) and markers
+//TODO: additional functionality
 function viewModel() {
 	var self = this;
 	self.albertaList = ko.observableArray(model.places);
