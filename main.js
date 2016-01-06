@@ -99,8 +99,7 @@ function initMap() {
 				map: map,
 				icon: image,
 				animation: google.maps.Animation.DROP,
-				title: albertaPlaces[i].name,
-				info: contentString
+				title: albertaPlaces[i].name
 			});
 			albertaInfo(marker, albertaPlaces[i]);
 			bounceSelect();
