@@ -62,7 +62,7 @@ var model = {
 
 //************View*****************
 
-//declaring variables
+//declaring variables outside of functions
 var albertaPlaces = model.places;
 var marker;
 var i;
@@ -71,19 +71,28 @@ var infowindow;
 //icon image
 var image = 'artsy.png';
 //info content
-var contentString = 'hey!';
-
-// create a map object and specify the DOM element for display.
-function initMap() {
-	// centering the map
-	map = new google.maps.Map(document.getElementById('albertamap'), {
+var contentString = '<div> marker.title </div>';
+//setting map element
+var mapElement = document.getElementById('albertamap');
+//Map Options
+var mapOptions ={
 		center: {
 			lat: 45.5590561,
 			lng: -122.6447018
 		},
 		scrollwheel: false,
-		zoom: 16
-		});
+		zoom: 16,
+		styles: 	[{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
+		};
+
+//Load map after window loads
+google.maps.event.addDomListener(window, 'load', initMap);
+
+// create a map object and specify the DOM element for display.
+function initMap() {
+	//create map
+	map = new google.maps.Map(document.getElementById(mapElement,mapOptions);
+
 	// function set markers
 	setMarkers(map);
 
@@ -102,14 +111,14 @@ function initMap() {
 			icon: image,
 			title: albertaPlaces[i].name,
 			description: albertaPlaces[i].what
-		});
+			});
+		}
 	}
-}
-
 	//click listener
 	marker.addListener('click', function() {
 	infowindow.open(map, marker);
 	});
+}
 }
 //**************ViewModel************
 
