@@ -57,7 +57,7 @@ var model = {
 //************View*****************
 
 //declaring variables outside of functions
-
+var albertaPlaces = model.places;
 var marker;
 var i;
 var map;
@@ -91,9 +91,6 @@ function initMap() {
 	map = new google.maps.Map(mapElement,mapOptions);
 	// function set markers
 	setMarkers(map);
-
-	var albertaPlaces = model.places;
-
 	//markers
 	function setMarkers(map) {
 		var contentString = '<h1>' + this.name + '</h1>';
@@ -122,7 +119,6 @@ function albertaInfo(marker, contentString) {
 	infowindow.open(marker.get('map'), marker);
 	});
 }
-
 
 function toggleBounce() {
 	if (marker.getAnimation() !== null) {
