@@ -95,7 +95,7 @@ function initMap() {
 
 function ViewModel() {
 	var self = this;
-	self.albertaPlaces = ko.observableArray(places);
+	self.albertaPlaces = ko.observableArray(Model.places);
 }
 
 var viewModel = new ViewModel();
