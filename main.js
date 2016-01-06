@@ -1,4 +1,6 @@
 //************View*****************
+var albertaPlaces = Model.places;
+
 function initMap() {
 	// Create a map object and specify the DOM element for display.
 	"use strict";
@@ -10,24 +12,22 @@ function initMap() {
 		},
 		scrollwheel: false,
 		zoom: 16
-	});
+		});
 
-	var albertaPlaces = Model.places;
+	setMarkers(map);
+	}
+var marker;
 
-	for (var i = 0; i< albertaPlaces.length, i++) {
-	var markerPos = new google.maps.LatLng(
-		albertaPlaces[i].lat,
-		albertaPlaces[i].long
-	);
-
-	var marker = new google.maps.Marker({
-		position:markerPos,
-		map: map;
-		title: albertaPlaces[i].name,
-		description: albertaPlaces[i].what
-	});
-}
-
+	function setMarkers(map) {
+		for (var i =0; i < albertaPlaces.length; i++) {
+			marker = new google.maps.Marker({
+				position: {lat: albertaPlaces[i].lat, lng: albertaPlaces[i].long},
+				map: map,
+				title: albertaPlaces[i].name,
+				description: albertaPlaces[i].what
+			});
+		}
+	}
 
 //**************Model***************
 var Model = {
