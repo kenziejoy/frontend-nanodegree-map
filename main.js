@@ -66,7 +66,7 @@ var infowindow = null;
 //icon image
 var image = 'artsy.png';
 //info content
-var contentString = '<h2>' + albertaPlaces.name + '</h2>' + '<br />' + '<p>' + albertaPlaces.what + '<br />' + '<em>' + albertaPlaces.categories + '</em>' + '</p>';
+var contentString = '<h2>' + albertaPlaces[i].name + '</h2>' + '<p>' + albertaPlaces[i].what + '<br />' + '<em>' + albertaPlaces[i].categories + '</em>' + '</p>';
 
 //setting map element
 var mapElement = document.getElementById('albertamap');
