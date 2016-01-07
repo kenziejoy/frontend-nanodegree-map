@@ -148,7 +148,7 @@ google.maps.event.addListener(marker[i], 'click', function() {
 		if( marker[i].id == item.id )
 		marker[i].setAnimation(google.maps.Animation.BOUNCE);
 	}
-}
+}};
 
 //**************ViewModel************
 //TODO: add input text area to filter list (listview) and markers
