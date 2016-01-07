@@ -142,13 +142,15 @@ function albertaInfo(marker, contentString) {
 }*/
 
 //marker click functions
-google.maps.event.addListener(marker[i], 'click', function() {
+function bounceSelect(){
+	google.maps.event.addListener(marker[i], 'click', function() {
 	for( var i in marker ){
 		marker[i].setAnimation(null);
 		if( marker[i].id == item.id )
 		marker[i].setAnimation(google.maps.Animation.BOUNCE);
 	}
 });
+}
 
 //**************ViewModel************
 //TODO: add input text area to filter list (listview) and markers
