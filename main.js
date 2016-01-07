@@ -10,42 +10,49 @@ var model = {
 		long: -122.6517163,
 		what: 'Yummy, fresh and good for the soul groceries'
 	}, {
-		name: 'Alberta Rose Theatre  ',
+		id: 1,
+		name: 'Alberta Rose Theatre',
 		categories: ['all', 'see'],
 		lat: 45.5588269,
 		long: -122.6367732,
 		what: 'Spectacular events'
 	}, {
+		id: 2,
 		name: 'Bolt',
 		categories: ['all', 'create'],
 		lat: 45.5589988,
 		long: -122.6430478,
 		what: 'Fabrics, notions and patterns'
 	}, {
+		id: 3,
 		name: 'Collage',
 		categories: ['all', 'create'],
 		lat: 45.559221,
 		long: -122.6479731,
 		what: 'All the crafts!'
 	}, {
+		id: 4,
 		name: 'Common Ground',
 		categories: ['all', 'soak'],
 		lat: 45.5592984,
 		long: -122.6304464,
 		what: 'Naked outdoor hot tubs'
 	}, {
+		id: 5,
 		name: 'Cruz Room',
 		categories: ['all', 'eat', 'drink'],
 		lat: 45.5590117,
 		long: -122.6412912,
 		what: 'Tacos, drink and funky fresh'
 	}, {
+		id: 6,
 		name: 'Just Bob',
 		categories: ['all', 'eat', 'drink'],
 		lat: 45.5591934,
 		long: -122.6409898,
 		what: 'Handpies, music, drink and comfy chairs'
 	}, {
+		id: 7,
 		name: 'Salt & Straw',
 		categories: ['all', 'eat', 'drink'],
 		lat: 45.5592398,
@@ -89,23 +96,27 @@ var mapOptions ={
 function initMap() {
 	//create map
 	map = new google.maps.Map(mapElement,mapOptions);
-	// function set markers
-	setMarkers(map);
 	//markers
 	function setMarkers(map) {
 		for (i = 0; i < albertaPlaces.length; i++) {
 			marker = new google.maps.Marker({
-				position: {lat: albertaPlaces[i].lat, lng: albertaPlaces[i].long},
+				position: {
+					lat: albertaPlaces[i].lat,
+					lng: albertaPlaces[i].long},
 				map: map,
 				icon: image,
 				animation: google.maps.Animation.DROP,
 				title: albertaPlaces[i].name,
+				id: albertaPlaces[i].id,
 				description: albertaPlaces[i].what
 			});
+
 			albertaInfo(marker, albertaPlaces[i]);
+			//marker.addListener('click', bounceSelect);
 		};
-		marker[i].addListener('click', bounceSelect);
 	}
+	// function set markers
+	setMarkers(map);
 }
 
 // Attaches an info window to a marker with the provided message.
@@ -122,11 +133,20 @@ function albertaInfo(marker, contentString) {
 	});
 }
 
-function bounceSelect() {
+/*function bounceSelect() {
 	if (marker.getAnimation() !== null) {
 		marker.setAnimation(null);
 	} else {
 		marker.setAnimation(google.maps.Animation.BOUNCE);
+	}
+}*/
+
+//marker click functions
+google.maps.event.addListener(marker[i], 'click', function() {
+	for( var i in marker ){
+		marker[i].setAnimation(null);
+		if( marker[i].id == item.id )
+		marker[i].setAnimation(google.maps.Animation.BOUNCE);
 	}
 }
 
