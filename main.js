@@ -99,24 +99,26 @@ function initMap() {
 				map: map,
 				icon: image,
 				animation: google.maps.Animation.DROP,
-				title: albertaPlaces[i].name
+				title: albertaPlaces[i].name,
+				description: albertaPlaces[i].what
 			});
 			albertaInfo(marker, albertaPlaces[i]);
-			bounceSelect();
+			marker.addListener('click', bounceSelect);
 		}
 	}
 }
 
 // Attaches an info window to a marker with the provided message.
 function albertaInfo(marker, contentString) {
-	var contentString = '<h1>' + marker.title + '</h1>';
+	var contentString = '<h3>' + marker.title + '</h3>' + '<p>' + marker.description + '</p>';
 
 	var infowindow = new google.maps.InfoWindow({
 	content: contentString
 	});
 
 	marker.addListener('click', function() {
-	infowindow.open(marker.get('map'), marker);
+	infowindow.open(map, marker);
+		//marker.get('map')
 	});
 }
 
@@ -126,7 +128,6 @@ function bounceSelect() {
 	} else {
 		marker.setAnimation(google.maps.Animation.BOUNCE);
 	}
-	marker.addListener('click', bounceSelect);
 }
 
 //**************ViewModel************
