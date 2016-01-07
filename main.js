@@ -121,13 +121,14 @@ function albertaInfo(marker, contentString) {
 	});
 }
 
-marker[i].addListener('click', bounceSelect);
 function bounceSelect() {
-	if (marker[i].getAnimation() !== null) {
-		marker[i].setAnimation(null);
+	if (marker.getAnimation() !== null) {
+		marker.setAnimation(null);
 	} else {
-		marker[i].setAnimation(google.maps.Animation.BOUNCE);
+		marker.setAnimation(google.maps.Animation.BOUNCE);
 	}
+
+	marker[i].addListener('click', bounceSelect);
 }
 
 //**************ViewModel************
