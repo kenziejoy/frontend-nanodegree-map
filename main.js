@@ -103,7 +103,6 @@ function initMap() {
 				description: albertaPlaces[i].what
 			});
 			albertaInfo(marker, albertaPlaces[i]);
-			marker[i].addListener('click', bounceSelect);
 		}
 	}
 }
@@ -122,6 +121,7 @@ function albertaInfo(marker, contentString) {
 	});
 }
 
+marker[i].addListener('click', bounceSelect);
 function bounceSelect() {
 	if (marker[i].getAnimation() !== null) {
 		marker[i].setAnimation(null);
