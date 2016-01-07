@@ -112,7 +112,7 @@ function initMap() {
 			});
 
 			albertaInfo(marker, albertaPlaces[i]);
-			//marker.addListener('click', bounceSelect);
+			marker.addListener('click', bounceSelect);
 		};
 	}
 	// function set markers
