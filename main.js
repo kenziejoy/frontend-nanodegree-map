@@ -103,14 +103,14 @@ function initMap() {
 				description: albertaPlaces[i].what
 			});
 			albertaInfo(marker, albertaPlaces[i]);
-			marker.addListener('click', bounceSelect);
+			marker[i].addListener('click', bounceSelect);
 		}
 	}
 }
 
 // Attaches an info window to a marker with the provided message.
 function albertaInfo(marker, contentString) {
-	var contentString = '<h3>' + marker.title + '</h3>' + '<p>' + marker.description + '</p>';
+	var contentString = '<strong>' + marker.title + '</strong>' + '<p>' + marker.description + '</p>';
 
 	var infowindow = new google.maps.InfoWindow({
 	content: contentString
@@ -123,10 +123,10 @@ function albertaInfo(marker, contentString) {
 }
 
 function bounceSelect() {
-	if (marker.getAnimation() !== null) {
-		marker.setAnimation(null);
+	if (marker[i].getAnimation() !== null) {
+		marker[i].setAnimation(null);
 	} else {
-		marker.setAnimation(google.maps.Animation.BOUNCE);
+		marker[i].setAnimation(google.maps.Animation.BOUNCE);
 	}
 }
 
