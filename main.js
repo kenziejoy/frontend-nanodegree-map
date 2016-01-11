@@ -97,7 +97,7 @@ function initMap() {
 	//create map
 	map = new google.maps.Map(mapElement,mapOptions);
 	//markers
-	function setMarkers(map) {
+	//function setMarkers(map) {
 		for (i = 0; i < albertaPlaces.length; i++) {
 			marker = new google.maps.Marker({
 				position: {
@@ -114,9 +114,9 @@ function initMap() {
 			albertaInfo(marker, albertaPlaces[i]);
 			marker.addListener('click', bounceSelect);
 		};
-	}
+	//}
 	// function set markers
-	setMarkers(map);
+	//setMarkers(map);
 }
 
 // Attaches an info window to a marker with the provided message.
@@ -141,7 +141,7 @@ function albertaInfo(marker, contentString) {
 	}
 }*/
 
-//marker click functions
+/*marker click and bounce functions
 function bounceSelect(){
 	google.maps.event.addListener(marker[i], 'click', function() {
 	for( var i in marker ){
@@ -150,7 +150,7 @@ function bounceSelect(){
 		marker[i].setAnimation(google.maps.Animation.BOUNCE);
 	}
 });
-}
+}*/
 
 //**************ViewModel************
 //TODO: add input text area to filter list (listview) and markers
