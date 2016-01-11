@@ -133,7 +133,7 @@ function albertaInfo(marker, contentString) {
 	});
 }
 
-function bounceSelect(marker, albertaPlaces[i]) {
+function bounceSelect() {
 	marker.addListener('click', function(){
 		if (marker.getAnimation() !== null) {
 			marker.setAnimation(null);
