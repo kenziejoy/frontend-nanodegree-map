@@ -112,7 +112,7 @@ function initMap() {
 			});
 
 			albertaInfo(marker, albertaPlaces[i]);
-			bounceSelect(marker, albertaPlaces[i]);
+			//bounceSelect(marker, albertaPlaces[i]);
 		};
 	//}
 	// function set markers
@@ -133,12 +133,12 @@ function albertaInfo(marker, contentString) {
 	});
 }
 
-function bounceSelect() {
+function bounceSelect(marker, albertaPlaces[i]) {
 	marker.addListener('click', function(){
-	if (marker.getAnimation() !== null) {
-		marker.setAnimation(null);
-	} else {
-		marker.setAnimation(google.maps.Animation.BOUNCE);
+		if (marker.getAnimation() !== null) {
+			marker.setAnimation(null);
+		} else {
+			marker.setAnimation(google.maps.Animation.BOUNCE);
 	}});
 }
 
