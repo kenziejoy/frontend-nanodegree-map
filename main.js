@@ -170,7 +170,7 @@ function viewModel() {
 	//searchTerm - text input
 	//updateMap - keyup, submit
 	//clearSearch - click
-
+}
 
 var viewModel = new viewModel();
 ko.applyBindings(viewModel);
