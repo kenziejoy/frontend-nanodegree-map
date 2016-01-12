@@ -180,7 +180,7 @@ function ViewModel() {
 	    position: latlong,
 	    map: map,
 	    title: title,
-		description: alberta[i].what,
+		description: model.locations[i].what,
 	    animation: google.maps.Animation.DROP,
 	    clickable: true,
 	    icon: image
