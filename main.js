@@ -64,8 +64,9 @@ var model = {
 
 //************View*****************
 
-//declaring variables outside of functions
+//constructor
 var albertaPlaces = model.places;
+//declaring variables outside of functions
 var marker;
 var i;
 var map;
@@ -98,7 +99,7 @@ function initMap() {
 	//create map
 	map = new google.maps.Map(mapElement,mapOptions);
 	//markers
-	//function setMarkers(map) {
+
 		for (i = 0; i < albertaPlaces.length; i++) {
 			marker = new google.maps.Marker({
 				position: {
@@ -115,9 +116,6 @@ function initMap() {
 			albertaInfo(marker, albertaPlaces[i]);
 			//bounceSelect(marker, albertaPlaces[i]);
 		};
-	//}
-	// function set markers
-	//setMarkers(map);
 }
 
 // Attaches an info window to a marker with the provided message.
@@ -134,7 +132,32 @@ function albertaInfo(marker, contentString) {
 	});
 }
 
-/*function bounceSelect() {
+
+//**************ViewModel***********
+
+var ViewModel = function() {
+	var self = this;
+
+	self.albertaList = ko.observableArray(albertaPlaces);
+
+	//Set variable to track which map marker is currently selected
+	var markerBouncing = null;
+	//Set variable to track which infowindow is currently open
+	var openInfoWindow = null;
+
+	/* Define observables here */
+
+	//searchTerm - text input
+	//updateMap - keyup, submit
+	//clearSearch - click
+};
+
+var viewModel = new viewModel();
+ko.applyBindings(viewModel);
+
+
+/*extra bits
+function bounceSelect() {
 	marker.addListener('click', function(){
 		if (marker.getAnimation() !== null) {
 			marker.setAnimation(null);
@@ -153,24 +176,3 @@ function bounceSelect(){
 	}
 });
 }*/
-
-//**************ViewModel************
-function viewModel() {
-	var self = this;
-
-	self.albertaList = ko.observableArray(model.places);
-
-	//Set variable to track which map marker is currently selected
-	var markerBouncing = null;
-	//Set variable to track which infowindow is currently open
-	var openInfoWindow = null;
-
-	/* Define observables here */
-
-	//searchTerm - text input
-	//updateMap - keyup, submit
-	//clearSearch - click
-}
-
-var viewModel = new viewModel();
-ko.applyBindings(viewModel);
