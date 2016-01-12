@@ -2,6 +2,7 @@
 
 function Model() {
 	var self = this;
+
 	//Hard coded list of places
 	self.places = [
 	{
@@ -75,8 +76,9 @@ function Model() {
 var model = new Model();
 
 //**************ViewModel************
-function viewModel() {
+function ViewModel() {
 	var self = this;
+
 	//Set variable to track if marker is open and/or selected
 	var markerBounce = null;
 	var openInfoWindow = null;
@@ -87,18 +89,19 @@ function viewModel() {
 	self.searchTerm = ko.observable("");
 
 	//error message
-	self.showErrorMessage = ko.observable ("hidden");
-
+	//self.showErrorMessage = ko.observable ("hidden");
+	var item;
 	//places data into an array
 	self.initResults = function(places) {
 		self.initResultsList = [];
 		self.searchList = [];
 		for (i = 0; i< places.length; i++) {
-			var item = places[i].name;
+			item = places[i].name;
 			self.initResultsList.push(item);
 			//lower case version for search ease
 			self.searchList.push(item.toLowerCase());
 		}
+
 		//create observable array
 		self.results = ko.observableArray(self.initResultsList.slice(0));
 	};
@@ -110,7 +113,7 @@ function viewModel() {
 		//clear results and add matches
 		self.results.removeAll();
 		//loop through markers, hide locations and show matches
-		for (var i =0; i < model.markers.length; i++) {
+		for (var i = 0; i < model.markers.length; i++) {
 			model.markers[i].setVisible(false);
 		}
 		self.searchList.forEach(function (item, index, array) {
@@ -129,8 +132,7 @@ function viewModel() {
 					}
 				});
 			}
-	}
-	.bind(this);
+	}.bind(this);
 
 	//functions to reset input box and list view etc
 	self.clearSearch = function() {
@@ -148,7 +150,7 @@ function viewModel() {
 		var mapElement = document.getElementById('albertamap');
 
 		//Map Options and style
-		var mapOptions ={
+		var mapOptions = {
 		center: {
 			lat: 45.5590561,
 			lng: -122.6447018
@@ -168,12 +170,11 @@ function viewModel() {
 
 		//declaring map
 		var map = new google.maps.Map(mapElement,mapOptions);
-
-		return map;
 	}
 
 	function addMarker (map, latlng, title, content, icon) {
-		var markerOptions ={
+		var albertaPlaces = model.places;
+		var markerOptions = {
 			position: {
 				lat: albertaPlaces[i].lat,
 				lng: albertaPlaces[i].long},
@@ -260,6 +261,7 @@ function initMap() {
 
 	//markers
 	//function setMarkers(map) {
+
 
 
 			albertaInfo(marker, albertaPlaces[i]);
