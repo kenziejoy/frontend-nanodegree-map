@@ -180,6 +180,7 @@ function ViewModel() {
 	    position: latlong,
 	    map: map,
 	    title: title,
+		description: alberta[i].what,
 	    animation: google.maps.Animation.DROP,
 	    clickable: true,
 	    icon: image
@@ -284,7 +285,7 @@ function ViewModel() {
 	  			HTMLcontentString = "<p><strong><a class='place-name' href='"+
 	  								data.response.venue.canonicalUrl+"'>"+
 	  								data.response.venue.name+
-	  								"</a></strong></p>"+
+	  								"</a></strong></p>"+ "<p>" + marker.description + "</p>"
 	  								"<p><span class='place-rating'><strong>"+
 	  								data.response.venue.rating+
 	  								"</strong><sup> / 10</sup></span>"+
