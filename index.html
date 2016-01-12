@@ -34,14 +34,14 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12" id="bodyContainer">
-					<div class="col-md-5" id="listView">
+					<div class="col-md-6" id="listView">
 						<h2 class="headings">Explore</h2>
 						<form data-bind="submit: updateMap">
 							<input type="text" data-bind="textInput: search, event: { keyup: updateMap }"  />
 								<button id="resetButton" data-bind="click: clearSearch">Reset</button>
 						</form>
 						<h2 class="headings">My favorite places</h2>
-						<div class="list-group results-list" data-bind="foreach: results">
+						<div class="list-group results-list col-md-6" data-bind="foreach: results">
 								<a href="#" class="list-group-item col-xs-6 col-md-12" data-bind="click: $parent.selectMarkerFromList">
 								<p class="listItem" data-bind="text: $data"></p>
 								</a>

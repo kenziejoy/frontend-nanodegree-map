@@ -4,7 +4,7 @@ function Model() {
 	var self = this;
 
 	//Alberta places - hard coded as a function method
-	self.places = [{
+	self.locations = [{
 		Id:0,
 		name: 'Alberta Co-op',
 		categories: ['all', 'eat', 'drink'],
@@ -91,11 +91,11 @@ function ViewModel() {
 	self.search = ko.observable("");
 	self.showMessage = ko.observable("hidden");
 	//locations data object into an array
-	self.alberta = function(places) {
+	self.alberta = function(locations) {
 	    self.albertaList = [];
 	    self.searchList = [];
-	    for (i = 0; i < places.length; i++) {
-	    	var item = places[i].name;
+	    for (i = 0; i < locations.length; i++) {
+	    	var item = locations[i].name;
 	    	self.albertaList.push(item);
 	    	//Create lower case version for case insensitive search
 	    	self.searchList.push(item.toLowerCase());
@@ -103,7 +103,7 @@ function ViewModel() {
 	    self.results = ko.observableArray(self.albertaList.slice(0));
 	};
 	//add the hard-coded locations
-	self.alberta(model.places);
+	self.alberta(model.locations);
 
 	//Checks search against places and filters
 	self.updateMap = function() {
@@ -171,10 +171,8 @@ function ViewModel() {
 	  return map;
 	}
 
-	//Set the starting coordinates to the home location in the data model
+	//Set the starting coordinates to the home location
 	self.homelatlng = new google.maps.LatLng(model.home[0],model.home[1]);
-
-	//Intialize the map using the home location Google maps latlan object
 	self.map = showMap(self.homelatlng);
 
 	//This function is used to create new map markers
@@ -245,9 +243,9 @@ function ViewModel() {
 	  for (var i = 0; i < data.length; i++) {
 	    var location = data[i];
 	    var googleLatLong = new google.maps.LatLng(location.lat,location.lng);
-	    var windowContent = location.name;
+	    var windowContent = locations.name;
 	    //Create and add markers to map
-	    var marker = addMarker(self.map, googleLatLong, places.name, windowContent);
+	    var marker = addMarker(self.map, googleLatLong, locations.name, windowContent);
 	    //Add marker to data model
 	    model.markers.push(marker);
 	  }
@@ -307,8 +305,8 @@ function ViewModel() {
 	  		}
 	  	});
 	};
-	self.getLocationData(model.places);
-	self.initMap(model.places);
+	self.getLocationData(model.locations);
+	self.initMap(model.locations);
 }
 
 var ViewModel = new ViewModel();
