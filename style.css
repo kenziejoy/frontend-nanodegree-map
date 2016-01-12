@@ -1,0 +1,70 @@
+body {
+	height: 100%;
+}
+
+h1 {
+	font-size: 3em;
+}
+
+h2 {
+	font-size: 1.8em;
+}
+
+input {
+	width: 50%;
+}
+
+.container {
+	height: 100%;
+	width: 100%;
+}
+
+#bodyContainer {
+	display:flex;
+}
+
+.error-message {
+	color: #000;
+	font-weight: bold;
+	padding-left: 20px;
+	padding-top: 10px;
+	margin-bottom: 20px;
+	background-color: #fffbd0
+}
+
+.hidden {
+	display: none;
+}
+
+.header {
+	color: #252525;
+	text-align: center;
+}
+
+.place-name{
+	font-size: 1.2em;
+}
+
+.place-rating {
+	padding: 5px;
+	height: 10%;
+	width: 50px;
+	text-align: center;
+	border-radius: 10%;
+}
+
+.place-category {
+	margin-left: 3px;
+	padding: 5px;
+	height: 10%;
+	text-align: center;
+	border-radius: 10%;
+}
+
+.results-list {
+	margin-bottom: 10px;
+}
+
+.map {
+	height: 300px;
+}
