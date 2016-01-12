@@ -1,6 +1,6 @@
 //**************Model***************
 
-function Model() {
+function model() {
 	var self = this;
 
 	//Hard coded list of places
@@ -73,10 +73,10 @@ function Model() {
 	self.infoWindows = [];
 }
 
-var model = new Model();
+var model = new model();
 
 //**************ViewModel************
-function ViewModel() {
+function viewModel() {
 	var self = this;
 
 	//Set variable to track if marker is open and/or selected
@@ -236,8 +236,8 @@ function ViewModel() {
 	}
 }
 
-var viewModel = new viewModel();
-ko.applyBindings(viewModel);
+var ViewModel = new viewModel();
+ko.applyBindings(ViewModel);
 
 
 
