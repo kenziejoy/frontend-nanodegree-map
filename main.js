@@ -114,9 +114,10 @@ function initMap() {
 			});
 
 			albertaInfo(marker, albertaPlaces[i]);
-			//bounceSelect(marker, albertaPlaces[i]);
+			self.places()[p].markerID(marker);
 		};
 }
+places()[thisMarker].markerID().setAnimation(google.maps.Animation.BOUNCE);
 
 // Attaches an info window to a marker with the provided message.
 function albertaInfo(marker, contentString) {
