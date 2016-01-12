@@ -15,8 +15,8 @@
 			<div id="filter">
 				<h2>Explore</h2>
 				<hr>
-				<form data-bind="submit: updateListAndMap">
-					<input type="text" data-bind="textInput: searchTerm, event: { keyup: updateListAndMap }"  />
+				<form data-bind="submit: updateMarkers">
+					<input type="text" data-bind="textInput: searchTerm, event: { keyup: updateMarkers }"  />
 					<button id="resetButton" data-bind="click: clearSearch">Reset</button>
 				</form>
 			</div>
