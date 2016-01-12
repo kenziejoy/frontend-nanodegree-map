@@ -79,7 +79,7 @@ function ViewModel() {
 	var self = this;
 	var markerBounce = null;
 	var openWindow = null;
-
+	var image = 'artsy.png';
 	//Foursquare
 	var CLIENT_ID = "3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD";
 	var CLIENT_SECRET = "RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4";
@@ -141,7 +141,6 @@ function ViewModel() {
 	  var googleLatLong = latlng;
 	  var bounds = new google.maps.LatLngBounds();
 	  var latLngBounds = bounds.extend(googleLatLong);
-	  var image = 'artsy.png';
 
 	  var mapOptions = {
 	    zoom: 16,
