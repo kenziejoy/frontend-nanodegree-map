@@ -236,16 +236,13 @@ function ViewModel() {
 		google.maps.event.trigger(model.markers[id], 'click');
 	}
 
-	/* Create other functions to communicate with Model, Observables, and APIs */
-
-
 	self.initMap = function(data) {
 	  for (var i = 0; i < data.length; i++) {
 	    var location = data[i];
 	    var googleLatLong = new google.maps.LatLng(location.lat,location.lng);
-	    var windowContent = locations.name;
+	    var windowContent = location.name;
 	    //Create and add markers to map
-	    var marker = addMarker(self.map, googleLatLong, locations.name, windowContent);
+	    var marker = addMarker(self.map, googleLatLong, location.name, windowContent);
 	    //Add marker to data model
 	    model.markers.push(marker);
 	  }
