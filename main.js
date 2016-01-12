@@ -141,6 +141,7 @@ function ViewModel() {
 	  var googleLatLong = latlng;
 	  var bounds = new google.maps.LatLngBounds();
 	  var latLngBounds = bounds.extend(googleLatLong);
+	  var image = 'artsy.png';
 
 	  var mapOptions = {
 	    zoom: 16,
@@ -183,7 +184,7 @@ function ViewModel() {
 	    title: title,
 	    animation: google.maps.Animation.DROP,
 	    clickable: true,
-	    icon: artsy.png
+	    icon: image
 	  };
 
 	  var marker = new google.maps.Marker(markerOptions);

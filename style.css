@@ -18,6 +18,11 @@ input {
 	height: 100%;
 	width: 100%;
 }
+
+#bodyContainer {
+	display:flex;
+}
+
 .error-message {
 	color: #000;
 	font-weight: bold;
