@@ -5,38 +5,55 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content=" An annotated map of the Alberta Arts Neighborhood in Portland, Oregon. ">
 		<meta name="author" content=" MacKenzie Rawcliffe">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<title>Alberta Arts Map</title>
 	</head>
 	<body>
-		<div id="header"><hr><h1>Alberta Arts Neighborhood Map</h1><hr></div>
-		<div id="albertamap"></div><hr>
-		<div id="annotation">
-			<div id="filter">
-				<h2>Explore</h2>
-				<hr>
-				<form data-bind="submit: updateMap">
-					<input type="text" data-bind="textInput: searchTerm, event: { keyup: updateMap }"  />
-					<button id="resetButton" data-bind="click: clearSearch">Reset</button>
-				</form>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="hidden" data-bind="attr: { class: showMessage }">
+						<div class="error-message">
+							<p>Foursquare is taking its own sweet time - may not load :(</p>
+							<p>Sorry for the inconvenience.</p>
+							<p><button data-bind="click: function () { showMessage('hidden'); }" type="button">Close</button></p>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div id="list">
-				<h3>These are my favorite places!</h3>
-				<table>
-					<tbody data-bind="foreach: viewModel.albertaList">
-						<tr>
-							<td data-bind="text:name"></td>
-							<td data-bind="text:what"></td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="row header">
+				<div class="col-md-12">
+					<hr><h1>Alberta Arts Neighborhood</h1><hr>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12" id="map">
+					<div id="mapDiv" class="map col-md-12"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12" id="bodyContainer">
+					<div class="col-md-5" id="listView">
+						<h2 class="headings">Explore</h2>
+						<form data-bind="submit: updateMap">
+							<input type="text" data-bind="textInput: search, event: { keyup: updateMap }"  />
+								<button id="resetButton" data-bind="click: clearSearch">Reset</button>
+						</form>
+						<h2 class="headings">My favorite places</h2>
+						<div class="list-group results-list" data-bind="foreach: results">
+								<a href="#" class="list-group-item col-xs-6 col-md-12" data-bind="click: $parent.selectMarkerFromList">
+								<p class="listItem" data-bind="text: $data"></p>
+								</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<!--Add Knockout and page script-->
-		<script type='text/javascript' src='knockout-3.4.0.js'></script>
-		<script type='text/javascript' src='main.js'></script>
-	<!--Link to Google Api key-->
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChKQpXGlF7yMHeCGcw0dafLRcU-eHUwls&callback=initMap">
 		</script>
+		<!--<script src="http://maps.google.com/maps/api/js?sensor=true"></script>-->
+		<script src="knockout-3.4.0.js"></script>
+		<script src="main.js"></script>
 	</body>
 </html>

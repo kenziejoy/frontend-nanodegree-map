@@ -1,88 +1,152 @@
-//**************Model***************
+/***********************MODEL***************************/
+function Model() {
 
-//categories and place list
-var model = {
-	categories: ['all', 'eat', 'drink', 'soak', 'create', 'see'],
-	places: [{
+	var self = this;
+
+	//Alberta places - hard coded as a function method
+	self.places = [{
 		Id:0,
 		name: 'Alberta Co-op',
 		categories: ['all', 'eat', 'drink'],
 		lat: 45.5589522,
-		long: -122.6517163,
+		lng: -122.6517163,
 		what: 'Yummy, fresh and good for the soul groceries'
 	}, {
 		id: 1,
 		name: 'Alberta Rose Theatre',
 		categories: ['all', 'see'],
 		lat: 45.5588269,
-		long: -122.6367732,
+		lng: -122.6367732,
 		what: 'Spectacular events'
 	}, {
 		id: 2,
 		name: 'Bolt',
 		categories: ['all', 'create'],
 		lat: 45.5589988,
-		long: -122.6430478,
+		lng: -122.6430478,
 		what: 'Fabrics, notions and patterns'
 	}, {
 		id: 3,
 		name: 'Collage',
 		categories: ['all', 'create'],
 		lat: 45.559221,
-		long: -122.6479731,
+		lng: -122.6479731,
 		what: 'All the crafts!'
 	}, {
 		id: 4,
 		name: 'Common Ground',
 		categories: ['all', 'soak'],
 		lat: 45.5592984,
-		long: -122.6304464,
+		lng: -122.6304464,
 		what: 'Naked outdoor hot tubs'
 	}, {
 		id: 5,
 		name: 'Cruz Room',
 		categories: ['all', 'eat', 'drink'],
 		lat: 45.5590117,
-		long: -122.6412912,
+		lng: -122.6412912,
 		what: 'Tacos, drink and funky fresh'
 	}, {
 		id: 6,
 		name: 'Just Bob',
 		categories: ['all', 'eat', 'drink'],
 		lat: 45.5591934,
-		long: -122.6409898,
+		lng: -122.6409898,
 		what: 'Handpies, music, drink and comfy chairs'
 	}, {
 		id: 7,
 		name: 'Salt & Straw',
 		categories: ['all', 'eat', 'drink'],
 		lat: 45.5592398,
-		long: -122.6442831,
+		lng: -122.6442831,
 		what: 'The most creative flavors of ice cream'
-	}],
-};
+	}];
 
-//************View*****************
+	//Set home
+	self.home = [45.5590561,-122.6447018];
+	//Array for Markers
+	self.markers = [];
+	//Array for infoWindows
+	self.infoWindows = [];
+}
 
-//constructor
-var albertaPlaces = model.places;
-//declaring variables outside of functions
-var marker;
-var i;
-var map;
-var infowindow = null;
-//icon image
-var image = 'artsy.png';
-//setting map element
-var mapElement = document.getElementById('albertamap');
-//Map Options and style
-var mapOptions ={
-		center: {
-			lat: 45.5590561,
-			lng: -122.6447018
-		},
-		zoom: 16,
-		disableDefaultUI:true,
+var model = new Model();
+
+/******************VIEW MODEL***************************/
+
+function ViewModel() {
+
+	var self = this;
+	var markerBounce = null;
+	var openWindow = null;
+
+	//Foursquare
+	var CLIENT_ID = "3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD";
+	var CLIENT_SECRET = "RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4";
+	//Content strings from FourSquare data
+	var HTMLcontentString = '';
+	self.contentStrings = [];
+
+	//Observables
+	self.search = ko.observable("");
+	self.showMessage = ko.observable("hidden");
+	//locations data object into an array
+	self.alberta = function(places) {
+	    self.albertaList = [];
+	    self.searchList = [];
+	    for (i = 0; i < places.length; i++) {
+	    	var item = places[i].name;
+	    	self.albertaList.push(item);
+	    	//Create lower case version for case insensitive search
+	    	self.searchList.push(item.toLowerCase());
+	    }
+	    self.results = ko.observableArray(self.albertaList.slice(0));
+	};
+	//add the hard-coded locations
+	self.alberta(model.places);
+
+	//Checks search against places and filters
+	self.updateMap = function() {
+		self.results.removeAll();
+		for (var i = 0; i < model.markers.length; i++) {
+			model.markers[i].setVisible(false);
+		}
+		self.searchList.forEach(function (item, index, array) {
+			if (item.indexOf(self.search().toLowerCase()) > -1) {
+				self.results.push(self.albertaList[index]);
+				model.markers[index].setVisible(true);
+			}
+		});
+			if (self.search() === '') {
+				self.results(self.albertaList.slice(0));
+				model.markers.forEach(function (item, index, array) {
+					if (!item.getVisible()) {
+						item.setVisible(true);
+					}
+				});
+			}
+	}.bind(this);
+
+	//reset
+	self.clearSearch = function() {
+		self.search('');
+		if (openWindow) openWindow.close();
+		if (markerBounce) markerBounce.setAnimation(null);
+		self.updateMap();
+		self.map.panTo(self.homelatlng);
+		self.map.setZoom(15);
+	};
+	// create map
+	function showMap(latlng) {
+	  var googleLatLong = latlng;
+	  var bounds = new google.maps.LatLngBounds();
+	  var latLngBounds = bounds.extend(googleLatLong);
+
+	  var mapOptions = {
+	    zoom: 16,
+	    center: googleLatLong,
+	    mapTypeId: google.maps.MapTypeId.ROADMAP,
+	    disableDefaultUI: true,
 		scrollwheel: false,
 		panControl:false,
 		zoomControl:false,
@@ -92,88 +156,160 @@ var mapOptions ={
 		overviewMapControl:false,
 		rotateControl:false,
 		styles: 	[{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
-		};
+	  };
 
-// create a map object and specify the DOM element for display.
-function initMap() {
-	//create map
-	map = new google.maps.Map(mapElement,mapOptions);
-	//markers
+	  var mapDiv = document.getElementById("mapDiv");
+	  var map = new google.maps.Map(mapDiv, mapOptions);
+	  map.fitBounds(latLngBounds);
 
-		for (i = 0; i < albertaPlaces.length; i++) {
-			marker = new google.maps.Marker({
-				position: {
-					lat: albertaPlaces[i].lat,
-					lng: albertaPlaces[i].long},
-				map: map,
-				icon: image,
-				animation: google.maps.Animation.DROP,
-				title: albertaPlaces[i].name,
-				id: albertaPlaces[i].id,
-				description: albertaPlaces[i].what
-			});
+	  //Fix zoom after fitBounds
+	  var listener = google.maps.event.addListener(map, "idle", function() {
+			if (map.getZoom() > 15) map.setZoom(15);
+			google.maps.event.removeListener(listener);
+	  });
 
-			albertaInfo(marker, albertaPlaces[i]);
-			//self.places()[p].markerID(marker);
-		};
-}
-//places()[thisMarker].markerID().setAnimation(google.maps.Animation.BOUNCE);
-
-// Attaches an info window to a marker with the provided message.
-function albertaInfo(marker, contentString) {
-	var contentString = '<strong>' + marker.title + '</strong>' + '<p>' + marker.description + '</p>';
-
-	var infowindow = new google.maps.InfoWindow({
-	content: contentString
-	});
-
-	marker.addListener('click', function() {
-	infowindow.open(map, marker);
-		//marker.get('map')
-	});
-}
-
-
-//**************ViewModel***********
-
-var ViewModel = function() {
-	var self = this;
-
-	self.albertaList = ko.observableArray(albertaPlaces);
-
-	//Set variable to track which map marker is currently selected
-	var markerBouncing = null;
-	//Set variable to track which infowindow is currently open
-	var openInfoWindow = null;
-
-	/* Define observables here */
-
-	//searchTerm - text input
-	//updateMap - keyup, submit
-	//clearSearch - click
-};
-
-var viewModel = new viewModel();
-ko.applyBindings(viewModel);
-
-
-/*extra bits
-function bounceSelect() {
-	marker.addListener('click', function(){
-		if (marker.getAnimation() !== null) {
-			marker.setAnimation(null);
-		} else {
-			marker.setAnimation(google.maps.Animation.BOUNCE);
-	}});
-}*/
-
-/*marker click and bounce functions
-function bounceSelect(){
-	google.maps.event.addListener(marker[i], 'click', function() {
-	for( var i in marker ){
-		marker[i].setAnimation(null);
-		if( marker[i].id == item.id )
-		marker[i].setAnimation(google.maps.Animation.BOUNCE);
+	  return map;
 	}
-});
-}*/
+
+	//Set the starting coordinates to the home location in the data model
+	self.homelatlng = new google.maps.LatLng(model.home[0],model.home[1]);
+
+	//Intialize the map using the home location Google maps latlan object
+	self.map = showMap(self.homelatlng);
+
+	//This function is used to create new map markers
+	function addMarker(map, latlong, title, content, icon) {
+	  var markerOptions = {
+	    position: latlong,
+	    map: map,
+	    title: title,
+	    animation: google.maps.Animation.DROP,
+	    clickable: true,
+	    icon: icon
+	  };
+
+	  var marker = new google.maps.Marker(markerOptions);
+	  marker.addListener('click', toggleBounce);
+
+	  var infoWindowOptions = {
+	    content: content,
+	    position: latlong
+	  };
+
+	  var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+	  model.infoWindows.push(infoWindow);
+
+	  google.maps.event.addListener(marker, "click", function() {
+	    if (openWindow) openWindow.close();
+	    openWindow = infoWindow;
+	    infoWindow.open(map, marker);
+	  });
+
+	  google.maps.event.addListener(infoWindow, "closeclick", toggleBounce);
+
+		 //Function to toggle the bounce anitmation of marker on click
+
+		function toggleBounce() {
+		  if (markerBounce) {
+		    markerBounce.setAnimation(null);
+		  }
+		  if (markerBounce != marker) {
+		  	marker.setAnimation(google.maps.Animation.BOUNCE);
+		  	markerBounce = marker;
+		  } else {
+		    markerBounce = null;
+		  }
+		}
+
+	  return marker;
+	}
+
+	//Find the marker that is currently selected in the model list of markers and toggles the infowindow
+	self.selectMarkerFromList = function(currentlySelected) {
+		for (var i = 0; i < model.markers.length; i++) {
+			if (currentlySelected == model.markers[i].title) {
+				toggleInfoWindow(i);
+			}
+		}
+	}.bind(this);
+
+	//Function to the toggle the infowindow of a specific marker
+	function toggleInfoWindow(id) {
+		google.maps.event.trigger(model.markers[id], 'click');
+	}
+
+	/* Create other functions to communicate with Model, Observables, and APIs */
+
+
+	self.initMap = function(data) {
+	  for (var i = 0; i < data.length; i++) {
+	    var location = data[i];
+	    var googleLatLong = new google.maps.LatLng(places.lat,places.lng);
+	    var windowContent = places.name;
+	    //Create and add markers to map
+	    var marker = addMarker(self.map, googleLatLong, places.name, windowContent, places.icon);
+	    //Add marker to data model
+	    model.markers.push(marker);
+	  }
+	};
+
+	//Set timer to show error message
+	self.timer = setTimeout(function() {
+		self.showErrorMessage("");
+	}, 10000);
+
+	//Make request to FourSquare API
+	self.getLocationData = function(locations) {
+	  for (var i=0; i<locations.length; i++) {
+		  var url = "https://api.foursquare.com/v2/venues/"+
+		  			locations[i].venue_id+
+		  			"?client_id="+
+		  			CLIENT_ID+
+		  			"&client_secret="+
+		  			CLIENT_SECRET+
+		  			"&v=20150909&callback=ViewModel.callback";
+		  var newScriptElement = document.createElement("script");
+		  newScriptElement.setAttribute("src", url);
+		  newScriptElement.setAttribute("id", "jsonp");
+		  //Set onload attribute to check if resource loads. If onload fires, clear the timer
+		  newScriptElement.setAttribute("onload", "clearTimeout(ViewModel.timer)");
+		  var oldScriptElement = document.getElementById("jsonp");
+		  var head = document.getElementsByTagName("head")[0];
+		  if (oldScriptElement === null) {
+		    head.appendChild(newScriptElement);
+		  } else {
+		    head.replaceChild(newScriptElement, oldScriptElement);
+		  }
+	  }
+	};
+
+	//Takes in the JSON response from the FourSquare API, constructs an HTML string, and sets it to the content of the relevant infoWindow
+	self.callback = function(data) {
+	  	model.infoWindows.forEach(function (item, index, array) {
+	  		if (item.content == data.response.venue.name) {
+	  			HTMLcontentString = "<p><strong><a class='place-name' href='"+
+	  								data.response.venue.canonicalUrl+"'>"+
+	  								data.response.venue.name+
+	  								"</a></strong></p>"+
+	  								"<p>"+data.response.venue.location.address+
+	  								"</p><p><span class='place-rating'><strong>"+
+	  								data.response.venue.rating+
+	  								"</strong><sup> / 10</sup></span>"+
+	  								"<span class='place-category'>"+
+	  								data.response.venue.categories[0].name+
+	  								"</p><p>"+data.response.venue.hereNow.count+
+	  								" people checked-in now</p>"+
+	  								"<img src='"+data.response.venue.photos.groups[0].items[0].prefix+
+	  								"80x80"+
+	  								data.response.venue.photos.groups[0].items[0].suffix+
+	  								"'</img>";
+	  			item.setContent(HTMLcontentString);
+	  		}
+	  	});
+	};
+	self.getLocationData(model.places);
+	self.initMap(model.places);
+}
+
+var ViewModel = new ViewModel();
+ko.applyBindings(ViewModel);

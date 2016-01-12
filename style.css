@@ -1,23 +1,113 @@
-html, body {
+body {
 	height: 100%;
-	margin: 0;
-	padding: 0;
 }
-#header {
-	text-align: center;
-	clear:both;
+
+h1 {
+	font-size: 3em;
 }
-#albertamap {
+
+h2 {
+	font-size: 1.8em;
+}
+
+input {
+	width: 80%;
+}
+
+.container {
+	height: 100%;
 	width: 100%;
-	height:40%;
-	padding:5px;
-	clear:both;
 }
-#annotation {
-	display:flex;
+
+.hidden {
+	display: none;
 }
-#filter, #list {
-	width:50%;
-	border: black solid 1px;
-	padding:10px;
+
+.place-name{
+	font-size: 1.2em;
 }
+
+.place-rating {
+	color: white;
+	background-color: #223fdb;
+	padding: 5px;
+	height: 10%;
+	width: 50px;
+	text-align: center;
+	border-radius: 10%;
+}
+
+.place-category {
+	color: white;
+	background-color: #5464b9;
+	margin-left: 3px;
+	padding: 5px;
+	height: 10%;
+	text-align: center;
+	border-radius: 10%;
+}
+
+.results-list {
+	margin-bottom: 10px;
+}
+
+.map {
+	height: 40%;
+}
+
+.error-message {
+	color: #000;
+	font-weight: bold;
+	padding-left: 20px;
+	padding-top: 10px;
+	margin-bottom: 20px;
+	background-color: #fffbd0
+}
+
+.header {
+	color: #252525;
+	font-family: Garamond, sans-serif;
+	text-align: center;
+}
+
+ @media only screen and (max-width : 480px) {
+ 	h1 {
+ 		font-size: 1.3em;
+ 	}
+
+ 	h2 {
+ 		font-size: 1em;
+ 		margin-top: 10px;
+ 	}
+
+ 	p {
+ 		font-size: 1em;
+ 	}
+
+ 	input {
+ 		margin-bottom: 10px;
+ 		width: 70%;
+ 	}
+
+ 	.listItem {
+ 		font-size: 0.7em;
+ 		line-height: 95%;
+ 		margin-bottom: 0px;
+ 	}
+
+ 	.list-group-item {
+ 		padding-top: 5px;
+ 		padding-bottom: 5px;
+ 	}
+
+ 	.headings {
+ 		display: none;
+ 	}
+
+ 	.map {
+ 		clear: left;
+ 		margin-top: 90px;
+ 		margin-left: 15px;
+ 		margin-right: 15px;
+ 	}
+ }
