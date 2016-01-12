@@ -244,10 +244,10 @@ function ViewModel() {
 	self.initMap = function(data) {
 	  for (var i = 0; i < data.length; i++) {
 	    var location = data[i];
-	    var googleLatLong = new google.maps.LatLng(places.lat,places.lng);
+	    var googleLatLong = new google.maps.LatLng(location.lat,location.lng);
 	    var windowContent = places.name;
 	    //Create and add markers to map
-	    var marker = addMarker(self.map, googleLatLong, places.name, windowContent, places.icon);
+	    var marker = addMarker(self.map, googleLatLong, places.name, windowContent);
 	    //Add marker to data model
 	    model.markers.push(marker);
 	  }
@@ -255,7 +255,7 @@ function ViewModel() {
 
 	//Set timer to show error message
 	self.timer = setTimeout(function() {
-		self.showErrorMessage("");
+		self.showMessage("");
 	}, 10000);
 
 	//Make request to FourSquare API
