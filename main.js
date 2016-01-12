@@ -143,55 +143,59 @@ function viewModel() {
 	};
 //************View*****************
 	//Define Google Maps objects
-	function initMap(){
+	function showMap(latlng){
+
 		//icon image
 		var image = 'artsy.png';
-		//setting map element
-		var mapElement = document.getElementById('albertamap');
 
 		//Map Options and style
 		var mapOptions = {
-		center: {
-			lat: 45.5590561,
-			lng: -122.6447018
-		},
-		zoom: 16,
-		disableDefaultUI:true,
-		scrollwheel: false,
-		panControl:false,
-		zoomControl:false,
-		mapTypeControl:false,
-		scaleControl:false,
-		streetViewControl:true,
-		overviewMapControl:false,
-		rotateControl:false,
-		styles: 	[{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
+			center: {
+				lat: 45.5590561,
+				lng: -122.6447018
+			},
+			zoom: 16,
+			disableDefaultUI:true,
+			scrollwheel: false,
+			panControl:false,
+			zoomControl:false,
+			mapTypeControl:false,
+			scaleControl:false,
+			streetViewControl:true,
+			overviewMapControl:false,
+			rotateControl:false,
+			styles: 	[{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
 		};
 
+		//setting map element
+		var mapElement = document.getElementById('albertamap');
 		//declaring map
-		var map = new google.maps.Map(mapElement,mapOptions);
+		var map = new google.maps.Map(mapElement, mapOptions);
+
+		return map;
 	}
 
-	function addMarker (map, latlng, title, content, icon) {
-		var albertaPlaces = model.places;
+	self.homelatlng = new google.maps.LatLng(model.hom[0],model.home[1]);
+
+	self.map = showMap(self.homelatlng);
+
+	function addMarker (map, latlong, title, content, icon) {
 		var markerOptions = {
-			position: {
-				lat: albertaPlaces[i].lat,
-				lng: albertaPlaces[i].long},
+			position: latlong,
 			map: map,
 			icon: image,
 			animation: google.maps.Animation.DROP,
-			title: albertaPlaces[i].name,
+			title: title,
 			clickable: true,
-			id: albertaPlaces[i].id,
-			description: albertaPlaces[i].what
+			description: what
 		};
 
 		var marker = new google.maps.Marker(markerOptions);
 		marker.addListener('click', toggleBounce);
 
 		var infoWindowOptions = {
-			content: content
+			content: content,
+			position:latlong
 		};
 
 		var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
@@ -211,8 +215,8 @@ function viewModel() {
 			if (markerBounce) {
 				markerBounce.setAnimation(null);
 			}
-			if (markerBounce !=marker) {
-				maker.setAnimation(google.maps.Animation.BOUNCE);
+			if (markerBounce != marker) {
+				marker.setAnimation(google.maps.Animation.BOUNCE);
 				markerBounce = marker;
 			} else {
 				markerBounce = null;
@@ -225,7 +229,7 @@ function viewModel() {
 	self.selectMarkerFromList = function(currentlySelected) {
 		for (var i = 0; i < model.markers.length; i++) {
 			if (currentlySelected == model.markers[i].title) {
-				toggleInfoWindow[i];
+				toggleInfoWindow(i);
 			}
 		}
 	}.bind(this);
@@ -234,78 +238,17 @@ function viewModel() {
 	function toggleInfoWindow(id) {
 		google.maps.event.trigger(model.markers[id], 'click');
 	}
+	self.initMap = function(data) {
+		for (var i=0; i<data.length; i++) {
+			var location = data[i];
+			var googleLatLong= new google.maps.LatLng(places.lat,places.lng);
+			var windowContent = places.name;
+			var marker = addMarker(self.map, googleLatLong, places.name, windowContent);
+			model.markers.push(marker);
+		}
+	};
+	self.initMap(model.places);
 }
 
 var ViewModel = new viewModel();
 ko.applyBindings(ViewModel);
-
-
-
-	/*var albertaPlaces = model.places;
-
-	for (i = 0; i < albertaPlaces.length; i++) {
-			marker = new google.maps.Marker({
-				position: {
-					lat: albertaPlaces[i].lat,
-					lng: albertaPlaces[i].long},
-				map: map,
-				icon: image,
-				animation: google.maps.Animation.DROP,
-				title: albertaPlaces[i].name,
-				id: albertaPlaces[i].id,
-				description: albertaPlaces[i].what
-			});*/
-/* create a map object and specify the DOM element for display.
-function initMap() {
-	//create map
-
-	//markers
-	//function setMarkers(map) {
-
-
-
-			albertaInfo(marker, albertaPlaces[i]);
-			//bounceSelect(marker, albertaPlaces[i]);
-		};
-	//}
-	// function set markers
-	//setMarkers(map);
-}
-
-// Attaches an info window to a marker with the provided message.
-function albertaInfo(marker, contentString) {
-	var contentString = '<strong>' + marker.title + '</strong>' + '<p>' + marker.description + '</p>';
-
-	var infowindow = new google.maps.InfoWindow({
-	content: contentString
-	});
-
-	marker.addListener('click', function() {
-	infowindow.open(map, marker);
-		//marker.get('map')
-	});
-}
-
-/*function bounceSelect() {
-	marker.addListener('click', function(){
-		if (marker.getAnimation() !== null) {
-			marker.setAnimation(null);
-		} else {
-			marker.setAnimation(google.maps.Animation.BOUNCE);
-	}});
-}*/
-
-/*marker click and bounce functions
-function bounceSelect(){
-	google.maps.event.addListener(marker[i], 'click', function() {
-	for( var i in marker ){
-		marker[i].setAnimation(null);
-		if( marker[i].id == item.id )
-		marker[i].setAnimation(google.maps.Animation.BOUNCE);
-	}
-});
-}*/
-
-
-
-
