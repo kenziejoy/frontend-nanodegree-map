@@ -185,7 +185,7 @@ function ViewModel() {
 	    title: title,
 	    animation: google.maps.Animation.DROP,
 	    clickable: true,
-	    icon: icon
+	    icon: artsy.png
 	  };
 
 	  var marker = new google.maps.Marker(markerOptions);
@@ -245,7 +245,7 @@ function ViewModel() {
 	  for (var i = 0; i < data.length; i++) {
 	    var location = data[i];
 	    var googleLatLong = new google.maps.LatLng(location.lat,location.lng);
-	    var windowContent = places.name;
+	    var windowContent = location.name;
 	    //Create and add markers to map
 	    var marker = addMarker(self.map, googleLatLong, places.name, windowContent);
 	    //Add marker to data model
