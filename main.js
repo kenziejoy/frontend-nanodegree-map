@@ -1,19 +1,10 @@
 //**************Model***************
 
-<<<<<<< HEAD
-function model() {
-	var self = this;
-
-	//Hard coded list of places
-	self.places = [
-	{
-		id: 1,
-=======
 //categories and place list
 var model = {
 	categories: ['all', 'eat', 'drink', 'soak', 'create', 'see'],
 	places: [{
->>>>>>> parent of de979ce... fix: trying a radical new approach
+		Id:0,
 		name: 'Alberta Co-op',
 		categories: ['all', 'eat', 'drink'],
 		lat: 45.5589522,
@@ -68,190 +59,9 @@ var model = {
 		lat: 45.5592398,
 		long: -122.6442831,
 		what: 'The most creative flavors of ice cream'
-	}]
+	}],
 };
 
-<<<<<<< HEAD
-var model = new model();
-
-//**************ViewModel************
-function viewModel() {
-	var self = this;
-
-	//Set variable to track if marker is open and/or selected
-	var markerBounce = null;
-	var openInfoWindow = null;
-
-	//Define observables
-
-	//search term
-	self.searchTerm = ko.observable("");
-
-	//error message
-	//self.showErrorMessage = ko.observable ("hidden");
-	var item;
-	//places data into an array
-	self.initResults = function(places) {
-		self.initResultsList = [];
-		self.searchList = [];
-		for (i = 0; i< places.length; i++) {
-			item = places[i].name;
-			self.initResultsList.push(item);
-			//lower case version for search ease
-			self.searchList.push(item.toLowerCase());
-		}
-
-		//create observable array
-		self.results = ko.observableArray(self.initResultsList.slice(0));
-	};
-
-	self.initResults(model.places);
-
-	//checks search against locations
-	self.updateMarkers = function() {
-		//clear results and add matches
-		self.results.removeAll();
-		//loop through markers, hide locations and show matches
-		for (var i = 0; i < model.markers.length; i++) {
-			model.markers[i].setVisible(false);
-		}
-		self.searchList.forEach(function (item, index, array) {
-			if (item.indexOf(self.searchTerm().toLowerCase()) > -1) {
-				self.results.push(self.initResultsList[index]);
-
-				model.markers[index].setVisible(true);
-			}
-		});
-			//if filter is empty - all visible
-			if (self.searchTerm()=== '') {
-				self.results(self.initResultsList.slice(0));
-				model.markers.forEach(function (item,index,array) {
-					if (!item.getVisible()) {
-						item.setVisible(true);
-					}
-				});
-			}
-	}.bind(this);
-
-	//functions to reset input box and list view etc
-	self.clearSearch = function() {
-		self.searchTerm('');
-		if (openInfoWindow) openInfoWindow.close();
-		if (markerBounce) markerBounce.setAnimation(null);
-		self.updateMarkers();
-	};
-//************View*****************
-	//Define Google Maps objects
-	function showMap(latlng){
-
-		//icon image
-		var image = 'artsy.png';
-
-		//Map Options and style
-		var mapOptions = {
-			center: {
-				lat: 45.5590561,
-				lng: -122.6447018
-			},
-			zoom: 16,
-			disableDefaultUI:true,
-			scrollwheel: false,
-			panControl:false,
-			zoomControl:false,
-			mapTypeControl:false,
-			scaleControl:false,
-			streetViewControl:true,
-			overviewMapControl:false,
-			rotateControl:false,
-			styles: 	[{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
-		};
-
-		//setting map element
-		var mapElement = document.getElementById('albertamap');
-		//declaring map
-		var map = new google.maps.Map(mapElement, mapOptions);
-
-		return map;
-	}
-
-	self.homelatlng = new google.maps.LatLng(model.hom[0],model.home[1]);
-
-	self.map = showMap(self.homelatlng);
-
-	function addMarker (map, latlong, title, content, icon) {
-		var markerOptions = {
-			position: latlong,
-			map: map,
-			icon: image,
-			animation: google.maps.Animation.DROP,
-			title: title,
-			clickable: true,
-			description: what
-		};
-
-		var marker = new google.maps.Marker(markerOptions);
-		marker.addListener('click', toggleBounce);
-
-		var infoWindowOptions = {
-			content: content,
-			position:latlong
-		};
-
-		var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-		model.infoWindows.push(infoWindow);
-
-		google.maps.event.addListener(marker, 'click', function() {
-			if (openInfoWindow) openInfoWindow.close();
-			openInfoWindow = infoWindow;
-			infoWindow.open (map,marker);
-		});
-
-		google.maps.event.addListener(infoWindow, 'closeclick', toggleBounce);
-
-		//function to bounce on click
-
-		function toggleBounce() {
-			if (markerBounce) {
-				markerBounce.setAnimation(null);
-			}
-			if (markerBounce != marker) {
-				marker.setAnimation(google.maps.Animation.BOUNCE);
-				markerBounce = marker;
-			} else {
-				markerBounce = null;
-			}
-		}
-		return marker;
-	}
-
-	//currently selected
-	self.selectMarkerFromList = function(currentlySelected) {
-		for (var i = 0; i < model.markers.length; i++) {
-			if (currentlySelected == model.markers[i].title) {
-				toggleInfoWindow(i);
-			}
-		}
-	}.bind(this);
-
-	//function to toggle window
-	function toggleInfoWindow(id) {
-		google.maps.event.trigger(model.markers[id], 'click');
-	}
-	self.initMap = function(data) {
-		for (var i=0; i<data.length; i++) {
-			var location = data[i];
-			var googleLatLong= new google.maps.LatLng(places.lat,places.lng);
-			var windowContent = places.name;
-			var marker = addMarker(self.map, googleLatLong, places.name, windowContent);
-			model.markers.push(marker);
-		}
-	};
-	self.initMap(model.places);
-}
-
-var ViewModel = new viewModel();
-ko.applyBindings(ViewModel);
-=======
 //************View*****************
 
 //declaring variables outside of functions
@@ -324,14 +134,14 @@ function albertaInfo(marker, contentString) {
 	});
 }
 
-function bounceSelect() {
+/*function bounceSelect() {
 	marker.addListener('click', function(){
 		if (marker.getAnimation() !== null) {
 			marker.setAnimation(null);
 		} else {
 			marker.setAnimation(google.maps.Animation.BOUNCE);
 	}});
-}
+}*/
 
 /*marker click and bounce functions
 function bounceSelect(){
@@ -345,13 +155,22 @@ function bounceSelect(){
 }*/
 
 //**************ViewModel************
-//TODO: add input text area to filter list (listview) and markers
-//TODO: additional functionality
 function viewModel() {
 	var self = this;
+
 	self.albertaList = ko.observableArray(model.places);
-}
+
+	//Set variable to track which map marker is currently selected
+	var markerBouncing = null;
+	//Set variable to track which infowindow is currently open
+	var openInfoWindow = null;
+
+	/* Define observables here */
+
+	//searchTerm - text input
+	//updateMap - keyup, submit
+	//clearSearch - click
+
 
 var viewModel = new viewModel();
 ko.applyBindings(viewModel);
->>>>>>> parent of de979ce... fix: trying a radical new approach

@@ -15,14 +15,10 @@
 			<div id="filter">
 				<h2>Explore</h2>
 				<hr>
-<<<<<<< HEAD
-				<form data-bind="submit: updateMarkers">
-					<input type="text" data-bind="textInput: searchTerm, event: { keyup: updateMarkers }"  />
+				<form data-bind="submit: updateMap">
+					<input type="text" data-bind="textInput: searchTerm, event: { keyup: updateMap }"  />
 					<button id="resetButton" data-bind="click: clearSearch">Reset</button>
 				</form>
-=======
-				<p>Are you looking to <strong>EAT?</strong> <strong>DRINK?</strong> <strong>CREATE?</strong> <strong>SEE?</strong> or <strong>SOAK?</strong></p>
->>>>>>> parent of de979ce... fix: trying a radical new approach
 			</div>
 			<div id="list">
 				<h3>These are my favorite places!</h3>
@@ -36,11 +32,11 @@
 				</table>
 			</div>
 		</div>
-	</body>
-	<!--Add Knockout and page script-->
+		<!--Add Knockout and page script-->
 		<script type='text/javascript' src='knockout-3.4.0.js'></script>
 		<script type='text/javascript' src='main.js'></script>
 	<!--Link to Google Api key-->
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChKQpXGlF7yMHeCGcw0dafLRcU-eHUwls&callback=initMap">
 		</script>
+	</body>
 </html>
