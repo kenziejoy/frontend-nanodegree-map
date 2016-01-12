@@ -167,7 +167,6 @@ function ViewModel() {
 			if (map.getZoom() > 15) map.setZoom(15);
 			google.maps.event.removeListener(listener);
 	  });
-
 	  return map;
 	}
 
@@ -278,7 +277,7 @@ function ViewModel() {
 	  }
 	};
 
-	//Takes in the JSON response from the FourSquare API, constructs an HTML string, and sets it to the content of the relevant infoWindow
+	//Takes in the JSON response from the FourSquare API
 	self.callback = function(data) {
 	  	model.infoWindows.forEach(function (item, index, array) {
 	  		if (item.content == data.response.venue.name) {
@@ -286,18 +285,10 @@ function ViewModel() {
 	  								data.response.venue.canonicalUrl+"'>"+
 	  								data.response.venue.name+
 	  								"</a></strong></p>"+
-	  								"<p>"+data.response.venue.location.address+
-	  								"</p><p><span class='place-rating'><strong>"+
+	  								"<p><span class='place-rating'><strong>"+
 	  								data.response.venue.rating+
 	  								"</strong><sup> / 10</sup></span>"+
-	  								"<span class='place-category'>"+
-	  								data.response.venue.categories[0].name+
-	  								"</p><p>"+data.response.venue.hereNow.count+
-	  								" people checked-in now</p>"+
-	  								"<img src='"+data.response.venue.photos.groups[0].items[0].prefix+
-	  								"80x80"+
-	  								data.response.venue.photos.groups[0].items[0].suffix+
-	  								"'</img>";
+	  								"</p>";
 	  			item.setContent(HTMLcontentString);
 	  		}
 	  	});
