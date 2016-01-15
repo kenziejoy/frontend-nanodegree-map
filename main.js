@@ -72,12 +72,6 @@ function ViewModel() {
 	var markerBounce = null;
 	var openWindow = null;
 	var image = 'artsy.png';
-	//Foursquare
-	var CLIENT_ID = "3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD";
-	var CLIENT_SECRET = "RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4";
-	//Content strings from FourSquare data
-	var HTMLcontentString = '';
-	self.contentStrings = [];
 
 	//Observables
 	self.search = ko.observable("");
@@ -133,8 +127,9 @@ function ViewModel() {
 		self.map.panTo(self.homelatlng);
 		self.map.setZoom(15);
 	};
+
 	// create map
-	function showMap(latlng) {
+	function createMap(latlng) {
 	  var googleLatLong = latlng;
 	  var bounds = new google.maps.LatLngBounds();
 	  var latLngBounds = bounds.extend(googleLatLong);
@@ -169,7 +164,7 @@ function ViewModel() {
 
 	//Set the starting coordinates to the home location
 	self.homelatlng = new google.maps.LatLng(model.home[0],model.home[1]);
-	self.map = showMap(self.homelatlng);
+	self.map = createMap(self.homelatlng);
 
 	//This function is used to create new map markers
 	function addMarker(map, latlong, title, content, icon) {
@@ -249,16 +244,17 @@ function ViewModel() {
 		self.showMessage("");
 	}, 10000);
 
+	//Foursquare
+	var CLIENT_ID = "3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD";
+	var CLIENT_SECRET = "RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4";
+	//Content strings from FourSquare data
+	var HTMLcontentString = '';
+	self.contentStrings = [];
+
 	//Make request to FourSquare API
 	self.getLocationData = function(locations) {
 	  for (var i=0; i<locations.length; i++) {
-		  var url = "https://api.foursquare.com/v2/venues/"+
-		  			locations[i].venue_id+
-		  			"?client_id="+
-		  			CLIENT_ID+
-		  			"&client_secret="+
-		  			CLIENT_SECRET+
-		  			"&v=20150909&callback=ViewModel.callback";
+		  var url = "https://api.foursquare.com/v2/venues/" + locations[i].venue_id + "?client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET +  "&v=20150909&callback=ViewModel.callback";
 		  var newScriptElement = document.createElement("script");
 		  newScriptElement.setAttribute("src", url);
 		  newScriptElement.setAttribute("id", "jsonp");
@@ -290,8 +286,8 @@ function ViewModel() {
 	  		}
 	  	});
 	};
-	getLocationData(model.locations);
-	initMap(model.locations);
+	self.getLocationData(model.locations);
+	self.initMap(model.locations);
 }
 
 var ViewModel = new ViewModel();
