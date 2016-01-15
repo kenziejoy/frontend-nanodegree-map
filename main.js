@@ -249,7 +249,7 @@ function ViewModel() {
 		self.showMessage("");
 	}, 10000);
 
-	/*Make request to FourSquare API
+	//Make request to FourSquare API
 	self.getLocationData = function(locations) {
 	  for (var i=0; i<locations.length; i++) {
 		  var url = "https://api.foursquare.com/v2/venues/"+
@@ -289,8 +289,8 @@ function ViewModel() {
 	  			item.setContent(HTMLcontentString);
 	  		}
 	  	});
-	};*/
-	self.getLocationData(model.locations);
+	};
+	getLocationData(model.locations);
 	initMap(model.locations);
 }
 
