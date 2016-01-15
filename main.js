@@ -5,56 +5,48 @@ function Model() {
 
 	//Alberta places - hard coded as a function method
 	self.locations = [{
-		Id:0,
 		name: 'Alberta Co-op',
 		categories: ['all', 'eat', 'drink'],
 		lat: 45.5589522,
 		lng: -122.6517163,
 		what: 'Yummy, fresh and good for the soul groceries'
 	}, {
-		id: 1,
 		name: 'Alberta Rose Theatre',
 		categories: ['all', 'see'],
 		lat: 45.5588269,
 		lng: -122.6367732,
 		what: 'Spectacular events'
 	}, {
-		id: 2,
 		name: 'Bolt',
 		categories: ['all', 'create'],
 		lat: 45.5589988,
 		lng: -122.6430478,
 		what: 'Fabrics, notions and patterns'
 	}, {
-		id: 3,
 		name: 'Collage',
 		categories: ['all', 'create'],
 		lat: 45.559221,
 		lng: -122.6479731,
 		what: 'All the crafts!'
 	}, {
-		id: 4,
 		name: 'Common Ground',
 		categories: ['all', 'soak'],
 		lat: 45.5592984,
 		lng: -122.6304464,
 		what: 'Naked outdoor hot tubs'
 	}, {
-		id: 5,
 		name: 'Cruz Room',
 		categories: ['all', 'eat', 'drink'],
 		lat: 45.5590117,
 		lng: -122.6412912,
 		what: 'Tacos, drink and funky fresh'
 	}, {
-		id: 6,
 		name: 'Just Bob',
 		categories: ['all', 'eat', 'drink'],
 		lat: 45.5591934,
 		lng: -122.6409898,
 		what: 'Handpies, music, drink and comfy chairs'
 	}, {
-		id: 7,
 		name: 'Salt & Straw',
 		categories: ['all', 'eat', 'drink'],
 		lat: 45.5592398,
@@ -91,7 +83,13 @@ function ViewModel() {
 	self.search = ko.observable("");
 	self.showMessage = ko.observable("hidden");
 	//locations data object into an array
-	self.alberta = function(locations) {
+
+	//suggested change that I'm testing out
+	self.albertaList = ko.observableArray(model.locations)
+
+	self.searchList = ko.observableArray(model.locations.map(function(val){ return val.toLowerCase() }))
+
+	/*self.alberta = function(locations) {
 	    self.albertaList = [];
 	    self.searchList = [];
 	    for (i = 0; i < locations.length; i++) {
@@ -103,7 +101,7 @@ function ViewModel() {
 	    self.results = ko.observableArray(self.albertaList.slice(0));
 	};
 	//add the hard-coded locations
-	self.alberta(model.locations);
+	self.alberta(model.locations);*/
 
 	//Checks search against places and filters
 	self.updateMap = function() {

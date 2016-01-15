@@ -68,3 +68,46 @@ input {
 .map {
 	height: 300px;
 }
+
+
+ @media only screen and (max-width : 480px) {
+ 	h1 {
+ 		font-size: 1.3em;
+ 	}
+
+ 	h2 {
+ 		font-size: 1em;
+ 		margin-top: 10px;
+ 	}
+
+ 	p {
+ 		font-size: 1em;
+ 	}
+
+ 	input {
+ 		margin-bottom: 10px;
+ 		width: 70%;
+ 	}
+
+ 	.listItem {
+ 		font-size: 0.7em;
+ 		line-height: 95%;
+ 		margin-bottom: 0px;
+ 	}
+
+ 	.list-group-item {
+ 		padding-top: 5px;
+ 		padding-bottom: 5px;
+ 	}
+
+ 	.headings {
+ 		display: none;
+ 	}
+
+ 	.map {
+ 		clear: left;
+ 		margin-top: 90px;
+ 		margin-left: 15px;
+ 		margin-right: 15px;
+ 	}
+ }
