@@ -97,7 +97,7 @@ function ViewModel() {
 	self.alberta(model.locations);
 
 	//Checks search against places and filters
-	self.updateMap = function() {
+	self.updateMap = function () {
 		self.results.removeAll();
 		for (var i = 0; i < model.markers.length; i++) {
 			model.markers[i].setVisible(false);
@@ -126,7 +126,7 @@ function ViewModel() {
 		self.updateMap();
 		self.map.panTo(self.homelatlng);
 		self.map.setZoom(15);
-	};
+	}
 
 	// create map
 	function createMap(latlng) {
@@ -236,8 +236,8 @@ function ViewModel() {
 	    var marker = addMarker(self.map, googleLatLong, location.name, windowContent);
 	    //Add marker to data model
 	    model.markers.push(marker);
-	  }
-	};
+	  };
+	}
 
 	//Set timer to show error message
 	self.timer = setTimeout(function() {
@@ -267,8 +267,8 @@ function ViewModel() {
 		  } else {
 		    head.replaceChild(newScriptElement, oldScriptElement);
 		  }
-	  }
-	};
+	  };
+	}
 
 	//Takes in the JSON response from the FourSquare API
 	self.callback = function(data) {
@@ -283,13 +283,13 @@ function ViewModel() {
 	  								"</strong><sup> / 10</sup></span>"+
 	  								"</p>";
 	  			item.setContent(HTMLcontentString);
-	  		}
+	  		};
 	  	});
-	};
+	}
 
-	getLocationData(model.locations);
+	self.callbackgetLocationData(model.locations);
 
-	initMap(model.locations);
+	self.initMap(model.locations);
 }
 
 var ViewModel = new ViewModel();
