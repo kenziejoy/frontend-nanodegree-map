@@ -86,7 +86,6 @@ function ViewModel() {
 
 	//suggested change that I'm testing out
 	self.albertaList = ko.observableArray(model.locations)
-
 	self.searchList = ko.observableArray(model.locations.map(function(val){ return val.toLowerCase() }))
 
 	/*self.alberta = function(locations) {
@@ -250,7 +249,7 @@ function ViewModel() {
 		self.showMessage("");
 	}, 10000);
 
-	//Make request to FourSquare API
+	/*Make request to FourSquare API
 	self.getLocationData = function(locations) {
 	  for (var i=0; i<locations.length; i++) {
 		  var url = "https://api.foursquare.com/v2/venues/"+
@@ -290,9 +289,9 @@ function ViewModel() {
 	  			item.setContent(HTMLcontentString);
 	  		}
 	  	});
-	};
+	};*/
 	self.getLocationData(model.locations);
-	self.initMap(model.locations);
+	initMap(model.locations);
 }
 
 var ViewModel = new ViewModel();
