@@ -274,20 +274,20 @@ function ViewModel() {
 	self.callback = function(data) {
 	  	model.infoWindows.forEach(function (item, index, array) {
 	  		if (item.content == data.response.venue.name) {
-	  			HTMLcontentString = "<p><strong><a class='place-name' href='"+
-	  								data.response.venue.canonicalUrl+"'>"+
+	  			HTMLcontentString = "<p><strong><a class='place-name' href='' +
+	  								data.response.venue.canonicalUrl + ''>" +
 	  								data.response.venue.name+
-	  								"</a></strong></p>"+
-	  								"<p><span class='place-rating'><strong>"+
-	  								data.response.venue.rating+
-	  								"</strong><sup> / 10</sup></span>"+
+	  								"</a></strong></p>" +
+	  								"<p><span class='place-rating'><strong>" +
+	  								data.response.venue.rating +
+	  								"</strong><sup> / 10</sup></span>" +
 	  								"</p>";
 	  			item.setContent(HTMLcontentString);
 	  		};
 	  	});
 	}
 
-	self.callbackgetLocationData(model.locations);
+	self.getLocationData(model.locations);
 
 	self.initMap(model.locations);
 }
