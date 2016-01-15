@@ -84,11 +84,11 @@ function ViewModel() {
 	self.showMessage = ko.observable("hidden");
 	//locations data object into an array
 
-	//suggested change that I'm testing out
-	self.albertaList = ko.observableArray(model.locations)
-	self.searchList = ko.observableArray(model.locations.map(function(val){ return val.toLowerCase() }))
+	//suggested change that I tested but then reverted to old way
+	/*self.albertaList = ko.observableArray(model.locations)
+	self.searchList = ko.observableArray(model.locations.map(function(val){ return val.toLowerCase() }))*/
 
-	/*self.alberta = function(locations) {
+	self.alberta = function(locations) {
 	    self.albertaList = [];
 	    self.searchList = [];
 	    for (i = 0; i < locations.length; i++) {
@@ -100,7 +100,7 @@ function ViewModel() {
 	    self.results = ko.observableArray(self.albertaList.slice(0));
 	};
 	//add the hard-coded locations
-	self.alberta(model.locations);*/
+	self.alberta(model.locations);
 
 	//Checks search against places and filters
 	self.updateMap = function() {
@@ -232,7 +232,7 @@ function ViewModel() {
 		google.maps.event.trigger(model.markers[id], 'click');
 	}
 
-	self.initMap = function(data) {
+	fucntion initMap(data) {
 	  for (var i = 0; i < data.length; i++) {
 	    var location = data[i];
 	    var googleLatLong = new google.maps.LatLng(location.lat,location.lng);
