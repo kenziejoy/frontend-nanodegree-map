@@ -286,8 +286,10 @@ function ViewModel() {
 	  		}
 	  	});
 	};
-	self.getLocationData(model.locations);
-	self.initMap(model.locations);
+
+	getLocationData(model.locations);
+
+	initMap(model.locations);
 }
 
 var ViewModel = new ViewModel();
