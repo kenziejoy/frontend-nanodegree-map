@@ -105,9 +105,6 @@ input {
  	}
 
  	.map {
- 		clear: left;
- 		margin-top: 90px;
- 		margin-left: 15px;
- 		margin-right: 15px;
+ 		clear: both;
  	}
  }
