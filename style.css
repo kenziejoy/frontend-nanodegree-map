@@ -20,7 +20,7 @@ input {
 }
 
 #bodyContainer {
-	display:flex;
+	display: flex;
 }
 
 .error-message {
@@ -67,8 +67,8 @@ input {
 
 .map {
 	height: 300px;
+	width: 300px;
 }
-
 
  @media only screen and (max-width : 480px) {
  	h1 {
@@ -105,6 +105,6 @@ input {
  	}
 
  	.map {
- 		clear: both;
+ 		display: block;
  	}
  }

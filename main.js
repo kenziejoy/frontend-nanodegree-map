@@ -4,7 +4,7 @@ function Model() {
 	var self = this;
 
 	//Alberta places - hard coded as a function method
-	self.locations = [{
+	self.places = [{
 		name: 'Alberta Co-op',
 		categories: ['all', 'eat', 'drink'],
 		lat: 45.5589522,
@@ -70,17 +70,40 @@ function ViewModel() {
 
 	var self = this;
 	var markerBounce = null;
-	var openWindow = null;
+	var openInfoWindow = null;
+	var prevInfoWindow
 	var image = 'artsy.png';
 
-	//Observables
-	self.search = ko.observable("");
-	self.showMessage = ko.observable("hidden");
-	//locations data object into an array
+	function getFourSquareVenue(venueId, callback, forceGet) {
+		var store = window.localStorage;
+		var clientId = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD';
+		var secretId = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4';
+		var apiUrl = 'https://api.foursquare.com/v2/venues/'+venueId+'?v=20150722&client_id='+clientId+'&client_secret='+secretId;
+		// check if the venue has been saved to localStorage
+		var data = store ? store.getItem(venueId) : undefined;
 
-	//suggested change that I tested but then reverted to old way
-	/*self.albertaList = ko.observableArray(model.locations)
-	self.searchList = ko.observableArray(model.locations.map(function(val){ return val.toLowerCase() }))*/
+		if (data && !forceGet) {
+			callback(JSON.parse(data));
+		} else {
+		$.getJSON(apiUrl, function (res) {
+			console.log('get', res);
+			if (res.meta.code === 200) {
+			// save response to localStorage for future lookup
+			if (store) {
+			store.setItem(venueId, JSON.stringify(res.response.venue));
+			}
+			callback(res.response.venue);
+		} else {
+			// handle response other than 200
+			console.log('Oops, looks like something went wrong.', res);
+			alert('FourSquare API Error: ' + res.meta.code + ' (see console output)');
+		}
+		}).fail(function(jqXHR, textStatus, error) {
+		console.log('AJAX Error', jqXHR, textStatus, error);
+		alert('Ajax Request Failed: ' + textStatus);
+		});
+		}
+	}
 
 	self.alberta = function(locations) {
 	    self.albertaList = [];
@@ -239,7 +262,7 @@ function ViewModel() {
 	  };
 	}
 
-	//Set timer to show error message
+	/*//Set timer to show error message
 	self.timer = setTimeout(function() {
 		self.showMessage("");
 	}, 10000);
@@ -283,9 +306,11 @@ function ViewModel() {
 	  			item.setContent(HTMLcontentString);
 	  		};
 	  	});
-	}
+	}*/
 
-	self.getLocationData(model.locations);
+
+
+	//self.getLocationData(model.locations);
 
 	initMap(model.locations);
 }
