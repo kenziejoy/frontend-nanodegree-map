@@ -5,11 +5,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content=" An annotated map of the Alberta Arts Neighborhood in Portland, Oregon. ">
 		<meta name="author" content=" MacKenzie Rawcliffe">
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<title>Alberta Arts Map</title>
 	</head>
 	<body>
+
 		<div class="container">
 			<!--<div class="row">
 				<div class="col-sm-12">
@@ -27,32 +27,55 @@
 					<hr><h1>Alberta Arts Neighborhood</h1><hr>
 				</div>
 			</div>
+
 			<div class="row">
 				<div class="col-md-12" id="bodyContainer">
-					<div class="col-md-8" id="map">
-						<div id="mapDiv" class="map col-md-12"></div>
-					</div>
-					<div class="col-md-4" id="listView">
-						<h2 class="headings">Explore</h2>
+					<div id="mapDiv" class="map col-md-8 col-sm-12"></div>
+					<!--<div class="col-md-4" id="listView">
+
 						<div data-bind="submit: updateMap">
 							<input type="text" data-bind="textInput: search, event: { keyup: updateMap }"/>
 							<button id="resetButton" data-bind="click: clearSearch">Reset</button>
 						</div>
-						<!-- TODO turn into li and make list disappear?-->
-						<h2 class="headings">My favorite places</h2>
 						<div class="list-group results-list" data-bind="foreach: results">
 								<a href="#" class="list-group-item col-xs-6 col-md-12" data-bind="click: $parent.selectMarkerFromList">
 								<p class="listItem" data-bind="text: $data"></p>
 								</a>
+						</div>-->
+					<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+					<div id="wrapper navbar-header">
+						<a href="#menu-toggle" class="btn btn-default glyphicon glyphicon-menu-hamburger white" id="menu-toggle"></a>
+					<!-- Sidebar -->
+						<div id="sidebar-wrapper">
+							<h2 class="headings">Explore</h2>
+							<input class="filter" type="search" placeholder="check it ouuuut..." data-bind="textInput: userInput, event: {keyup: filterMarkers}">
+							<h2 class="headings">My favorite places</h2>
+								<ul class="sidebar-nav list-group results-list" id="list-view" data-bind="foreach: visiblePlaces">
+								<li>
+									<a class="list-group-item" data-bind="text: locationName, click: clicker"></a>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChKQpXGlF7yMHeCGcw0dafLRcU-eHUwls&callback=initMap">
-		</script>
-		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+
+		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChKQpXGlF7yMHeCGcw0dafLRcU-eHUwls&callback=loadAll" onerror="googleError()"></script>
 		<script src="knockout-3.4.0.js"></script>
 		<script src="main.js"></script>
+
+		<!-- Menu Toggle Script -->
+			<script>
+			$("#menu-toggle").click(function(e) {
+					e.preventDefault();
+					$("#wrapper").toggleClass("toggled");
+			});
+			</script>
 	</body>
 </html>
+
+
+
