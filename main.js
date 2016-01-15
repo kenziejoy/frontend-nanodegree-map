@@ -1,161 +1,223 @@
 /***********************MODEL***************************/
-function Model() {
-
-	var self = this;
-
-	//Alberta places - hard coded as a function method
-	self.locations = [{
+var model = [
+	{
 		name: 'Alberta Co-op',
-		categories: ['all', 'eat', 'drink'],
 		lat: 45.5589522,
 		lng: -122.6517163,
-		what: 'Yummy, fresh and good for the soul groceries'
+		latLng: {lat: 45.5589522, lng: -122.6517163},
 	}, {
 		name: 'Alberta Rose Theatre',
-		categories: ['all', 'see'],
 		lat: 45.5588269,
 		lng: -122.6367732,
-		what: 'Spectacular events'
+		latLng: {lat:45.5588269 , lng:-122.6367732 },
 	}, {
 		name: 'Bolt',
-		categories: ['all', 'create'],
 		lat: 45.5589988,
 		lng: -122.6430478,
-		what: 'Fabrics, notions and patterns'
+		latLng: {lat:45.5589988 , lng:-122.6430478 },
 	}, {
 		name: 'Collage',
-		categories: ['all', 'create'],
 		lat: 45.559221,
 		lng: -122.6479731,
-		what: 'All the crafts!'
+		latLng: {lat:45.559221 , lng:-122.6479731 },
 	}, {
 		name: 'Common Ground',
-		categories: ['all', 'soak'],
 		lat: 45.5592984,
 		lng: -122.6304464,
-		what: 'Naked outdoor hot tubs'
+		latLng: {lat:45.5592984, lng:-122.6304464 },
 	}, {
 		name: 'Cruz Room',
-		categories: ['all', 'eat', 'drink'],
 		lat: 45.5590117,
 		lng: -122.6412912,
-		what: 'Tacos, drink and funky fresh'
+		latLng: {lat:45.5590117 , lng:-122.6412912},
 	}, {
 		name: 'Just Bob',
-		categories: ['all', 'eat', 'drink'],
 		lat: 45.5591934,
 		lng: -122.6409898,
-		what: 'Handpies, music, drink and comfy chairs'
+		latLng: {lat:45.5591934 , lng:-122.6409898 },
 	}, {
 		name: 'Salt & Straw',
-		categories: ['all', 'eat', 'drink'],
 		lat: 45.5592398,
 		lng: -122.6442831,
-		what: 'The most creative flavors of ice cream'
+		latLng: {lat:45.5592398, lng:-122.6442831 },
 	}];
 
 	//Set home
-	self.home = [45.5590561,-122.6447018];
+	//self.home = [45.5590561,-122.6447018];
 	//Array for Markers
-	self.markers = [];
+	//self.markers = [];
 	//Array for infoWindows
-	self.infoWindows = [];
+	//self.infoWindows = [];
+//}
+
+//var model = new Model();
+
+/*********************MAP********************************/
+// create map
+var mapOptions = {
+	    zoom: 16,
+	    center: {lat:45.5590561, lng:-122.6447018},
+	    mapTypeId: google.maps.MapTypeId.ROADMAP,
+	    disableDefaultUI: true,
+		scrollwheel: false,
+		panControl:false,
+		zoomControl:false,
+		mapTypeControl:false,
+		scaleControl:false,
+		streetViewControl:true,
+		overviewMapControl:false,
+		rotateControl:false,
+		styles: 	[{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
+	  };
+var mapDiv = document.getElementById("mapDiv");
+var map;
+function initMap() {
+	map = new google.maps.Map(mapDiv, mapOptions);
 }
-
-var model = new Model();
-
 /******************VIEW MODEL***************************/
 
-function ViewModel() {
+var ViewModel = function vm () {
 
 	var self = this;
-	var markerBounce = null;
-	var openInfoWindow = null;
-	var prevInfoWindow
+	self.googleMap = map;
+	self.allPlaces=[];
+	//var markerBounce = null;
+	//var openInfoWindow = null;
+	//var prevInfoWindow
 	var image = 'artsy.png';
 
+	// For each object in model.locations
+		model.forEach(function(place) {
+		self.allPlaces.push(new Place(place));
+		});
+
 	/**********FourSquare***************/
-	/*function getFourSquareVenue(venueId, callback, forceGet) {
-		var store = window.localStorage;
-		var clientId = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD';
-		var secretId = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4';
-		var apiUrl = 'https://api.foursquare.com/v2/venues/'+venueId+'?v=20150722&client_id='+clientId+'&client_secret='+secretId;
+	// Some variables to be used for the Foursuare api
+		var latlng = '',
+	client_id = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
+	client_secret = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4',
+	fUrl = 'https://api.foursquare.com/v2/venues/search?ll='+ latlng +'&client_id='+ client_id +'&client_secret='+ client_secret +'&v=20151259&m=foursquare&links',
+	//fquery = 'coffee',
+	infowindow = new google.maps.InfoWindow();
 
-		// check if the venue has been saved to localStorage
-		var data = store ? store.getItem(venueId) : undefined;
+	// For each object in allPlaces create map markers and infowindows
+	self.allPlaces.forEach(function(place, i) {
+	  var drop = google.maps.Animation.DROP,
+		markerOptions = {
+			map: self.googleMap,
+			position: place.latLng
+		},
+		lat = place.lat,
+		lng = place.lng,
+		var contentWindow = '';
 
-		if (data && !forceGet) {
-			callback(JSON.parse(data));
-		} else {
-			$.getJSON(apiUrl, function (res) {
-				console.log('get', res);
-				if (res.meta.code === 200) {
-					// save response to localStorage for future lookup
-					if (store) {
-						store.setItem(venueId, JSON.stringify(res.response.venue));
-						}
-						callback(res.response.venue);
-				} else {
-					// handle response other than 200
-					console.log('Oops, looks like something went wrong.', res);
-					alert('FourSquare API Error: ' + res.meta.code + ' (see console output)');
-				}
-			}).fail(function(jqXHR, textStatus, error) {
-				console.log('AJAX Error', jqXHR, textStatus, error);
-				alert('Ajax Request Failed: ' + textStatus);
-			});
+		// Sends a request to foursquare api
+		$.getJSON('https://api.foursquare.com/v2/venues/search?ll='+ lat+','+lng +'&query='+ fquery +'&limit=1&client_id='+ client_id +'&client_secret='+ client_secret +'&v=20151259&m=foursquare',
+
+	// This function takes the foursquare data and processes it.
+	function(data) {
+		$.each(data.response.venues, function(i,venues){
+			content = '<hr></h5><p><sup>nearest coffee spot</sup></p>' +
+			'<h5>'+ venues.name + '</h5>' +
+			'<p>'+ venues.location.formattedAddress[0] +'<br>' +
+			venues.location.formattedAddress[1] +'</p>';
+			contentWindow = content;
+		});
+	}).fail(function(){
+		content = 'There was an error loading foursquare';
+		contentWindow = content;
+	});
+
+	var contentName = '<h4>'+model[i].name+'</h4>';
+	place.marker = new google.maps.Marker(markerOptions);
+	var marker = place.marker;
+	//var poweredBy = '<img class="powered" src="img/powered.png">';
+
+	// This adds an Listener for a click function to the marker.
+	// It returns an infowindow with content we create for each marker,
+	// and the marker will bounce when clicked
+	google.maps.event.addListener(marker, 'click', (function(marker) {
+		return function() {
+		infowindow.setContent(contentName + contentWindow);
+		infowindow.open(self.googleMap, marker);
+		// Animation
+		if (marker.getAnimation() !== null) {
+			marker.setAnimation(null);
+			} else {
+			marker.setAnimation(google.maps.Animation.BOUNCE);
+			}
+			setTimeout(function(){ marker.setAnimation(null); }, 800);
+		};
+	})(marker));
+	});
+
+	// The click function triggers map markers
+	// and clicks the toggle that shows the
+	// list itemsd.
+	clicker = function(){
+	google.maps.event.trigger(this.marker, 'click');
+	$('#menu-toggle').trigger('click');
+	};
+
+	// Toggle visibility of list view in mobile view
+	self.Show = ko.observable(false);
+	self.toggleVisibility = function() {
+	self.Show(!self.Show());
+	};
+	self.Show = ko.observable(true);
+
+	//This is where the visible markers will be stored
+	self.visiblePlaces = ko.observableArray();
+
+	// All markers will start out visible
+	self.allPlaces.forEach(function(place) {
+	self.visiblePlaces.push(place);
+	});
+
+	// This binds to the userInput and keeps track of its contents
+	// and is accessed by the filter.
+	self.userInput = ko.observable('');
+
+	// This is the filter function for the Markers.
+	// It takes the user input and if it matches
+	// part of any name, then that name's content will be visible,
+	// Otherwise it will be hidden.
+	self.filterMarkers = function() {
+	var searchInput = self.userInput().toLowerCase();
+	self.visiblePlaces.removeAll();
+
+	self.allPlaces.forEach(function(place) {
+
+		place.marker.setVisible(false);
+		if (place.model.toLowerCase().indexOf(searchInput) !== -1) {
+		self.visiblePlaces.push(place);
 		}
+	});
+
+	self.visiblePlaces().forEach(function(place) {
+		place.marker.setVisible(true);
+	});
+	};
+
+	//This creates object Place with data
+	function Place(data) {
+	this.model = data.name;
+	this.latLng = data.latLng;
+	this.lat = data.lat;
+	this.lng = data.lng;
+	this.marker = null;
 	}
-	*/
-	/*//Set timer to show error message
-	self.timer = setTimeout(function() {
-		self.showMessage("");
-	}, 10000);
+};
 
-	//Foursquare
-	var CLIENT_ID = "3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD";
-	var CLIENT_SECRET = "RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4";
-	//Content strings from FourSquare data
-	var HTMLcontentString = '';
-	self.contentStrings = [];
+function loadAll(){
+	initMap();
+	ko.applyBindings(new ViewModel());
+}
 
-	//Make request to FourSquare API
-	self.getLocationData = function(locations) {
-	  for (var i=0; i<locations.length; i++) {
-		  var url = "https://api.foursquare.com/v2/venues/" + locations[i].venue_id + "?client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET +  "&v=20150909&callback=ViewModel.callback";
-		  var newScriptElement = document.createElement("script");
-		  newScriptElement.setAttribute("src", url);
-		  newScriptElement.setAttribute("id", "jsonp");
-		  //Set onload attribute to check if resource loads. If onload fires, clear the timer
-		  newScriptElement.setAttribute("onload", "clearTimeout(ViewModel.timer)");
-		  var oldScriptElement = document.getElementById("jsonp");
-		  var head = document.getElementsByTagName("head")[0];
-		  if (oldScriptElement === null) {
-		    head.appendChild(newScriptElement);
-		  } else {
-		    head.replaceChild(newScriptElement, oldScriptElement);
-		  }
-	  };
-	}
 
-	//Takes in the JSON response from the FourSquare API
-	self.callback = function(data) {
-	  	model.infoWindows.forEach(function (item, index, array) {
-	  		if (item.content == data.response.venue.name) {
-	  			HTMLcontentString = "<p><strong><a class='place-name' href='" +data.response.venue.canonicalUrl+ "'>" +data.response.venue.name+ "</a></strong></p>"
-									+ "<p>" +data.response.venue.location.address+ "</p>"
-									+ "<p><span class='place-rating'><strong>" +data.response.venue.rating+ "</strong><sup> / 10</sup></span>" + "<span class='place-category'>" +data.response.venue.categories[0].name+ "</p>"
-									+"<p>" +data.response.venue.hereNow.count+ " people checked-in now</p>"
-									+"<img src='"+data.response.venue.photos.groups[0].items[0].prefix+
-	  								"80x80"+ data.response.venue.photos.groups[0].items[0].suffix+"'</img>";
-	  			item.setContent(HTMLcontentString);
-	  		};
-	  	});
-	}*/
 
-	//self.getLocationData(model.locations);
 
-	/****Suggestions for improvement but I don't quite understand so on back burner ****/
+	/****There are suggestions for improvement here but I don't quite understand so on back burner
 	self.alberta = function(locations) {
 	    self.albertaList = [];
 	    self.searchList = [];
@@ -202,37 +264,19 @@ function ViewModel() {
 		self.map.setZoom(15);
 	}
 
-	// create map
-	function initMap(x) {
-	  var mapOptions = {
-	    zoom: 16,
-	    center: model.home,
-	    mapTypeId: google.maps.MapTypeId.ROADMAP,
-	    disableDefaultUI: true,
-		scrollwheel: false,
-		panControl:false,
-		zoomControl:false,
-		mapTypeControl:false,
-		scaleControl:false,
-		streetViewControl:true,
-		overviewMapControl:false,
-		rotateControl:false,
-		styles: 	[{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
-	  };
-	  var bounds = new google.maps.LatLngBounds();
-	  var latLngBounds = bounds.extend(googleLatLong);
+	/*******map********/
 
-	  var mapDiv = document.getElementById("mapDiv");
-	  var map = new google.maps.Map(mapDiv, mapOptions);
-	  map.fitBounds(latLngBounds);
-
+	  //var bounds = new google.maps.LatLngBounds();
+	  //var latLngBounds = bounds.extend(googleLatLong);
+	  //map.fitBounds(latLngBounds);
 	  //Fix zoom after fitBounds
-	  var listener = google.maps.event.addListener(map, "idle", function() {
+	  //var listener = google.maps.event.addListener(map, "idle", function() {
 			if (map.getZoom() > 15) map.setZoom(15);
 			google.maps.event.removeListener(listener);
 	  });
 
-	  return map;
+	  //return map;
+/***
 
 	  for (var i = 0; i < x.length; i++) {
 	    var location = x[i];
@@ -316,4 +360,4 @@ function ViewModel() {
 }
 
 var ViewModel = new ViewModel();
-ko.applyBindings(ViewModel);
+ko.applyBindings(ViewModel); ****/
