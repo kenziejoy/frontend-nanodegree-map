@@ -4,7 +4,7 @@ function Model() {
 	var self = this;
 
 	//Alberta places - hard coded as a function method
-	self.places = [{
+	self.locations = [{
 		name: 'Alberta Co-op',
 		categories: ['all', 'eat', 'drink'],
 		lat: 45.5589522,
@@ -74,37 +74,88 @@ function ViewModel() {
 	var prevInfoWindow
 	var image = 'artsy.png';
 
-	function getFourSquareVenue(venueId, callback, forceGet) {
+	/**********FourSquare***************/
+	/*function getFourSquareVenue(venueId, callback, forceGet) {
 		var store = window.localStorage;
 		var clientId = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD';
 		var secretId = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4';
 		var apiUrl = 'https://api.foursquare.com/v2/venues/'+venueId+'?v=20150722&client_id='+clientId+'&client_secret='+secretId;
+
 		// check if the venue has been saved to localStorage
 		var data = store ? store.getItem(venueId) : undefined;
 
 		if (data && !forceGet) {
 			callback(JSON.parse(data));
 		} else {
-		$.getJSON(apiUrl, function (res) {
-			console.log('get', res);
-			if (res.meta.code === 200) {
-			// save response to localStorage for future lookup
-			if (store) {
-			store.setItem(venueId, JSON.stringify(res.response.venue));
-			}
-			callback(res.response.venue);
-		} else {
-			// handle response other than 200
-			console.log('Oops, looks like something went wrong.', res);
-			alert('FourSquare API Error: ' + res.meta.code + ' (see console output)');
-		}
-		}).fail(function(jqXHR, textStatus, error) {
-		console.log('AJAX Error', jqXHR, textStatus, error);
-		alert('Ajax Request Failed: ' + textStatus);
-		});
+			$.getJSON(apiUrl, function (res) {
+				console.log('get', res);
+				if (res.meta.code === 200) {
+					// save response to localStorage for future lookup
+					if (store) {
+						store.setItem(venueId, JSON.stringify(res.response.venue));
+						}
+						callback(res.response.venue);
+				} else {
+					// handle response other than 200
+					console.log('Oops, looks like something went wrong.', res);
+					alert('FourSquare API Error: ' + res.meta.code + ' (see console output)');
+				}
+			}).fail(function(jqXHR, textStatus, error) {
+				console.log('AJAX Error', jqXHR, textStatus, error);
+				alert('Ajax Request Failed: ' + textStatus);
+			});
 		}
 	}
+	*/
+	/*//Set timer to show error message
+	self.timer = setTimeout(function() {
+		self.showMessage("");
+	}, 10000);
 
+	//Foursquare
+	var CLIENT_ID = "3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD";
+	var CLIENT_SECRET = "RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4";
+	//Content strings from FourSquare data
+	var HTMLcontentString = '';
+	self.contentStrings = [];
+
+	//Make request to FourSquare API
+	self.getLocationData = function(locations) {
+	  for (var i=0; i<locations.length; i++) {
+		  var url = "https://api.foursquare.com/v2/venues/" + locations[i].venue_id + "?client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET +  "&v=20150909&callback=ViewModel.callback";
+		  var newScriptElement = document.createElement("script");
+		  newScriptElement.setAttribute("src", url);
+		  newScriptElement.setAttribute("id", "jsonp");
+		  //Set onload attribute to check if resource loads. If onload fires, clear the timer
+		  newScriptElement.setAttribute("onload", "clearTimeout(ViewModel.timer)");
+		  var oldScriptElement = document.getElementById("jsonp");
+		  var head = document.getElementsByTagName("head")[0];
+		  if (oldScriptElement === null) {
+		    head.appendChild(newScriptElement);
+		  } else {
+		    head.replaceChild(newScriptElement, oldScriptElement);
+		  }
+	  };
+	}
+
+	//Takes in the JSON response from the FourSquare API
+	self.callback = function(data) {
+	  	model.infoWindows.forEach(function (item, index, array) {
+	  		if (item.content == data.response.venue.name) {
+	  			HTMLcontentString = "<p><strong><a class='place-name' href='" +data.response.venue.canonicalUrl+ "'>" +data.response.venue.name+ "</a></strong></p>"
+									+ "<p>" +data.response.venue.location.address+ "</p>"
+									+ "<p><span class='place-rating'><strong>" +data.response.venue.rating+ "</strong><sup> / 10</sup></span>" + "<span class='place-category'>" +data.response.venue.categories[0].name+ "</p>"
+									+"<p>" +data.response.venue.hereNow.count+ " people checked-in now</p>"
+									+"<img src='"+data.response.venue.photos.groups[0].items[0].prefix+
+	  								"80x80"+ data.response.venue.photos.groups[0].items[0].suffix+"'</img>";
+	  			item.setContent(HTMLcontentString);
+	  		};
+	  	});
+	}*/
+
+	//self.getLocationData(model.locations);
+
+	/****Suggestions for improvement but I don't quite understand so on back burner ****/
 	self.alberta = function(locations) {
 	    self.albertaList = [];
 	    self.searchList = [];
@@ -152,14 +203,10 @@ function ViewModel() {
 	}
 
 	// create map
-	function createMap(latlng) {
-	  var googleLatLong = latlng;
-	  var bounds = new google.maps.LatLngBounds();
-	  var latLngBounds = bounds.extend(googleLatLong);
-
+	function initMap(x) {
 	  var mapOptions = {
 	    zoom: 16,
-	    center: googleLatLong,
+	    center: model.home,
 	    mapTypeId: google.maps.MapTypeId.ROADMAP,
 	    disableDefaultUI: true,
 		scrollwheel: false,
@@ -172,6 +219,8 @@ function ViewModel() {
 		rotateControl:false,
 		styles: 	[{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
 	  };
+	  var bounds = new google.maps.LatLngBounds();
+	  var latLngBounds = bounds.extend(googleLatLong);
 
 	  var mapDiv = document.getElementById("mapDiv");
 	  var map = new google.maps.Map(mapDiv, mapOptions);
@@ -182,137 +231,88 @@ function ViewModel() {
 			if (map.getZoom() > 15) map.setZoom(15);
 			google.maps.event.removeListener(listener);
 	  });
+
 	  return map;
-	}
 
-	//Set the starting coordinates to the home location
-	self.homelatlng = new google.maps.LatLng(model.home[0],model.home[1]);
-	self.map = createMap(self.homelatlng);
+	  for (var i = 0; i < x.length; i++) {
+	    var location = x[i];
+	    var googleLatLong = new google.maps.LatLng(location.lat,location.lng);
+		var windowContent = '<h2>' + location.name + '</h2><p>' + location.what + '</p>';
+	    //Create and add markers to map
+	    var marker = addMarker(self.map, googleLatLong, location.name, windowContent);
+	    //Add marker to data model
+	    model.markers.push(marker);
+	  }
 
-	//This function is used to create new map markers
-	function addMarker(map, latlong, title, content, icon) {
-	  var markerOptions = {
-	    position: latlong,
-	    map: map,
-	    title: title,
-	    animation: google.maps.Animation.DROP,
-	    clickable: true,
-	    icon: image
-	  };
+	  //This function is used to create new map markers
+		function addMarker(map, latlong, title, content, icon) {
+	  		var markerOptions = {
+	    		position: latlong,
+	    		map: map,
+	    		title: title,
+	    		animation: google.maps.Animation.DROP,
+	    		clickable: true,
+				content: windowContent;
+	    		icon: image
+	  		};
 
-	  var marker = new google.maps.Marker(markerOptions);
-	  marker.addListener('click', toggleBounce);
+	    	var marker = new google.maps.Marker(markerOptions);
+	  		marker.addListener('click', toggleBounce);
 
-	  var infoWindowOptions = {
-	    content: content,
-	    position: latlong
-	  };
+			//Adding InfoWindows and bouncing
+	  		var infoWindowOptions = {
+	    		content: marker.content,
+	    		position: latlong
+	  		};
 
-	  var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-	  model.infoWindows.push(infoWindow);
+	  		var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+	  			model.infoWindows.push(infoWindow);
 
-	  google.maps.event.addListener(marker, "click", function() {
-	    if (openWindow) openWindow.close();
-	    openWindow = infoWindow;
-	    infoWindow.open(map, marker);
-	  });
+	  		google.maps.event.addListener(marker, "click", function() {
+	    		if (openWindow) openWindow.close();
+	    		openWindow = infoWindow;
+	    		infoWindow.open(map, marker);
+	  		});
 
-	  google.maps.event.addListener(infoWindow, "closeclick", toggleBounce);
+	  		google.maps.event.addListener(infoWindow, "closeclick", toggleBounce);
 
-		 //Function to toggle the bounce anitmation of marker on click
-
-		function toggleBounce() {
-		  if (markerBounce) {
-		    markerBounce.setAnimation(null);
-		  }
-		  if (markerBounce != marker) {
-		  	marker.setAnimation(google.maps.Animation.BOUNCE);
-		  	markerBounce = marker;
-		  } else {
-		    markerBounce = null;
-		  }
-		}
+		 	//Function to toggle the bounce anitmation of marker on click
+			function toggleBounce() {
+		  		if (markerBounce) {
+		    		markerBounce.setAnimation(null);
+		  		}
+		  		if (markerBounce != marker) {
+		  			marker.setAnimation(google.maps.Animation.BOUNCE);
+		  			markerBounce = marker;
+		  		} else {
+		    		markerBounce = null;
+		  		}
+			}
 
 	  return marker;
 	}
 
-	//Find the marker that is currently selected in the model list of markers and toggles the infowindow
-	self.selectMarkerFromList = function(currentlySelected) {
+	  //Set the starting coordinates to the home location
+	  self.homelatlng = new google.maps.LatLng(model.home[0],model.home[1]);
+	  self.map = createMap(self.homelatlng);
+
+	  //Find the marker that is currently selected in the model list of markers and toggles the infowindow
+	  self.selectMarkerFromList = function(currentlySelected) {
 		for (var i = 0; i < model.markers.length; i++) {
 			if (currentlySelected == model.markers[i].title) {
 				toggleInfoWindow(i);
 			}
 		}
-	}.bind(this);
+	  }.bind(this);
 
 	//Function to the toggle the infowindow of a specific marker
 	function toggleInfoWindow(id) {
 		google.maps.event.trigger(model.markers[id], 'click');
 	}
-
-	function initMap(data) {
-	  for (var i = 0; i < data.length; i++) {
-	    var location = data[i];
-	    var googleLatLong = new google.maps.LatLng(location.lat,location.lng);
-	    var windowContent = location.name;
-	    //Create and add markers to map
-	    var marker = addMarker(self.map, googleLatLong, location.name, windowContent);
-	    //Add marker to data model
-	    model.markers.push(marker);
-	  };
 	}
-
-	/*//Set timer to show error message
-	self.timer = setTimeout(function() {
-		self.showMessage("");
-	}, 10000);
-
-	//Foursquare
-	var CLIENT_ID = "3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD";
-	var CLIENT_SECRET = "RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4";
-	//Content strings from FourSquare data
-	var HTMLcontentString = '';
-	self.contentStrings = [];
-
-	//Make request to FourSquare API
-	self.getLocationData = function(locations) {
-	  for (var i=0; i<locations.length; i++) {
-		  var url = "https://api.foursquare.com/v2/venues/" + locations[i].venue_id + "?client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET +  "&v=20150909&callback=ViewModel.callback";
-		  var newScriptElement = document.createElement("script");
-		  newScriptElement.setAttribute("src", url);
-		  newScriptElement.setAttribute("id", "jsonp");
-		  //Set onload attribute to check if resource loads. If onload fires, clear the timer
-		  newScriptElement.setAttribute("onload", "clearTimeout(ViewModel.timer)");
-		  var oldScriptElement = document.getElementById("jsonp");
-		  var head = document.getElementsByTagName("head")[0];
-		  if (oldScriptElement === null) {
-		    head.appendChild(newScriptElement);
-		  } else {
-		    head.replaceChild(newScriptElement, oldScriptElement);
-		  }
-	  };
-	}
-
-	//Takes in the JSON response from the FourSquare API
-	self.callback = function(data) {
-	  	model.infoWindows.forEach(function (item, index, array) {
-	  		if (item.content == data.response.venue.name) {
-	  			HTMLcontentString = "<p><strong><a class='place-name' href='" +data.response.venue.canonicalUrl+ "'>" +data.response.venue.name+ "</a></strong></p>"
-									+ "<p>" +data.response.venue.location.address+ "</p>"
-									+ "<p><span class='place-rating'><strong>" +data.response.venue.rating+ "</strong><sup> / 10</sup></span>" + "<span class='place-category'>" +data.response.venue.categories[0].name+ "</p>"
-									+"<p>" +data.response.venue.hereNow.count+ " people checked-in now</p>"
-									+"<img src='"+data.response.venue.photos.groups[0].items[0].prefix+
-	  								"80x80"+ data.response.venue.photos.groups[0].items[0].suffix+"'</img>";
-	  			item.setContent(HTMLcontentString);
-	  		};
-	  	});
-	}*/
-
-
-
-	//self.getLocationData(model.locations);
 
 	initMap(model.locations);
+
 }
 
 var ViewModel = new ViewModel();
