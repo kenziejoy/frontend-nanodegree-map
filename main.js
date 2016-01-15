@@ -232,7 +232,7 @@ function ViewModel() {
 		google.maps.event.trigger(model.markers[id], 'click');
 	}
 
-	fucntion initMap(data) {
+	function initMap(data) {
 	  for (var i = 0; i < data.length; i++) {
 	    var location = data[i];
 	    var googleLatLong = new google.maps.LatLng(location.lat,location.lng);
