@@ -252,7 +252,7 @@ function ViewModel() {
 	    		title: title,
 	    		animation: google.maps.Animation.DROP,
 	    		clickable: true,
-				content: windowContent;
+				content: windowContent,
 	    		icon: image
 	  		};
 
