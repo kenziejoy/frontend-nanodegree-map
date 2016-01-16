@@ -49,7 +49,25 @@ var model = [
 		latLng: {lat: 45.5592398, lng: -122.6442831}
 	}];
 
-/****************MAP**********************/
+/******************VIEW MODEL***************************/
+
+var ViewModel = function () {
+
+	var self = this;
+
+	//variables
+	var contentWindow, content, Place;
+	var image = 'artsy.png';
+
+	//array to store data
+	self.allPlaces = [];
+
+	// For each object in model.locations
+		model.forEach(function(place) {
+			self.allPlaces.push(new Place(place));
+		});
+
+	/****************MAP**********************/
 var mapOptions = {
 	    zoom: 16,
 	    center: {lat: 45.5590561, lng: -122.6447018},
@@ -66,32 +84,11 @@ var mapOptions = {
 		styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
 	  };
 var mapDiv = document.getElementById("mapDiv");
-var map;
 
 // create map
 function initMap() {
-	map = new google.maps.Map(mapDiv, mapOptions);
+	googleMap = new google.maps.Map(mapDiv, mapOptions);
 }
-
-/******************VIEW MODEL***************************/
-
-var ViewModel = function () {
-
-	var self = this;
-
-	//variables
-	var contentWindow, content, Place;
-	var image = 'artsy.png';
-	var googleMap = map;
-
-	//array to store data
-	self.allPlaces = [];
-
-	// For each object in model.locations
-		model.forEach(function(place) {
-			self.allPlaces.push(new Place(place));
-		});
-
 	/**********FourSquare***************/
 	// Some variables to be used for the Foursuare api
 	var latlng = '';
@@ -196,11 +193,5 @@ var ViewModel = function () {
 }
 
 /*****************LOAD*********************************/
-
-function loadAll() {
-	initMap();
 	var viewModel = new ViewModel();
 	ko.applyBindings(viewModel);
-}
-
-loadAll();
