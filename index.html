@@ -8,7 +8,6 @@
 		<title>Alberta Arts Map</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 
-
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script> function googlesuccess() {loadAll();} </script>
@@ -30,9 +29,9 @@
 							<h2 class="headings">Explore</h2>
 							<input class="filter" type="search" placeholder="check it ouuuut..." data-bind="textInput: userInput, event: {keyup: filterMarkers}">
 							<h2 class="headings">My Favorite Places</h2>
-							<ul class="sidebar-nav list-group" id="list-view" data-bind="foreach: visiblePlaces">
+							<ul class="sidebar-nav" id="list-view" data-bind="foreach: visiblePlaces">
 								<li>
-									<a class="list-group-item" data-bind="text: locationName, click: clicker"></a>
+									<a data-bind="text: locationName, click: clicky"></a>
 								</li>
 							</ul>
 						</div>
