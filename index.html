@@ -5,8 +5,22 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content=" An annotated map of the Alberta Arts Neighborhood in Portland, Oregon. ">
 		<meta name="author" content=" MacKenzie Rawcliffe">
-		<link rel="stylesheet" type="text/css" href="style.css">
 		<title>Alberta Arts Map</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+
+		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="knockout-3.4.0.js"></script>
+		<script src="main.js"></script>
+		<script> function googlesuccess() {app();} </script>
+		<script async src="https://maps.googleapis.com/maps/api/js?callback=googlesuccess"></script>
+		<!-- Menu Toggle Script -->
+			<script>
+			$("#menu-toggle").click(function(e) {
+					e.preventDefault();
+					$("#wrapper").toggleClass("toggled");
+			});
+			</script>
 	</head>
 	<body>
 
@@ -41,19 +55,6 @@
 			</div>
 		</div>
 	</body>
-		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-		<script src="knockout-3.4.0.js"></script>
-		<script src="main.js"></script>
-		<script async src="https://maps.googleapis.com/maps/api/js?callback=loadAll" onerror="googleError()"></script>
-
-		<!-- Menu Toggle Script -->
-			<script>
-			$("#menu-toggle").click(function(e) {
-					e.preventDefault();
-					$("#wrapper").toggleClass("toggled");
-			});
-			</script>
 </html>
 
 

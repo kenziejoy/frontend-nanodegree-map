@@ -1,8 +1,4 @@
-var loadAll = function(){
-	initMap();
-	var viewModel = new ViewModel();
-	ko.applyBindings(viewModel);
-};
+function app() {
 
 /***********************MODEL***************************/
 var model = [
@@ -204,5 +200,12 @@ var ViewModel = function() {
 	this.marker = null;
 	}
 };
+function loadAll() {
+	initMap();
+	var viewModel = new ViewModel();
+	ko.applyBindings(viewModel);
+}
 
 loadAll();
+
+}
