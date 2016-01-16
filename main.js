@@ -73,15 +73,12 @@ var ViewModel = function() {
 	var self = this;
 	self.googleMap = map;
 	self.allPlaces=[];
-	//var markerBounce = null;
-	//var openInfoWindow = null;
-	//var prevInfoWindow
 	var image = 'artsy.png';
 	var contentWindow;
 
 	// For each object in model.locations
 		model.forEach(function(place) {
-		self.allPlaces.push(new Place(place));
+			self.allPlaces.push(new Place(place));
 		});
 
 	/**********FourSquare***************/
