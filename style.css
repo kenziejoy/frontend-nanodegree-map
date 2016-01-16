@@ -8,10 +8,12 @@ h1 {
 
 h2 {
 	font-size: 1.8em;
+	text-align: center;
 }
 
 input {
-	width: 50%;
+	width: 80%;
+	margin-top:10px;
 }
 
 .container {
@@ -22,10 +24,6 @@ input {
 .header {
 	color: #252525;
 	text-align: center;
-}
-
-.results-list {
-	margin-bottom: 10px;
 }
 
 .map {
@@ -40,20 +38,6 @@ input {
 .navbar {
 	background: #999999;
 }
-
-
-.btn {
-	padding-left: 10px;
-	background-color: whitesmoke;
-	margin-top: 10px;
-	margin-left: 20px;
-}
-
-
-#menu-toggle {
-	z-index: 100;
-}
-
 
 #wrapper {
 	padding-left: 0;
@@ -72,12 +56,11 @@ input {
 #sidebar-wrapper {
 	z-index: 1000;
 	position: fixed;
-	left: 250px;
+	left: 260px;
 	width: 0;
 	height: 100%;
 	margin-left: -250px;
 	overflow-y: auto;
-	background: white;
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;

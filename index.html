@@ -13,14 +13,7 @@
 		<script src="knockout-3.4.0.js"></script>
 		<script src="main.js"></script>
 		<script> function googlesuccess() {app();} </script>
-		<script async src="https://maps.googleapis.com/maps/api/js?callback=googlesuccess"></script>
-		<!-- Menu Toggle Script -->
-			<script>
-			$("#menu-toggle").click(function(e) {
-					e.preventDefault();
-					$("#wrapper").toggleClass("toggled");
-			});
-			</script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?callback=googlesuccess"></script>
 	</head>
 	<body>
 
@@ -32,18 +25,12 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12" id="bodyContainer">
-					<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-						<div id="wrapper navbar-header">
-							<a href="#menu-toggle" class="btn btn-default glyphicon glyphicon-menu-hamburger white" id="menu-toggle"></a>
-							<input class="filter" type="search" placeholder="check it ouuuut..." data-bind="textInput: userInput, event: {keyup: filterMarkers}">
-							<h2 class="headings">Explore</h2>
-						</div>
-					</nav>
-					<!-- Sidebar -->
 					<div id="wrapper">
 						<div id="sidebar-wrapper">
-							<h2 class="headings">My favorite places</h2>
-							<ul class="sidebar-nav list-group results-list" id="list-view" data-bind="foreach: visiblePlaces">
+							<h2 class="headings">Explore</h2>
+							<input class="filter" type="search" placeholder="check it ouuuut..." data-bind="textInput: userInput, event: {keyup: filterMarkers}">
+							<h2 class="headings">My Favorite Places</h2>
+							<ul class="sidebar-nav list-group" id="list-view" data-bind="foreach: visiblePlaces">
 								<li>
 									<a class="list-group-item" data-bind="text: locationName, click: clicker"></a>
 								</li>
