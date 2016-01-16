@@ -25,8 +25,8 @@
 							<h2 class="headings">Explore</h2>
 							<input class="filter" type="search" placeholder="check it ouuuut..." data-bind="textInput: userInput, event: {keyup: filterMarkers}">
 							<h2 class="headings">My Favorite Places</h2>
-							<ul class="sidebar-nav" id="list-view" data-bind="foreach: visiblePlaces">
-								<li>
+							<ul class="sidebar-nav list-group-item" data-bind="foreach: visiblePlaces">
+								<li class="listItem">
 									<a data-bind="text: locationName, click: clicky"></a>
 								</li>
 							</ul>
@@ -37,6 +37,6 @@
 			</div>
 		</div>
 		<script src="main.js"></script>
-		<script async defer src="https://maps.googleapis.com/maps/api/js"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?callback=app"></script>
 	</body>
 </html>
