@@ -19,10 +19,6 @@ input {
 	width: 100%;
 }
 
-#bodyContainer {
-	display: flex;
-}
-
 .header {
 	color: #252525;
 	text-align: center;
