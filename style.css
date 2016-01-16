@@ -42,14 +42,14 @@ input {
 
 
 .navbar {
-	background: black;
+	background: white;
 }
 
 
 .btn {
 	padding-left: 10px;
-	background-color: #4C4C4E;
-	color: white;
+	background-color: whitesmoke;
+	color: black;
 	margin-top: 10px;
 	margin-left: 20px;
 }
@@ -233,7 +233,7 @@ input {
  		display: none;
  	}
 
- 	.map {
+ 	#mapDiv {
  		display: block;
 		width: 100%;
  	}
