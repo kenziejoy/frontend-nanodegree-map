@@ -54,11 +54,18 @@ function app(){
 
 	var ViewModel = function () {
 
-		var self = this;
-
 		//variables
-		var contentWindow, content, Place;
-		var image = 'artsy.png';
+		var self = this,
+			contentWindow,
+			content,
+			Place,
+			lat,
+			lng,
+			image = 'artsy.png',
+			latlng = '',
+			client_id = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
+			client_secret = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4',
+			infowindow = new google.maps.InfoWindow();
 
 		//array to store data
 		self.allPlaces = [];
@@ -91,13 +98,8 @@ function app(){
 		googleMap = new google.maps.Map(mapDiv, mapOptions);
 	}
 		/**********FourSquare***************/
-		// Some variables to be used for the Foursuare api
-		var latlng = '';
-		var client_id = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD';
-		var client_secret = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4';
+		// a variable to be used for the Foursuare api
 		var fUrl = 'https://api.foursquare.com/v2/venues/search?ll='+ latlng +'&client_id='+ client_id +'&client_secret='+ client_secret +'&v=20151259&m=foursquare&links';
-		var lat, lng;
-		infowindow = new google.maps.InfoWindow();
 
 		// For each object in allPlaces create map markers and infowindows
 		self.allPlaces.forEach(function(place, i) {
