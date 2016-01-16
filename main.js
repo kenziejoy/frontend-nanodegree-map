@@ -85,6 +85,7 @@ var ViewModel = function vm () {
 	//var openInfoWindow = null;
 	//var prevInfoWindow
 	var image = 'artsy.png';
+	var contentWindow;
 
 	// For each object in model.locations
 		model.forEach(function(place) {
@@ -97,7 +98,7 @@ var ViewModel = function vm () {
 	client_id = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
 	client_secret = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4',
 	fUrl = 'https://api.foursquare.com/v2/venues/search?ll='+ latlng +'&client_id='+ client_id +'&client_secret='+ client_secret +'&v=20151259&m=foursquare&links',
-	//fquery = 'coffee',
+	fquery = 'coffee',
 	infowindow = new google.maps.InfoWindow();
 
 	// For each object in allPlaces create map markers and infowindows
@@ -108,8 +109,7 @@ var ViewModel = function vm () {
 			position: place.latLng
 		},
 		lat = place.lat,
-		lng = place.lng,
-		var contentWindow = '';
+		lng = place.lng;
 
 		// Sends a request to foursquare api
 		$.getJSON('https://api.foursquare.com/v2/venues/search?ll='+ lat+','+lng +'&query='+ fquery +'&limit=1&client_id='+ client_id +'&client_secret='+ client_secret +'&v=20151259&m=foursquare',
