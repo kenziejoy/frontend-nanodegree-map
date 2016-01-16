@@ -1,4 +1,4 @@
-/********************MODEL***************************/
+/******************MODEL**********************/
 var model = [
 	{
 		name: 'Alberta Co-op',
@@ -49,7 +49,7 @@ var model = [
 		latLng: {lat: 45.5592398, lng: -122.6442831}
 	}];
 
-/******************VIEW MODEL************************/
+/******************VIEW MODEL*****************/
 
 var ViewModel = function () {
 
@@ -74,28 +74,6 @@ var ViewModel = function () {
 			self.allPlaces.push(new Place(place));
 		});
 
-	/****************MAP**********************/
-var mapOptions = {
-		zoom: 16,
-		center: {lat: 45.5590561, lng: -122.6447018},
-		mapTypeId: google.maps.MapTypeId.ROADMAP,
-		disableDefaultUI: true,
-		scrollwheel: false,
-		panControl: false,
-		zoomControl: false,
-		mapTypeControl: false,
-		scaleControl: false,
-		streetViewControl: true,
-		overviewMapControl: false,
-		rotateControl: false,
-		styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
-	  };
-var mapDiv = document.getElementById("mapDiv");
-
-// create map
-function initMap() {
-	googleMap = new google.maps.Map(mapDiv, mapOptions);
-}
 	/**********FourSquare***************/
 	// a variable to be used for the Foursuare api
 	var fUrl = 'https://api.foursquare.com/v2/venues/search?ll='+ latlng +'&client_id='+ client_id +'&client_secret='+ client_secret +'&v=20151259&m=foursquare&links';
@@ -194,6 +172,28 @@ function initMap() {
 	});
 }
 
-/*****************LOAD*******************************/
+/*******************MAP**********************/
+// create map
+function initMap() {
+	var mapOptions = {
+		zoom: 16,
+		center: {lat: 45.5590561, lng: -122.6447018},
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		disableDefaultUI: true,
+		scrollwheel: false,
+		panControl: false,
+		zoomControl: false,
+		mapTypeControl: false,
+		scaleControl: false,
+		streetViewControl: true,
+		overviewMapControl: false,
+		rotateControl: false,
+		styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
+	  };
+	var mapDiv = document.getElementById("mapDiv");
+	googleMap = new google.maps.Map(mapDiv, mapOptions);
+}
+
+/*****************LOAD************************/
 	var viewModel = new ViewModel();
 	ko.applyBindings(viewModel);
