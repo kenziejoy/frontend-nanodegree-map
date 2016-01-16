@@ -200,6 +200,9 @@ var ViewModel = function() {
 	this.marker = null;
 	}
 };
+
+/*****************LOAD*********************************/
+
 function loadAll() {
 	initMap();
 	var viewModel = new ViewModel();
