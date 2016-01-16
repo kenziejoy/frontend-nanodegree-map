@@ -44,9 +44,14 @@ var model = [
 		latLng: {lat:45.5592398, lng:-122.6442831 },
 	}];
 
-/*********************MAP********************************/
-// create map
-var mapOptions = {
+/******************VIEW MODEL***************************/
+
+var ViewModel = function() {
+
+	var self = this;
+	/****************MAP**********************/
+	//variables
+	var mapOptions = {
 	    zoom: 16,
 	    center: {lat:45.5590561, lng:-122.6447018},
 	    mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -61,20 +66,16 @@ var mapOptions = {
 		rotateControl:false,
 		styles: 	[{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
 	  };
-var mapDiv = document.getElementById("mapDiv");
-var map;
-function initMap() {
-	map = new google.maps.Map(mapDiv, mapOptions);
-}
-/******************VIEW MODEL***************************/
-
-var ViewModel = function() {
-
-	var self = this;
-	self.googleMap = map;
-	self.allPlaces=[];
+	var mapDiv = document.getElementById("mapDiv");
 	var image = 'artsy.png';
-	var contentWindow;
+	var contentWindow = '';
+
+	// create map
+	function initMap() {
+		self.googleMap = new google.maps.Map(mapDiv, mapOptions);
+	}
+	//array to store data
+	self.allPlaces=[];
 
 	// For each object in model.locations
 		model.forEach(function(place) {
@@ -83,50 +84,51 @@ var ViewModel = function() {
 
 	/**********FourSquare***************/
 	// Some variables to be used for the Foursuare api
-		var latlng = '',
-	client_id = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
-	client_secret = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4',
-	fUrl = 'https://api.foursquare.com/v2/venues/search?ll='+ latlng +'&client_id='+ client_id +'&client_secret='+ client_secret +'&v=20151259&m=foursquare&links',
-	fquery = 'coffee',
+	var latlng = '';
+	client_id = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD';
+	client_secret = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4';
+	fUrl = 'https://api.foursquare.com/v2/venues/search?ll='+ latlng +'&client_id='+ client_id +'&client_secret='+ client_secret +'&v=20151259&m=foursquare&links';
+	fquery = 'restaurant';
+	var lat;
+	var lng;
 	infowindow = new google.maps.InfoWindow();
 
 	// For each object in allPlaces create map markers and infowindows
 	self.allPlaces.forEach(function(place, i) {
-	  var drop = google.maps.Animation.DROP,
+		lat = place.lat;
+		lng = place.lng;
+	  	var drop = google.maps.Animation.DROP;
 		markerOptions = {
 			map: self.googleMap,
 			position: place.latLng
-		},
-		lat = place.lat,
-		lng = place.lng;
+		};
 
-		// Sends a request to foursquare api
+		// Sends a request to foursquare
 		$.getJSON('https://api.foursquare.com/v2/venues/search?ll='+ lat+','+lng +'&query='+ fquery +'&limit=1&client_id='+ client_id +'&client_secret='+ client_secret +'&v=20151259&m=foursquare',
 
-	// This function takes the foursquare data and processes it.
-	function(data) {
-		$.each(data.response.venues, function(i,venues){
-			content = '<hr></h5><p><sup>nearest coffee spot</sup></p>' +
-			'<h5>'+ venues.name + '</h5>' +
-			'<p>'+ venues.location.formattedAddress[0] +'<br>' +
-			venues.location.formattedAddress[1] +'</p>';
+		// This function takes the foursquare data and processes it.
+		function(data) {
+			$.each(data.response.venues, function(i,venues){
+				content = '<hr></h5><p><sup>nearest restaurant</sup></p>' +
+				'<h5>'+ venues.name + '</h5>' +
+				'<p>'+ venues.location.formattedAddress[0] +'<br>' +
+				venues.location.formattedAddress[1] +'</p>';
+				contentWindow = content;
+		});
+		}).fail(function(){
+			content = 'There was an error loading foursquare';
 			contentWindow = content;
 		});
-	}).fail(function(){
-		content = 'There was an error loading foursquare';
-		contentWindow = content;
-	});
 
-	var contentName = '<h4>'+model[i].name+'</h4>';
-	place.marker = new google.maps.Marker(markerOptions);
-	var marker = place.marker;
-	//var poweredBy = '<img class="powered" src="img/powered.png">';
+		var contentName = '<h4>'+model[i].name+'</h4>';
 
-	// This adds an Listener for a click function to the marker.
-	// It returns an infowindow with content we create for each marker,
-	// and the marker will bounce when clicked
-	google.maps.event.addListener(marker, 'click', (function(marker) {
-		return function() {
+		place.marker = new google.maps.Marker(markerOptions);
+		var marker = place.marker;
+
+		// This adds an Listener for a click function to the marker.
+		// It returns an infowindow with content
+		google.maps.event.addListener(marker, 'click', (function(marker) {
+			return function() {
 		infowindow.setContent(contentName + contentWindow);
 		infowindow.open(self.googleMap, marker);
 		// Animation
@@ -136,67 +138,58 @@ var ViewModel = function() {
 			marker.setAnimation(google.maps.Animation.BOUNCE);
 			}
 			setTimeout(function(){ marker.setAnimation(null); }, 800);
+		}
+		})(marker));
+
+		// The click function triggers map markers.
+		clicker = function(){
+			google.maps.event.trigger(this.marker, 'click');
+			$('#menu-toggle').trigger('click');
 		};
-	})(marker));
-	});
 
-	// The click function triggers map markers
-	// and clicks the toggle that shows the
-	// list itemsd.
-	clicker = function(){
-	google.maps.event.trigger(this.marker, 'click');
-	$('#menu-toggle').trigger('click');
-	};
+		// Toggle visibility of list view in mobile view
+		self.Show = ko.observable(false);
+		self.toggleVisibility = function() {
+			self.Show(!self.Show());
+		};
+		self.Show = ko.observable(true);
 
-	// Toggle visibility of list view in mobile view
-	self.Show = ko.observable(false);
-	self.toggleVisibility = function() {
-	self.Show(!self.Show());
-	};
-	self.Show = ko.observable(true);
+		//This is where the visible markers will be stored
+		self.visiblePlaces = ko.observableArray();
 
-	//This is where the visible markers will be stored
-	self.visiblePlaces = ko.observableArray();
+		// All markers will start out visible
+		self.allPlaces.forEach(function(place) {
+			self.visiblePlaces.push(place);
+		});
 
-	// All markers will start out visible
-	self.allPlaces.forEach(function(place) {
-	self.visiblePlaces.push(place);
-	});
+		// bind userinput for the filter
+		self.userInput = ko.observable('');
 
-	// This binds to the userInput and keeps track of its contents
-	// and is accessed by the filter.
-	self.userInput = ko.observable('');
+		// This is the filter function for the Markers.
+		self.filterMarkers = function() {
+			var searchInput = self.userInput().toLowerCase();
+			self.visiblePlaces.removeAll();
+			self.allPlaces.forEach(function(place) {
+				place.marker.setVisible(false);
+				if (place.name.toLowerCase().indexOf(searchInput) !== -1) {
+					self.visiblePlaces.push(place);
+				}
+		});
+		self.visiblePlaces().forEach(function(place) {
+			place.marker.setVisible(true);
+		});
+		};
 
-	// This is the filter function for the Markers.
-	// It takes the user input and if it matches
-	// part of any name, then that name's content will be visible,
-	// Otherwise it will be hidden.
-	self.filterMarkers = function() {
-	var searchInput = self.userInput().toLowerCase();
-	self.visiblePlaces.removeAll();
-
-	self.allPlaces.forEach(function(place) {
-
-		place.marker.setVisible(false);
-		if (place.model.toLowerCase().indexOf(searchInput) !== -1) {
-		self.visiblePlaces.push(place);
+		//This creates object Place with data
+		function Place(data) {
+			this.model = data.name;
+			this.latLng = data.latLng;
+			this.lat = data.lat;
+			this.lng = data.lng;
+			this.marker = null;
 		}
 	});
-
-	self.visiblePlaces().forEach(function(place) {
-		place.marker.setVisible(true);
-	});
-	};
-
-	//This creates object Place with data
-	function Place(data) {
-	this.model = data.name;
-	this.latLng = data.latLng;
-	this.lat = data.lat;
-	this.lng = data.lng;
-	this.marker = null;
-	}
-};
+}
 
 /*****************LOAD*********************************/
 
