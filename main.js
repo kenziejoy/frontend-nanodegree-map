@@ -1,3 +1,9 @@
+var loadAll = function(){
+	initMap();
+	var viewModel = new ViewModel();
+	ko.applyBindings(viewModel);
+};
+
 /***********************MODEL***************************/
 var model = [
 	{
@@ -42,16 +48,6 @@ var model = [
 		latLng: {lat:45.5592398, lng:-122.6442831 },
 	}];
 
-	//Set home
-	//self.home = [45.5590561,-122.6447018];
-	//Array for Markers
-	//self.markers = [];
-	//Array for infoWindows
-	//self.infoWindows = [];
-//}
-
-//var model = new Model();
-
 /*********************MAP********************************/
 // create map
 var mapOptions = {
@@ -76,7 +72,7 @@ function initMap() {
 }
 /******************VIEW MODEL***************************/
 
-var ViewModel = function vm () {
+var ViewModel = function() {
 
 	var self = this;
 	self.googleMap = map;
@@ -209,7 +205,4 @@ var ViewModel = function vm () {
 	}
 };
 
-function loadAll(){
-	initMap();
-	ko.applyBindings(new ViewModel());
-}
+loadAll();
