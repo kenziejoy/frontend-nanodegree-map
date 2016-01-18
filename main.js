@@ -1,4 +1,4 @@
-(function app() {
+//(function app() {
 	/******************MODEL**********************/
 	var model = [
 		{
@@ -50,6 +50,14 @@
 			latLng: {lat: 45.5592398, lng: -122.6442831}
 		}];
 
+	//array to store data
+		self.allPlaces = [];
+
+		// For each object in model.locations
+			model.forEach(function(place) {
+				self.allPlaces.push(new Place(place));
+			});
+
 	/******************VIEW MODEL*****************/
 
 	var ViewModel = function () {
@@ -58,7 +66,7 @@
 		var self = this,
 			contentWindow,
 			content,
-			Place,
+			//Place,
 			lat,
 			lng,
 			image = 'artsy.png',
@@ -66,14 +74,6 @@
 			client_id = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
 			client_secret = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4',
 			infowindow = new google.maps.InfoWindow();
-
-		//array to store data
-		self.allPlaces = [];
-
-		// For each object in model.locations
-			model.forEach(function(place) {
-				self.allPlaces.push(new Place(place));
-			});
 
 		/**********FourSquare***************/
 		// a variable to be used for the Foursuare api
@@ -91,7 +91,7 @@
 			var contentName = '<h3>'+model[i].name+'</h3>';
 
 			// Sends a request to foursquare
-			$.getJSON('https://api.foursquare.com/v2/venues/search?ll='+ lat+','+lng +'&limit=1&client_id='+ client_id +'&client_secret='+ client_secret +'&v=20151259&m=foursquare',
+			$.getJSON('https://api.foursquare.com/v2/venues/search?ll='+ lat+','+lng +'&limit=1&client_id='+ client_id +'&client_secret='+ client_secret +'&v=20151259&m=foursquare';
 
 			// This function takes the foursquare data and processes it.
 			function(data) {
@@ -193,9 +193,10 @@
 		  };
 		var mapDiv = document.getElementById("mapDiv");
 		googleMap = new google.maps.Map(mapDiv, mapOptions);
-	}
 
-	/*****************LOAD************************/
+		/*****************LOAD************************/
 		var viewModel = new ViewModel();
 		ko.applyBindings(viewModel);
-})();
+	}
+
+//})();
