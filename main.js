@@ -91,7 +91,7 @@
 			var contentName = '<h3>'+model[i].name+'</h3>';
 
 			// Sends a request to foursquare
-			$.getJSON('https://api.foursquare.com/v2/venues/search?ll='+ lat+','+lng +'&limit=1&client_id='+ client_id +'&client_secret='+ client_secret +'&v=20151259&m=foursquare';
+			$.getJSON('https://api.foursquare.com/v2/venues/search?ll='+ lat+','+lng +'&limit=1&client_id='+ client_id +'&client_secret='+ client_secret +'&v=20151259&m=foursquare',
 
 			// This function takes the foursquare data and processes it.
 			function(data) {
