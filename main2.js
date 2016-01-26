@@ -43,13 +43,6 @@ var locations = [
 		id: "4abed3f9f964a5201e9020e3"
 	},
 	{
-		name: "Alberta Rose Theatre",
-		lat: 45.5588269,
-		lng: -122.6367732,
-		latLng: {lat: 45.5588269, lng: -122.6367732 },
-		id: "4c0a6c73340720a1bf568693"
-	},
-	{
 		name: "Bolt",
 		lat: 45.5589988,
 		lng: -122.6430478,
@@ -62,13 +55,6 @@ var locations = [
 		lng: -122.6479731,
 		latLng: {lat: 45.559221, lng: -122.6479731},
 		id: "4b22dccdf964a520014f24e3"
-	},
-	{
-		name: "Common Ground",
-		lat: 45.5592984,
-		lng: -122.6304464,
-		latLng: {lat: 45.5592984, lng: -122.6304464},
-		id: "4adfd877f964a520bd7d21e3"
 	},
 	{
 		name: "Cruz Room",
@@ -150,7 +136,7 @@ var ViewModel = function () {
 			url:'https://api.foursquare.com/v2/venues/',
 
 			dataType: "json",
-			data: 'search?ll='+ placeItem.lat() +','+ placeItem.lng() +'&limit=1&client_id='+ CLIENT_ID +'&client_secret='+ CLIENT_SECRET +'',
+			data: 'search?ll='+ placeItem.lat() +','+ placeItem.lng() +'&limit=1&client_id='+ CLIENT_ID +'&client_secret='+ CLIENT_SECRET +'&v=20140806&m=foursquare',
 
 			success: function (data) {
 				var result = data.response.venue;

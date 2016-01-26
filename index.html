@@ -13,31 +13,29 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="row header">
+			<div class="header">
 				<div class="col-md-12">
 					<hr><h1>Alberta Arts Neighborhood</h1><hr>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12" id="bodyContainer">
-					<div id ="error"></div>
-					<div id="wrapper">
-						<div id="sidebar-wrapper">
-							<div>
-								<h2 class="headings">Explore</h2>
-								<input class="filter" type="search" placeholder="Enter a Name" data-bind="textInput: userInput, event: {keyup: filterMarkers}">
-								<h2 class="headings">My Favorite Places</h2>
-							</div>
-							<div>
-								<ul class="sidebar-nav list-group-item" data-bind="foreach: visible">
-									<li class="listItem" data-bind="text: name, click: $parent.showInfo"></a>
-									</li>
-								</ul>
-							</div>
+			<div class="bodyContainer">
+				<div id ="error"></div>
+				<div id="wrapper">
+					<div id="sidebar-wrapper">
+						<div>
+							<h2 class="headings">Explore</h2>
+							<input class="filter" type="search" placeholder="Enter a Name" data-bind="textInput: userInput, event: {keyup: filterMarkers}">
+							<h2 class="headings">My Favorite Places</h2>
+						</div>
+						<div>
+							<ul class="sidebar-nav list-group-item" data-bind="foreach: visible">
+								<li class="listItem" data-bind="text: name, click: $parent.showInfo"></a>
+								</li>
+							</ul>
 						</div>
 					</div>
-					<div id="mapDiv"></div>
 				</div>
+				<div id="mapDiv"></div>
 			</div>
 		</div>
 		<script src="main2.js"></script>
