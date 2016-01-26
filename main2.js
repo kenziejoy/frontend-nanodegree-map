@@ -253,7 +253,7 @@ var ViewModel = function () {
 	self.visible = ko.observableArray();
 
 	// All markers are visible by default
-	self.placeList().forEach(function (place) {
+	self.places().forEach(function (place) {
 		self.visible.push(place);
 	});
 
