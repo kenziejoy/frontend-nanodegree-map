@@ -150,7 +150,7 @@ var ViewModel = function () {
 			url:'https://api.foursquare.com/v2/venues/',
 
 			dataType: "json",
-			data: placeItem.id() + '&client_id='+ CLIENT_ID + '&client_secret=' + CLIENT_SECRET + '&v=YYYYMMDD',
+			data: placeItem.id() + '&client_id='+ CLIENT_ID + '&client_secret=' + CLIENT_SECRET + '',
 
 			success: function (data) {
 				var result = data.response.venue;
