@@ -32,8 +32,8 @@ input {
 }
 
 #mapDiv {
-	height: 700px;
-	width: 700px;
+	height: 50px;
+	width: 70%;
 	float: right;
 }
 
