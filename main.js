@@ -68,11 +68,11 @@ var Place = function(data) {
 }
 
 //array to store data
-self.allPlaces = [];
+var allPlaces = [];
 
 // For each object in model.locations
 model.forEach(function(place) {
-		self.allPlaces.push(new Place(place));
+		allPlaces.push(new Place(place));
 });
 
 /*******************MAP**********************/
@@ -130,7 +130,7 @@ var ViewModel = function () {
 	var fUrl = 'https://api.foursquare.com/v2/venues/search?ll='+ latlng +'&client_id='+ client_id +'&client_secret='+ client_secret +'&v=20151259&m=foursquare&links';
 
 	// For each object in allPlaces create map markers and infowindows
-	self.allPlaces.forEach(function(place, i) {
+	allPlaces.forEach(function(place, i) {
 		lat = place.lat;
 		lng = place.lng;
 		var drop = google.maps.Animation.DROP;
@@ -190,7 +190,7 @@ var ViewModel = function () {
 		self.visiblePlaces = ko.observableArray();
 
 		// All markers will start out visible
-		self.allPlaces.forEach(function(place) {
+		allPlaces.forEach(function(place) {
 			self.visiblePlaces.push(place);
 		});
 
@@ -201,7 +201,7 @@ var ViewModel = function () {
 		self.filterMarkers = function() {
 			var searchInput = self.userInput().toLowerCase();
 			self.visiblePlaces.removeAll();
-			self.allPlaces.forEach(function(place) {
+			allPlaces.forEach(function(place) {
 				place.marker.setVisible(false);
 				if (place.name.toLowerCase().indexOf(searchInput) !== -1) {
 					self.visiblePlaces.push(place);
