@@ -23,12 +23,16 @@
 					<div id ="error"></div>
 					<div id="wrapper">
 						<div id="sidebar-wrapper">
-							<h2 class="headings">Explore</h2>
-							<input class="filter" type="search" placeholder="Enter a Name" data-bind="textInput: userInput, event: {keyup: filterMarkers}">
-							<h2 class="headings">My Favorite Places</h2>
-							<ul class="sidebar-nav list-group-item" data-bind="foreach: visible">
-								<li class="listItem" data-bind="text: name, click: $parent.showInfo"></li>
-							</ul>
+							<div>
+								<h2 class="headings">Explore</h2>
+								<input class="filter" type="search" placeholder="Enter a Name" data-bind="textInput: userInput, event: {keyup: filterMarkers}">
+								<h2 class="headings">My Favorite Places</h2>
+							</div>
+							<div>
+								<ul class="sidebar-nav list-group-item" data-bind="foreach: visible">
+									<li class="listItem" data-bind="text: name, click: $parent.showInfo"></li>
+								</ul>
+							</div>
 						</div>
 					</div>
 					<div id="mapDiv"></div>

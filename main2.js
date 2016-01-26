@@ -119,8 +119,8 @@ var ViewModel = function () {
 	//variables
 	var self = this;
 
-	var	client_id = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
-		client_secret = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4',
+	var	CLIENT_ID = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
+		CLIENT_SECRET = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4',
 		image = 'artsy.png',
 		infowindow = new google.maps.InfoWindow({maxWidth:200}),
 		marker;
@@ -147,7 +147,7 @@ var ViewModel = function () {
 
 		/**********FourSquare***************/
 		$.ajax({
-			url:'https://api.foursquare.com/v2/venues/' + placeItem.id() + '?client_id='+client_id + '&client_secret=' + client_secret+ '&v=20130815',
+			url:'https://api.foursquare.com/v2/venues/' + placeItem.id() + '&client_id='+ CLIENT_ID + '&client_secret=' + CLIENT_SECRET + '&v=YYYYMMDD',
 			dataType: "json",
 
 			success: function (data) {
