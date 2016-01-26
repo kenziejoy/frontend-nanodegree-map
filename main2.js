@@ -135,8 +135,8 @@ var ViewModel = function () {
 		$.ajax({
 			url:'https://api.foursquare.com/v2/venues/',
 			dataType: 'json',
-			data: + placeItem.id() + '?client_id='+ CLIENT_ID +'&client_secret='+ CLIENT_SECRET +'&v=20140806&m=foursquare',
-			//search?ll='+ placeItem.lat() +','+ placeItem.lng() +'&limit=1&
+			data: 'search?ll='+ placeItem.lat() +','+ placeItem.lng() +'&?client_id='+ CLIENT_ID +'&client_secret='+ CLIENT_SECRET +'&v=20140806&m=foursquare',
+			//
 
 			success: function (data) {
 				var result = data.response.venue;
