@@ -23,20 +23,19 @@
 					<div id="wrapper">
 						<div id="sidebar-wrapper">
 							<h2 class="headings">Explore</h2>
-							<input class="filter" type="search" placeholder="check it ouuuut..." data-bind="textInput: userInput, event: {keyup: filterMarkers}">
+							<input class="filter" type="search" placeholder="Enter a Name" data-bind="textInput: userInput, event: {keyup: filterMarkers}">
 							<h2 class="headings">My Favorite Places</h2>
-							<ul class="sidebar-nav list-group-item" data-bind="foreach: visiblePlaces">
-								<li class="listItem">
-									<a data-bind="text: locationName, click: clicky"></a>
-								</li>
+							<ul class="sidebar-nav list-group-item" data-bind="foreach: visible">
+								<li class="listItem" data-bind="text: name, click: $parent.showInfo"></li>
 							</ul>
 						</div>
 					</div>
 					<div id="mapDiv"></div>
+					<div id ="error"></div>
 				</div>
 			</div>
 		</div>
-		<script src="main.js"></script>
+		<script src="main2.js"></script>
 		<script async src="https://maps.googleapis.com/maps/api/js?callback=initMap" onerror="googleError()"></script>
 
 	</body>
