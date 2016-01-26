@@ -147,7 +147,7 @@ var ViewModel = function () {
 
 		/**********FourSquare***************/
 		$.ajax({
-			url:'https://api.foursquare.com/v2/venues/' + placeItem.id() + '&client_id='+ CLIENT_ID + '&client_secret=' + CLIENT_SECRET + '&v=YYYYMMDD',
+			url:'https://api.foursquare.com/v2/venues/' + placeItem.id() + '&client_id='+ CLIENT_ID + '&client_secret=' + CLIENT_SECRET + '&v=20160126',
 			dataType: "json",
 
 			success: function (data) {
