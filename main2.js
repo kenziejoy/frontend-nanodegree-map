@@ -145,13 +145,15 @@ var ViewModel = function () {
 			url:'https://api.foursquare.com/v2/venues/search',
 			dataType: 'json',
 			data: 'limit=1' +
-					'&ll='+ placeItem.lat() +','+ placeItem.lng() +
+					'&ll=45.5590561,-122.6447018' +
+					'&query=' + placeItem.name() +
 					'&client_id='+ CLIENT_ID +
 					'&client_secret='+ CLIENT_SECRET +
 					'&v=20140806' +
 					'&m=foursquare',
 			async: true,
 
+			// If data call is successful
 			success: function (data) {
 				result = data.response.venue;
 				contact = result.hasOwnProperty('contact') ? result.contact : '';
@@ -207,7 +209,7 @@ var ViewModel = function () {
 				});
 		},
 
-			// Alert the user on error.
+			// Alert the user on error
 			error: function (e) {
 				infowindow.setContent('<h5>Foursquare data is unavailable.</h5>');
 				document.getElementById("error").innerHTML = "<h4>Foursquare data is unavailable. Please try refreshing.</h4>";
