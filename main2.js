@@ -176,7 +176,7 @@ var ViewModel = function () {
 
 				url = result.hasOwnProperty('url') ? result.url : '';
 				placeItem.url(url || '');
-				placeItem.canonicalUrl(result.canonicalUrl);*/
+				placeItem.canonicalUrl(result.canonicalUrl);
 
 				// Infowindow code is in the success function so that the error message
 
