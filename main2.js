@@ -190,7 +190,7 @@ var ViewModel = function () {
 					placeItem.marker.setAnimation(google.maps.Animation.BOUNCE);
 					setTimeout(function () {
 						placeItem.marker.setAnimation(null);
-					}, 500);
+					}, 800);
 					infowindow.setContent(contentString);
 				});
 		},
@@ -208,35 +208,15 @@ var ViewModel = function () {
 			placeItem.marker.setAnimation(google.maps.Animation.BOUNCE);
 			setTimeout(function () {
 				placeItem.marker.setAnimation(null);
-			}, 500);
+			}, 800);
 		});
 	});
 
 	// Activate the right marker when the user clicks the list
 	self.showInfo = function (placeItem) {
 		google.maps.event.trigger(placeItem.marker, 'click');
-		//self.hideElements();
-	};
-	
-	 /* Toggle the nav class based style
-	// Credit Stacy https://discussions.udacity.com/t/any-way-to-reduce-infowindow-content-on-mobile/40352/25
-	self.toggleNav = ko.observable(false);
-	this.navStatus = ko.pureComputed (function () {
-		return self.toggleNav() === false ? 'nav' : 'navClosed';
-		}, this);
-
-	self.hideElements = function (toggleNav) {
-		self.toggleNav(true);
-		// Allow default action
-		// Credit Stacy https://discussions.udacity.com/t/click-binding-blocking-marker-clicks/35398/2
-		return true;
 	};
 
-	self.showElements = function (toggleNav) {
-		self.toggleNav(false);
-		return true;
-	};*/
-	
 	// Array containing markers based on search
 	self.visible = ko.observableArray();
 
