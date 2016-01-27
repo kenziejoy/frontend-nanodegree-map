@@ -154,8 +154,8 @@ var ViewModel = function () {
 			async: true,
 
 			// If data call is successful
-			success: function (data) {
-				result = data.response.venue;
+			success: function () {
+				result = response.venue;
 				contact = result.hasOwnProperty('contact') ? result.contact : '';
 				if (contact.hasOwnProperty('formattedPhone')) {
 					placeItem.phone(contact.formattedPhone || '');
@@ -262,6 +262,8 @@ var ViewModel = function () {
 	};
 };
 
+
+/*{"meta":{"code":200,"requestId":"56a91ac8498e822bb3d7836a"},"response":{"venues":[{"id":"4b22dccdf964a520014f24e3","name":"Collage","location":{"address":"1639 NE Alberta St","crossStreet":"at NE 17th Ave","lat":45.55913465,"lng":-122.64793932437897,"distance":252,"postalCode":"97211","cc":"US","city":"Portland","state":"OR","country":"United States","formattedAddress":["1639 NE Alberta St (at NE 17th Ave)","Portland, OR 97211","United States"]},"categories":[{"id":"4bf58dd8d48988d127951735","name":"Arts & Crafts Store","pluralName":"Arts & Crafts Stores","shortName":"Arts & Crafts","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/shops\/artstore_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":512,"usersCount":360,"tipCount":5},"allowMenuUrlEdit":true,"specials":{"count":0,"items":[]},"hereNow":{"count":0,"summary":"Nobody here","groups":[]},"referralId":"v-1453923016","venueChains":[]}]}}*/
 
 
 
