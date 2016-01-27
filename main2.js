@@ -87,14 +87,14 @@ var Place = function(data) {
 	this.lng = ko.observable(data.lng);
 	this.id = ko.observable(data.id);
 	this.marker = ko.observable();
-	this.phone = ko.observable('');
-	this.description = ko.observable('');
+	//this.phone = ko.observable('');
+	this.currently = ko.observable('');
 	this.address = ko.observable('');
-	this.rating = ko.observable('');
-	this.url = ko.observable('');
-	this.canonicalUrl = ko.observable('');
-	this.photoPrefix = ko.observable('');
-	this.photoSuffix = ko.observable('');
+	this.checkins = ko.observable('');
+	//this.url = ko.observable('');
+	//this.canonicalUrl = ko.observable('');
+	//this.photoPrefix = ko.observable('');
+	//this.photoSuffix = ko.observable('');
 	this.contentString = ko.observable('');
 };
 
@@ -105,17 +105,15 @@ var ViewModel = function () {
 	//variables
 	var self = this;
 
-	var	bestPhoto,
-		contact,
+	var	checkins,
+		currently,
 		contentString,
 		CLIENT_ID = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
 		CLIENT_SECRET = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4',
-		description,
 		location,
 		image = 'artsy.png',
 		infowindow = new google.maps.InfoWindow({maxWidth:200}),
 		marker,
-		rating,
 		result,
 		response,
 		searchInput,
@@ -160,42 +158,33 @@ var ViewModel = function () {
 				response = data.response ? data.response: '';
 				venue = data.response.hasOwnProperty("venues") ? data.response.venues[0] : '';
 				result = data.response.venue;
-				contact = result.hasOwnProperty('contact') ? result.contact : '';
-				if (contact.hasOwnProperty('formattedPhone')) {
-					placeItem.phone(contact.formattedPhone || '');
-				}
 
 				location = result.hasOwnProperty('location') ? result.location : '';
 				if (location.hasOwnProperty('address')) {
 					placeItem.address(location.address || '');
 				}
 
-				bestPhoto = result.hasOwnProperty('bestPhoto') ? result.bestPhoto : '';
-				if (bestPhoto.hasOwnProperty('prefix')) {
-					placeItem.photoPrefix(bestPhoto.prefix || '');
-				}
-				if (bestPhoto.hasOwnProperty('suffix')) {
-					placeItem.photoSuffix(bestPhoto.suffix || '');
+				currently = result.hasOwnProperty('hereNow') ? result.hereNow : '';
+				if (hereNow.hasOwnProperty('summary')) {
+					placeItem.currently(hereNow.summary || '');
 				}
 
-				description = result.hasOwnProperty('description') ? result.description : '';
-				placeItem.description(description || '');
-
-				rating = result.hasOwnProperty('rating') ? result.rating : '';
-				placeItem.rating(rating || 'none');
+				checkins = result.hasOwnProperty('stats') ? result.rating : '';
+				if (hereNow.hasOwnProperty('checkinsCount')) {
+					placeItem.checkins(hereNow.checkinsCount || '');
+				}
 
 				url = result.hasOwnProperty('url') ? result.url : '';
 				placeItem.url(url || '');
-				placeItem.canonicalUrl(result.canonicalUrl);
+				placeItem.canonicalUrl(result.canonicalUrl);*/
 
 				// Infowindow code is in the success function so that the error message
 
 				// Content of the infowindow
-				contentString = '<div id="iWindow"><h4>' + placeItem.name() + '</h4><div id="pic"><img src="' +
-						placeItem.photoPrefix() + '110x110' + placeItem.photoSuffix() +
-						'" alt="Image Location"></div><p>Information from Foursquare:</p><p>' +
-						placeItem.phone() + '</p><p>' + placeItem.address() + '</p><p>' +
-						placeItem.description() + '</p><p>Rating: ' + placeItem.rating() +
+				contentString = '<div id="iWindow"><h4>' + placeItem.name() + '</h4>'
+						+ '<p>Information from Foursquare:</p><p>' +
+						'<p>' + placeItem.address() + '</p><p>' +
+						placeItem.summary() + '</p><p>Checkins: ' + placeItem.checkins() +
 						'</p><p><a href=' + placeItem.url() + '>' + placeItem.url() +
 						'</a></p><p><a target="_blank" href=' + placeItem.canonicalUrl() +
 						'>Foursquare Page</a></p><p><a target="_blank" href=https://www.google.com/maps/dir/Current+Location/' +
@@ -266,13 +255,14 @@ var ViewModel = function () {
 	};
 };
 
-
-/*{"meta":{"code":200,"requestId":"56a91ac8498e822bb3d7836a"},"response":{"venues":[{"id":"4b22dccdf964a520014f24e3","name":"Collage","location":{"address":"1639 NE Alberta St","crossStreet":"at NE 17th Ave","lat":45.55913465,"lng":-122.64793932437897,"distance":252,"postalCode":"97211","cc":"US","city":"Portland","state":"OR","country":"United States","formattedAddress":["1639 NE Alberta St (at NE 17th Ave)","Portland, OR 97211","United States"]},"categories":[{"id":"4bf58dd8d48988d127951735","name":"Arts & Crafts Store","pluralName":"Arts & Crafts Stores","shortName":"Arts & Crafts","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/shops\/artstore_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":512,"usersCount":360,"tipCount":5},"allowMenuUrlEdit":true,"specials":{"count":0,"items":[]},"hereNow":{"count":0,"summary":"Nobody here","groups":[]},"referralId":"v-1453923016","venueChains":[]}]}}*/
-
-
-
-
-
-
-
-
+/*bestPhoto = result.hasOwnProperty('bestPhoto') ? result.bestPhoto : '';
+				if (bestPhoto.hasOwnProperty('prefix')) {
+					placeItem.photoPrefix(bestPhoto.prefix || '');
+				}
+				if (bestPhoto.hasOwnProperty('suffix')) {
+					placeItem.photoSuffix(bestPhoto.suffix || '');
+				}*/
+/*contact = result.hasOwnProperty('contact') ? result.contact : '';
+				if (contact.hasOwnProperty('formattedPhone')) {
+					placeItem.phone(contact.formattedPhone || '');
+				}*/
