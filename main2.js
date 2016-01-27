@@ -105,11 +105,20 @@ var ViewModel = function () {
 	//variables
 	var self = this;
 
-	var	CLIENT_ID = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
+	var	bestPhoto,
+		contact,
+		contentString,
+		CLIENT_ID = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
 		CLIENT_SECRET = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4',
+		description,
+		location,
 		image = 'artsy.png',
 		infowindow = new google.maps.InfoWindow({maxWidth:200}),
-		marker;
+		marker,
+		url,
+		rating,
+		result,
+		searchInput;
 
 	//array of places
 	this.places = ko.observableArray([]);
@@ -144,41 +153,39 @@ var ViewModel = function () {
 			async: true,
 
 			success: function (data) {
-				var result = data.response.venue;
-				var contact = result.hasOwnProperty('contact') ? result.contact : '';
+				result = data.response.venue;
+				contact = result.hasOwnProperty('contact') ? result.contact : '';
 				if (contact.hasOwnProperty('formattedPhone')) {
 					placeItem.phone(contact.formattedPhone || '');
 				}
 
-				var location = result.hasOwnProperty('location') ? result.location : '';
+				location = result.hasOwnProperty('location') ? result.location : '';
 				if (location.hasOwnProperty('address')) {
 					placeItem.address(location.address || '');
 				}
 
-				var bestPhoto = result.hasOwnProperty('bestPhoto') ? result.bestPhoto : '';
+				bestPhoto = result.hasOwnProperty('bestPhoto') ? result.bestPhoto : '';
 				if (bestPhoto.hasOwnProperty('prefix')) {
 					placeItem.photoPrefix(bestPhoto.prefix || '');
 				}
-
 				if (bestPhoto.hasOwnProperty('suffix')) {
 					placeItem.photoSuffix(bestPhoto.suffix || '');
 				}
 
-				var description = result.hasOwnProperty('description') ? result.description : '';
+				description = result.hasOwnProperty('description') ? result.description : '';
 				placeItem.description(description || '');
 
-				var rating = result.hasOwnProperty('rating') ? result.rating : '';
+				rating = result.hasOwnProperty('rating') ? result.rating : '';
 				placeItem.rating(rating || 'none');
 
-				var url = result.hasOwnProperty('url') ? result.url : '';
+				url = result.hasOwnProperty('url') ? result.url : '';
 				placeItem.url(url || '');
-
 				placeItem.canonicalUrl(result.canonicalUrl);
 
 				// Infowindow code is in the success function so that the error message
 
 				// Content of the infowindow
-				var contentString = '<div id="iWindow"><h4>' + placeItem.name() + '</h4><div id="pic"><img src="' +
+				contentString = '<div id="iWindow"><h4>' + placeItem.name() + '</h4><div id="pic"><img src="' +
 						placeItem.photoPrefix() + '110x110' + placeItem.photoSuffix() +
 						'" alt="Image Location"></div><p>Information from Foursquare:</p><p>' +
 						placeItem.phone() + '</p><p>' + placeItem.address() + '</p><p>' +
@@ -236,7 +243,7 @@ var ViewModel = function () {
 	//if input matches leave marker
 	self.filterMarkers = function () {
 		// Set all markers and places to not visible.
-		var searchInput = self.userInput().toLowerCase();
+		searchInput = self.userInput().toLowerCase();
 		self.visible.removeAll();
 		
 		self.places().forEach(function (place) {
