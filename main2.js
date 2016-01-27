@@ -137,6 +137,7 @@ var ViewModel = function () {
 			dataType: 'json',
 			data: 'limit=1' +
 					'&ll='+ placeItem.lat() +','+ placeItem.lng() +
+					'&query=' +query+
 					'&?client_id='+ CLIENT_ID +
 					'&client_secret='+ CLIENT_SECRET +
 					'&v=20140806' +
