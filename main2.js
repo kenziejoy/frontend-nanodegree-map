@@ -133,10 +133,15 @@ var ViewModel = function () {
 
 		/**********FourSquare***************/
 		$.ajax({
-			url:'https://api.foursquare.com/v2/venues/',
+			url:'https://api.foursquare.com/v2/venues/search',
 			dataType: 'json',
-			data: 'search?ll='+ placeItem.lat() +','+ placeItem.lng() +'&?client_id='+ CLIENT_ID +'&client_secret='+ CLIENT_SECRET +'&v=20140806&m=foursquare',
-			//
+			data: 'limit=1' +
+					'&ll='+ placeItem.lat() +','+ placeItem.lng() +
+					'&?client_id='+ CLIENT_ID +
+					'&client_secret='+ CLIENT_SECRET +
+					'&v=20140806' +
+					'&m=foursquare',
+			async: true,
 
 			success: function (data) {
 				var result = data.response.venue;
