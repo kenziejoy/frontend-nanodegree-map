@@ -28,13 +28,16 @@ input {
 
 .bodyContainer {
 	width= 100%;
-	height = 80%;
+	height = 90%;
 }
 
 #mapDiv {
 	height: 500px;
-	width: 70%;
+	width: 80%;
 	float: right;
+}
+#error {
+	text-align: center;
 }
 
 /* Toggle Styles */
