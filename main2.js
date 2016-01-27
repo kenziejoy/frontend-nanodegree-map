@@ -115,10 +115,12 @@ var ViewModel = function () {
 		image = 'artsy.png',
 		infowindow = new google.maps.InfoWindow({maxWidth:200}),
 		marker,
-		url,
 		rating,
 		result,
-		searchInput;
+		response,
+		searchInput,
+		url,
+		venue;
 
 	//array of places
 	this.places = ko.observableArray([]);
@@ -154,8 +156,10 @@ var ViewModel = function () {
 			async: true,
 
 			// If data call is successful
-			success: function () {
-				result = response.venue;
+			success: function (data) {
+				response = data.response ? data.response: '';
+				venue = data.response.hasOwnProperty("venues") ? data.response.venues[0] : '';
+				result = data.response.venue;
 				contact = result.hasOwnProperty('contact') ? result.contact : '';
 				if (contact.hasOwnProperty('formattedPhone')) {
 					placeItem.phone(contact.formattedPhone || '');
