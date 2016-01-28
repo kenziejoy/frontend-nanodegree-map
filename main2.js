@@ -105,20 +105,20 @@ var ViewModel = function () {
 	//variables
 	var self = this;
 
-	var	checkins,
-		currently,
+	var	//checkins,
+		//currently,
 		contentString,
 		CLIENT_ID = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
 		CLIENT_SECRET = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4',
-		location,
-		hereNow,
+		//location,
+		//hereNow,
 		image = 'artsy.png',
 		infowindow = new google.maps.InfoWindow({maxWidth:200}),
 		marker,
-		result,
-		response,
+		//result,
+		//response,
 		searchInput,
-		url,
+		//url,
 		venue;
 
 	//array of places
@@ -159,24 +159,24 @@ var ViewModel = function () {
 
 				venue = data.response.hasOwnProperty("venues") ? data.response.venues[0] : '';
 
-				location = venue.hasOwnProperty('location') ? venue.location : '';
+				placeItem.location = venue.hasOwnProperty('location') ? venue.location : '';
 					if (location.hasOwnProperty('address')) {
-						placeItem.address(venue.location.address || '');
+						placeItem.address(venue[0].location.address[0] || '');
 					}
 
-				currently = venue.hasOwnProperty('hereNow') ? venue.hereNow : '';
+				placeItem.currently = venue.hasOwnProperty('hereNow') ? venue.hereNow : '';
 				if (hereNow.hasOwnProperty('summary')) {
-					placeItem.currently(venue.hereNow.summary || '');
+					placeItem.currently(venue[0].hereNow.summary || '');
 				}
 
-				checkins = venue.hasOwnProperty('stats') ? venue.rating : '';
+				placeItem.checkins = venue.hasOwnProperty('stats') ? venue.rating : '';
 				if (stats.hasOwnProperty('checkinsCount')) {
-					placeItem.checkins(venue.stats.checkinsCount || '');
+					placeItem.checkins(venue[0].stats.checkinsCount || '');
 				}
 
-				url = venue.hasOwnProperty('url') ? venue.url : '';
-				placeItem.url(url || '');
-				placeItem.canonicalUrl(venue.canonicalUrl);
+				placeItem.url = venue.hasOwnProperty('url') ? venue.url : '';
+					placeItem.url(url || '');
+					placeItem.canonicalUrl(venue.canonicalUrl);
 
 				// Infowindow code is in the success function so that the error message
 
