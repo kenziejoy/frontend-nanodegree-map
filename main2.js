@@ -156,27 +156,28 @@ var ViewModel = function () {
 			// If data call is successful
 			success: function (data) {
 				response = data.response ? data.response: '';
+					console.log(response);
 				venue = data.response.hasOwnProperty("venues") ? data.response.venues[0] : '';
-				result = data.response.venue;
+					console.log(venue[0]);
+					console.log(venue.location[0]);
+				location = venue.hasOwnProperty('location') ? venue.location : '';
+					if (location.hasOwnProperty('address')) {
+						placeItem.address(venue.location.address || '');
+					}
 
-				location = result.hasOwnProperty('location') ? result.location : '';
-				if (location.hasOwnProperty('address')) {
-					placeItem.address(location.address || '');
-				}
-
-				currently = result.hasOwnProperty('hereNow') ? result.hereNow : '';
+				currently = venue.hasOwnProperty('hereNow') ? venue.hereNow : '';
 				if (hereNow.hasOwnProperty('summary')) {
-					placeItem.currently(hereNow.summary || '');
+					placeItem.currently(venue.hereNow.summary || '');
 				}
 
-				checkins = result.hasOwnProperty('stats') ? result.rating : '';
-				if (hereNow.hasOwnProperty('checkinsCount')) {
-					placeItem.checkins(hereNow.checkinsCount || '');
+				checkins = venue.hasOwnProperty('stats') ? venue.rating : '';
+				if (stats.hasOwnProperty('checkinsCount')) {
+					placeItem.checkins(venue.stats.checkinsCount || '');
 				}
 
-				url = result.hasOwnProperty('url') ? result.url : '';
+				url = venue.hasOwnProperty('url') ? venue.url : '';
 				placeItem.url(url || '');
-				placeItem.canonicalUrl(result.canonicalUrl);
+				placeItem.canonicalUrl(venue.canonicalUrl);
 
 				// Infowindow code is in the success function so that the error message
 
