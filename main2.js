@@ -150,8 +150,9 @@ var ViewModel = function () {
 					'&query=' + placeItem.name() +
 					'&client_id='+ CLIENT_ID +
 					'&client_secret='+ CLIENT_SECRET +
-					'&v=20130815' +
-					'&m=foursquare',
+					'&v=20130815',
+					//+
+					//'&m=foursquare',
 			async: true,
 
 			// If data call is successful
