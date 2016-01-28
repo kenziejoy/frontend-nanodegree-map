@@ -198,7 +198,7 @@ var ViewModel = function () {
 					setTimeout(function () {
 						placeItem.marker.setAnimation(null);
 					}, 800);
-					infowindow.setContent(placeItem.contentString);
+					infowindow.setContent(contentString);
 				});
 			},
 
@@ -254,15 +254,3 @@ var ViewModel = function () {
 		});
 	};
 };
-
-/*bestPhoto = result.hasOwnProperty('bestPhoto') ? result.bestPhoto : '';
-				if (bestPhoto.hasOwnProperty('prefix')) {
-					placeItem.photoPrefix(bestPhoto.prefix || '');
-				}
-				if (bestPhoto.hasOwnProperty('suffix')) {
-					placeItem.photoSuffix(bestPhoto.suffix || '');
-				}*/
-/*contact = result.hasOwnProperty('contact') ? result.contact : '';
-				if (contact.hasOwnProperty('formattedPhone')) {
-					placeItem.phone(contact.formattedPhone || '');
-				}*/
