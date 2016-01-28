@@ -150,7 +150,7 @@ var ViewModel = function () {
 					'&query=' + placeItem.name() +
 					'&client_id='+ CLIENT_ID +
 					'&client_secret='+ CLIENT_SECRET +
-					'&v=20140806' +
+					'&v=20130815' +
 					'&m=foursquare',
 			async: true,
 
@@ -200,7 +200,7 @@ var ViewModel = function () {
 					}, 800);
 					infowindow.setContent(contentString);
 				});
-		},
+			},
 
 			// Alert the user on error
 			error: function (e) {
