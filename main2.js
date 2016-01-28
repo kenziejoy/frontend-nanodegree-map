@@ -103,7 +103,7 @@ var ViewModel = function () {
 	//variables
 	var self = this;
 
-	var	contentString,
+	var	//contentString,
 		CLIENT_ID = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
 		CLIENT_SECRET = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4',
 		hereNow,
@@ -181,9 +181,8 @@ var ViewModel = function () {
 				// Infowindow code is in the success function so that the error message
 
 				// Content of the infowindow
-				contentString = '<div id="iWindow"><h4>' + placeItem.name() + '</h4>'
-						+ '<p>Information from Foursquare:</p><p>' +
-						'<p>' + placeItem.address() + '</p><p>' +
+				placeItem.contentString = '<div id="iWindow"><h4>' + placeItem.name() + '</h4>'
+						+'<p>' + placeItem.address() + '</p><p> Anybody there now? ' +
 						placeItem.summary() + '</p><p>Checkins: ' + placeItem.checkins() +
 						'</p><p><a href=' + placeItem.url() + '>' + placeItem.url() +
 						'</a></p><p><a target="_blank" href=' + placeItem.canonicalUrl() +
@@ -198,7 +197,7 @@ var ViewModel = function () {
 					setTimeout(function () {
 						placeItem.marker.setAnimation(null);
 					}, 800);
-					infowindow.setContent(contentString);
+					infowindow.setContent(placeItem.contentString);
 				});
 			},
 
