@@ -86,7 +86,7 @@ var Place = function(data) {
 	this.canonicalUrl = ko.observable('');
 	this.checkins = ko.observable('');
 	this.contentString = ko.observable('');
-	this.currently = ko.observable('');
+	//this.currently = ko.observable('');
 	this.id = ko.observable(data.id);
 	this.lat = ko.observable(data.lat);
 	this.lng = ko.observable(data.lng);
@@ -106,7 +106,7 @@ var ViewModel = function () {
 	var	//contentString,
 		CLIENT_ID = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
 		CLIENT_SECRET = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4',
-		hereNow,
+		//hereNow,
 		image = 'artsy.png',
 		infowindow = new google.maps.InfoWindow({maxWidth:200}),
 		location,
@@ -159,15 +159,15 @@ var ViewModel = function () {
 				location = venue.hasOwnProperty('location') ? venue.location : '';
 					// If new location has prop address then set the observable address to that or blank
 					if (location.hasOwnProperty('address')) {
-						placeItem.address(location.address[0] + location.address[1] || '');
+						placeItem.address(location.address || '');
 					}
 
 			   	// If the venue has a property hereNow set it to hereNow
-				hereNow = venue.hasOwnProperty('hereNow') ? venue.hereNow : '';
+				//hereNow = venue.hasOwnProperty('hereNow') ? venue.hereNow : '';
 					//If new hereNow has prop summary set it to observable
-					if (hereNow.hasOwnProperty('summary')) {
-						placeItem.currently(hereNow.summary || '');
-					}
+					//if (hereNow.hasOwnProperty('summary')) {
+					//	placeItem.currently(hereNow.summary || '');
+					//}
 
 				stats = venue.hasOwnProperty('stats') ? venue.stats : '';
 					if (stats.hasOwnProperty('checkinsCount')) {
@@ -182,8 +182,7 @@ var ViewModel = function () {
 
 				// Content of the infowindow
 				placeItem.contentString = '<div id="iWindow"><h4>' + placeItem.name() + '</h4>'
-						+'<p>' + placeItem.address() + '</p><p> Anybody there now? ' +
-						placeItem.summary() + '</p><p>Checkins: ' + placeItem.checkins() +
+						+'<p>' + placeItem.address() + '</p><p>Checkins: ' + placeItem.checkins() +
 						'</p><p><a href=' + placeItem.url() + '>' + placeItem.url() +
 						'</a></p><p><a target="_blank" href=' + placeItem.canonicalUrl() +
 						'>Foursquare Page</a></p><p><a target="_blank" href=https://www.google.com/maps/dir/Current+Location/' +
