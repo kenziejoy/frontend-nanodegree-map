@@ -82,20 +82,18 @@ var locations = [
 /******************CONSTRUCTOR***************/
 var Place = function(data) {
 	"use strict";
-	this.name = ko.observable(data.name);
+	this.address = ko.observable('');
+	this.canonicalUrl = ko.observable('');
+	this.checkins = ko.observable('');
+	this.contentString = ko.observable('');
+	this.currently = ko.observable('');
+	this.id = ko.observable(data.id);
 	this.lat = ko.observable(data.lat);
 	this.lng = ko.observable(data.lng);
-	this.id = ko.observable(data.id);
 	this.marker = ko.observable();
-	//this.phone = ko.observable('');
-	this.currently = ko.observable('');
-	this.address = ko.observable('');
-	this.checkins = ko.observable('');
+	this.name = ko.observable(data.name);
+	this.summary = ko.observable('');
 	this.url = ko.observable('');
-	this.canonicalUrl = ko.observable('');
-	//this.photoPrefix = ko.observable('');
-	//this.photoSuffix = ko.observable('');
-	this.contentString = ko.observable('');
 };
 
 /******************VIEW MODEL*****************/
