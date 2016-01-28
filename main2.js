@@ -91,8 +91,8 @@ var Place = function(data) {
 	this.currently = ko.observable('');
 	this.address = ko.observable('');
 	this.checkins = ko.observable('');
-	//this.url = ko.observable('');
-	//this.canonicalUrl = ko.observable('');
+	this.url = ko.observable('');
+	this.canonicalUrl = ko.observable('');
 	//this.photoPrefix = ko.observable('');
 	//this.photoSuffix = ko.observable('');
 	this.contentString = ko.observable('');
@@ -105,20 +105,17 @@ var ViewModel = function () {
 	//variables
 	var self = this;
 
-	var	//checkins,
-		//currently,
-		contentString,
+	var	contentString,
 		CLIENT_ID = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
 		CLIENT_SECRET = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4',
-		//location,
-		//hereNow,
+		hereNow,
 		image = 'artsy.png',
 		infowindow = new google.maps.InfoWindow({maxWidth:200}),
+		location,
 		marker,
-		//result,
-		//response,
 		searchInput,
-		//url,
+		stats,
+		url,
 		venue;
 
 	//array of places
@@ -155,27 +152,28 @@ var ViewModel = function () {
 					//'&m=foursquare',
 			async: true,
 
-			// If data call is successful
+			// If data call is successful - check for various properties and assign them to observables
 			success: function (data) {
 
 				venue = data.response.hasOwnProperty("venues") ? data.response.venues[0] : '';
 
-				placeItem.location = venue.hasOwnProperty('location') ? venue.location : '';
-					if (location.hasOwnProperty('address')) {
+				location = venue.hasOwnProperty('location') ? venue.location : '';
+
+					if (venue.location.hasOwnProperty('address')) {
 						placeItem.address(venue[0].location.address[0] || '');
 					}
 
-				placeItem.currently = venue.hasOwnProperty('hereNow') ? venue.hereNow : '';
-				if (hereNow.hasOwnProperty('summary')) {
+				hereNow = venue.hasOwnProperty('hereNow') ? venue.hereNow : '';
+				if (venue.hereNow.hasOwnProperty('summary')) {
 					placeItem.currently(venue[0].hereNow.summary || '');
 				}
 
-				placeItem.checkins = venue.hasOwnProperty('stats') ? venue.rating : '';
-				if (stats.hasOwnProperty('checkinsCount')) {
+				stats = venue.hasOwnProperty('stats') ? venue.stats : '';
+				if (venue.stats.hasOwnProperty('checkinsCount')) {
 					placeItem.checkins(venue[0].stats.checkinsCount || '');
 				}
 
-				placeItem.url = venue.hasOwnProperty('url') ? venue.url : '';
+				url = venue.hasOwnProperty('url') ? venue.url : '';
 					placeItem.url(url || '');
 					placeItem.canonicalUrl(venue.canonicalUrl);
 
@@ -199,7 +197,7 @@ var ViewModel = function () {
 					setTimeout(function () {
 						placeItem.marker.setAnimation(null);
 					}, 800);
-					infowindow.setContent(contentString);
+					infowindow.setContent(placeItem.contentString);
 				});
 			},
 
