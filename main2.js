@@ -154,24 +154,27 @@ var ViewModel = function () {
 
 			// If data call is successful - check for various properties and assign them to observables
 			success: function (data) {
-
+				// If incoming data has a venues object set the first one to the var venue
 				venue = data.response.hasOwnProperty("venues") ? data.response.venues[0] : '';
 
+				// If the new venue has a property called location set that to the variable location
 				location = venue.hasOwnProperty('location') ? venue.location : '';
-
-					if (venue.location.hasOwnProperty('address')) {
-						placeItem.address(venue[0].location.address[0] || '');
+					// If new location has prop address then set the observable address to that or blank
+					if (location.hasOwnProperty('address')) {
+						placeItem.address(location.address[0] + location.address[1] || '');
 					}
 
+			   	// If the venue has a property hereNow set it to hereNow
 				hereNow = venue.hasOwnProperty('hereNow') ? venue.hereNow : '';
-				if (venue.hereNow.hasOwnProperty('summary')) {
-					placeItem.currently(venue[0].hereNow.summary || '');
-				}
+					//If new hereNow has prop summary set it to observable
+					if (hereNow.hasOwnProperty('summary')) {
+						placeItem.currently(hereNow.summary || '');
+					}
 
 				stats = venue.hasOwnProperty('stats') ? venue.stats : '';
-				if (venue.stats.hasOwnProperty('checkinsCount')) {
-					placeItem.checkins(venue[0].stats.checkinsCount || '');
-				}
+					if (stats.hasOwnProperty('checkinsCount')) {
+						placeItem.checkins(stats.checkinsCount || '');
+					}
 
 				url = venue.hasOwnProperty('url') ? venue.url : '';
 					placeItem.url(url || '');
