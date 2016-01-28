@@ -111,6 +111,7 @@ var ViewModel = function () {
 		CLIENT_ID = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
 		CLIENT_SECRET = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4',
 		location,
+		hereNow,
 		image = 'artsy.png',
 		infowindow = new google.maps.InfoWindow({maxWidth:200}),
 		marker,
@@ -155,11 +156,9 @@ var ViewModel = function () {
 
 			// If data call is successful
 			success: function (data) {
-				response = data.response ? data.response: '';
-					console.log(response);
+
 				venue = data.response.hasOwnProperty("venues") ? data.response.venues[0] : '';
-					console.log(venue[0]);
-					console.log(venue.location[0]);
+
 				location = venue.hasOwnProperty('location') ? venue.location : '';
 					if (location.hasOwnProperty('address')) {
 						placeItem.address(venue.location.address || '');
