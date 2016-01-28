@@ -13,30 +13,34 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="row header">
+			<div class="header">
 				<div class="col-md-12">
 					<hr><h1>Alberta Arts Neighborhood</h1><hr>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12" id="bodyContainer">
-					<div id="wrapper">
-						<div id="sidebar-wrapper">
+			<div class="bodyContainer">
+				<div id ="error"></div>
+				<div id="wrapper">
+					<div id="sidebar-wrapper">
+						<div>
 							<h2 class="headings">Explore</h2>
-							<input class="filter" type="search" placeholder="check it ouuuut..." data-bind="textInput: userInput, event: {keyup: filterMarkers}">
+							<input class="filter" type="search" placeholder="Enter a Name" data-bind="textInput: userInput, event: {keyup: filterMarkers}">
 							<h2 class="headings">My Favorite Places</h2>
-							<ul class="sidebar-nav list-group-item" data-bind="foreach: visiblePlaces">
-								<li class="listItem">
-									<a data-bind="text: locationName, click: clicky"></a>
+						</div>
+						<div>
+							<ul class="sidebar-nav list-group-item" data-bind="foreach: visible">
+								<li class="listItem" data-bind="text: name, click: $parent.showInfo"></a>
 								</li>
 							</ul>
 						</div>
 					</div>
-					<div id="mapDiv"></div>
 				</div>
+				<div id="mapDiv"></div>
+				<div>Powered by FourSquare <img src="https://playfoursquare.s3.amazonaws.com/press/2014/foursquare-icon-16x16.png"></div>
 			</div>
 		</div>
-		<script src="main.js"></script>
-		<script async defer src="https://maps.googleapis.com/maps/api/js?callback=app"></script>
+		<script src="main2.js"></script>
+		<script async src="https://maps.googleapis.com/maps/api/js?callback=initMap" onerror="googleError()"></script>
+
 	</body>
 </html>

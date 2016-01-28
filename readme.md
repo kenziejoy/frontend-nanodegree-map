@@ -1,6 +1,6 @@
 Intro section
 
-This was a project of the Udacity Front End Development Nanodegree. The purpose was to create a map website using the Google api, javascript and knockout.js.
+This was a project of the Udacity Front End Development Nanodegree. The purpose was to create a responsive map website using the Google api, javascript and knockout.js.
 
 Author: MacKenzie Rawcliffe
 Date: January 2015
@@ -8,7 +8,7 @@ Date: January 2015
 ## Table of Contents
 
 1. [Implementation](#implementation)
-1. [License](#license)
+2. [License](#license)
 
 
 ## Implementation

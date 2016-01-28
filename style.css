@@ -26,10 +26,18 @@ input {
 	text-align: center;
 }
 
-.map {
-	height: 100%;
-	width: 70%;
+.bodyContainer {
+	width= 100%;
+	height = 90%;
+}
 
+#mapDiv {
+	height: 450px;
+	width: 80%;
+	float: right;
+}
+#error {
+	text-align: center;
 }
 
 /* Toggle Styles */
@@ -87,7 +95,6 @@ input {
 
 .sidebar-nav {
 	position: absolute;
-	top: 0;
 	width: 250px;
 	margin: 0;
 	padding: 0;
@@ -98,28 +105,17 @@ input {
 .sidebar-nav li {
 	text-indent: 20px;
 	line-height: 40px;
-}
-
-
-.sidebar-nav li a {
 	display: block;
 	text-decoration: none;
-	color: #999999;
+	color: #000058;
 }
 
 
-.sidebar-nav li a:hover {
+.sidebar-nav li:hover {
 	text-decoration: none;
 	color: #fff;
 	background: rgba(255,255,255,0.2);
 }
-
-
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-	text-decoration: none;
-}
-
 
 .sidebar-nav > .sidebar-brand {
 	height: 65px;
@@ -173,7 +169,8 @@ input {
 }
 
 
-@media only screen and (max-width : 480px) {
+@media only screen and (max-width : 480px)
+{
  	h1 {
  		font-size: 1.3em;
  	}
@@ -208,7 +205,6 @@ input {
  	}
 
  	#mapDiv {
- 		display: block;
 		width: 100%;
  	}
  }
