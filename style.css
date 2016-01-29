@@ -21,6 +21,10 @@ input {
 	width: 80%;
 }
 
+#center-search {
+	margin-left:10%;
+}
+
 .container {
 	height: 100%;
 	width: 100%;
@@ -46,10 +50,6 @@ input {
 
 #menu-toggle {
 	text-align:right;
-}
-
-#center-search {
-	margin-left:10%;
 }
 
 /*From Black Rock Digital*/
