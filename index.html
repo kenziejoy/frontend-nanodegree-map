@@ -16,7 +16,13 @@
 			<!--Header-->
 			<div class="header">
 				<div class="col-md-12">
-					<hr><h1>Alberta Arts Neighborhood</h1><hr>
+					<hr><h1>
+							Alberta Arts Neighborhood
+							<a href="#menu-toggle" class="btn btn-info" id="menu-toggle">
+								<span class="caret"></span>
+							</a>
+						</h1>
+					<hr>
 				</div>
 				<div id ="error"></div>
 			</div>
@@ -27,7 +33,7 @@
 					<div>
 						<h2 class="headings">Explore</h2>
 						<input class="filter" type="search" placeholder="Enter a Name" data-bind="textInput: userInput, event: {keyup: filterMarkers}">
-						Powered by FourSquare <img src="https://playfoursquare.s3.amazonaws.com/press/2014/foursquare-icon-16x16.png">
+						<hr><h4>Powered by FourSquare <img src="https://playfoursquare.s3.amazonaws.com/press/2014/foursquare-icon-16x16.png"</h4>
 						<h2 class="headings">My Favorite Places</h2>
 					</div>
 					<!--List-->
@@ -40,10 +46,9 @@
 				</div>
 
 				<div id="page-content-wrapper">
-					<a href="#menu-toggle" class="btn btn-info" id="menu-toggle">
-						<span class="caret"></span>
-					</a>
-					<div id="mapDiv"></div>
+					<div class="container-fluid">
+						<div id="mapDiv"></div>
+					</div>
 				</div>
 			</div>
 		</div>
