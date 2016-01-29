@@ -3,7 +3,7 @@ body {
 }
 
 h1 {
-	font-size: 3em;
+	font-size: 2.5em;
 	color: #252525;
 }
 
@@ -148,9 +148,7 @@ input {
 
 
 @media(min-width:768px) {
-	h1 {
-		font-size: 2em;
-	}
+
 	#wrapper {
 		padding-left: 250px;
 	}
@@ -184,7 +182,7 @@ input {
 }
 
 
-@media only screen and (max-width : 480px)
+@media only screen and (max-width : 600px)
 {
  	h1 {
  		font-size: 1.5em;
