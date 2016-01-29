@@ -19,7 +19,7 @@
 					<hr>
 					<h1>Alberta Arts Neighborhood</h1>
 					<a href="#menu-toggle" class="btn btn-info" id="menu-toggle">
-						Explore
+						<span class="caret"></span>
 					</a>
 					<hr>
 				</div>
@@ -51,15 +51,14 @@
 				</div>
 			</div>
 		</div>
-		 <!-- Menu Toggle Script -->
+		<script src="main2.js"></script>
+		<script async src="https://maps.googleapis.com/maps/api/js?callback=initMap" onerror="googleError()"></script>
 		<script>
 			$("#menu-toggle").click(function(e) {
 				e.preventDefault();
-				$("#wrapper").toggleClass("toggled");
+				$("#sidebar-wrapper").toggleClass("toggled");
 			});
 		</script>
-		<script src="main2.js"></script>
-		<script async src="https://maps.googleapis.com/maps/api/js?callback=initMap" onerror="googleError()"></script>
 
 	</body>
 </html>

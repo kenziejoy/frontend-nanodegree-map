@@ -98,6 +98,9 @@ input {
 	margin-right: -250px;
 }
 
+#sidebar-wrapper.toggled {
+		width: 250px;
+	}
 
 /* Sidebar Styles */
 
@@ -145,6 +148,9 @@ input {
 
 
 @media(min-width:768px) {
+	h1 {
+		font-size: 2em;
+	}
 	#wrapper {
 		padding-left: 250px;
 	}
@@ -181,7 +187,7 @@ input {
 @media only screen and (max-width : 480px)
 {
  	h1 {
- 		font-size: 1em;
+ 		font-size: 1.5em;
  	}
 
  	h2 {
