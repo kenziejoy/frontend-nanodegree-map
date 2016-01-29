@@ -163,7 +163,7 @@ var ViewModel = function () {
 				// Infowindow code is in the success function so that the error message
 
 				// Content of the infowindow
-				placeItem.contentString = '<div id="iWindow"><h4>' + placeItem.name() + '</h4>'
+				placeItem.contentString = '<div id="iWindow"><h3>' + placeItem.name() + '</h3>'
 						+'<p>' + placeItem.address() + '</p><p>Checkins: ' + placeItem.checkins() +
 						'</p><p><a href=' + placeItem.url() + '>' + placeItem.url() +
 						'</a></p><p><a target="_blank" href=https://www.google.com/maps/dir/Current+Location/' +

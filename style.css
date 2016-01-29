@@ -5,7 +5,6 @@ body {
 h1 {
 	font-size: 3em;
 	color: #252525;
-	text-align: center;
 }
 
 h2 {
@@ -14,7 +13,7 @@ h2 {
 }
 
 h4 {
-	font-size: 0.5em;
+	font-size: 0.7em;
 	text-align: center;
 }
 
@@ -26,6 +25,10 @@ input {
 .container {
 	height: 100%;
 	width: 100%;
+}
+
+.header {
+	text-align: center;
 }
 
 .bodyContainer {
@@ -124,9 +127,9 @@ input {
 }
 
 .sidebar-nav > .sidebar-brand {
-	height: 65px;
+	height: 40px;
 	font-size: 18px;
-	line-height: 60px;
+	line-height: 40px;
 }
 
 
