@@ -13,53 +13,56 @@
 	</head>
 	<body>
 		<div class="container">
+			<!--Header-->
 			<div class="header">
 				<div class="col-md-12">
 					<hr><h1>Alberta Arts Neighborhood</h1><hr>
 				</div>
-			</div>
-
-			<div class="bodyContainer">
 				<div id ="error"></div>
-
-				<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-					<div class="navcontainer">
-						<!--menu button-->
-						<div class="navbar-header">
-								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#wrapper.toggled">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								</button>
-						</div>
-
-						<!-- Collect the content for toggling -->
-						<div id="wrapper" class="collapse navbar-collapse">
-					<div id="sidebar-wrapper">
-						<div>
-							<h2 class="headings">Explore</h2>
-							<input class="filter" type="search" placeholder="Enter a Name" data-bind="textInput: userInput, event: {keyup: filterMarkers}">
-							<h2 class="headings">My Favorite Places</h2>
-						</div>
-						<div>
-							<ul class="sidebar-nav list-group-item" data-bind="foreach: visible">
-								<li class="listItem" data-bind="text: name, click: $parent.showInfo"></a>
-								</li>
-							</ul>
-							Powered by FourSquare <img src="https://playfoursquare.s3.amazonaws.com/press/2014/foursquare-icon-16x16.png">
-						</div>
+			</div>
+			<!--Sidebar-->
+			<div id="wrapper">
+				<div id="sidebar-wrapper">
+					<!--Search-->
+					<div>
+						<h2 class="headings">Explore</h2>
+						<input class="filter" type="search" placeholder="Enter a Name" data-bind="textInput: userInput, event: {keyup: filterMarkers}">
+						Powered by FourSquare <img src="https://playfoursquare.s3.amazonaws.com/press/2014/foursquare-icon-16x16.png">
+						<h2 class="headings">My Favorite Places</h2>
+					</div>
+					<!--List-->
+					<div>
+						<ul class="sidebar-nav list-group-item" data-bind="foreach: visible">
+							<li class="listItem sidebar-brand" data-bind="text: name, click: $parent.showInfo"></a>
+							</li>
+						</ul>
 					</div>
 				</div>
-						</div>
-				</nav>
 
-				<div id="mapDiv"></div>
+				<div id="page-content-wrapper">
+					<a href="#menu-toggle" class="btn btn-info" id="menu-toggle">
+						<span class="caret"></span>
+					</a>
+					<div id="mapDiv"></div>
+				</div>
 			</div>
 		</div>
+		 <!-- Menu Toggle Script -->
+		<script>
+			$("#menu-toggle").click(function(e) {
+				e.preventDefault();
+				$("#wrapper").toggleClass("toggled");
+			});
+		</script>
 		<script src="main2.js"></script>
 		<script async src="https://maps.googleapis.com/maps/api/js?callback=initMap" onerror="googleError()"></script>
 
 	</body>
 </html>
+
+
+
+
+
+
 

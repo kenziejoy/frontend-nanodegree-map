@@ -40,13 +40,7 @@ input {
 	text-align: center;
 }
 
-.navbar, .navbar-inverse {
-	border-radius: 0;
-	border: none;
-	margin-bottom: 0;
-	min-height: 80px;
-}
-
+/*From Black Rock Digital*/
 /* Toggle Styles */
 
 #wrapper {

@@ -218,6 +218,8 @@ var ViewModel = function () {
 	self.filterMarkers = function () {
 		// Set all markers and places to not visible.
 		searchInput = self.userInput().toLowerCase();
+		//close current infowindows when search term entered
+		infowindow.close();
 		self.visible.removeAll();
 		
 		self.places().forEach(function (place) {
