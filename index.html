@@ -12,7 +12,7 @@
 		<script src="Libraries/knockout-3.4.0.js"></script>
 	</head>
 	<body>
-		<div class="container">
+		<div class="container-fluid">
 			<!--Header-->
 			<div class="header row">
 				<div class="col-md-12">
@@ -31,9 +31,11 @@
 					<!--Search-->
 					<div>
 						<h2 class="headings">Explore</h2>
-						<input class="filter" type="search" placeholder="Enter a Name" data-bind="textInput: userInput, event: {keyup: filterMarkers}">
-						<hr><h4>Powered by FourSquare <img src="https://playfoursquare.s3.amazonaws.com/press/2014/foursquare-icon-16x16.png"</h4>
-						<h2 class="headings">My Favorite Places</h2>
+						<div id="centersearch"
+							<input class="filter" type="search" placeholder="Enter a Name" data-bind="textInput: userInput, event: {keyup: filterMarkers}">
+						</div>
+						<h4>Powered by FourSquare <img src="https://playfoursquare.s3.amazonaws.com/press/2014/foursquare-icon-16x16.png"></h4><hr>
+						<h2 class="headings">My Favorite Places</h2><hr>
 					</div>
 					<!--List-->
 					<div>

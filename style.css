@@ -19,12 +19,12 @@ h4 {
 
 input {
 	width: 80%;
-	margin-left:10%;
 }
 
 .container {
 	height: 100%;
 	width: 100%;
+	padding: 0px;
 }
 
 .header {
@@ -46,6 +46,10 @@ input {
 
 #menu-toggle {
 	text-align:right;
+}
+
+#center-search {
+	margin-left:10%;
 }
 
 /*From Black Rock Digital*/
