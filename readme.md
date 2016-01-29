@@ -19,6 +19,7 @@ It is a website so you can proceed to the [demo](#demo) to implement.
 
 1. Knockout.js
 2. Google Javascript Map Api
+3. BlackrockDigital/startbootstrap-simple-sidebar
 
 ### Installation
 

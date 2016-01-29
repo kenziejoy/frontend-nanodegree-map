@@ -3,7 +3,8 @@ body {
 }
 
 h1 {
-	font-size: 3em;
+	font-size: 2.5em;
+	color: #252525;
 }
 
 h2 {
@@ -11,18 +12,26 @@ h2 {
 	text-align: center;
 }
 
+h4 {
+	font-size: 0.7em;
+	text-align: center;
+}
+
 input {
-	width: 80%;
+	width: 90%;
+}
+
+#center-search {
 	margin-left:10%;
 }
 
 .container {
 	height: 100%;
 	width: 100%;
+	padding: 0px;
 }
 
 .header {
-	color: #252525;
 	text-align: center;
 }
 
@@ -33,13 +42,17 @@ input {
 
 #mapDiv {
 	height: 450px;
-	width: 80%;
-	float: right;
+	width: 100%;
 }
 #error {
 	text-align: center;
 }
 
+#menu-toggle {
+	text-align:right;
+}
+
+/*From Black Rock Digital*/
 /* Toggle Styles */
 
 #wrapper {
@@ -89,6 +102,9 @@ input {
 	margin-right: -250px;
 }
 
+#sidebar-wrapper.toggled {
+		width: 250px;
+	}
 
 /* Sidebar Styles */
 
@@ -118,9 +134,9 @@ input {
 }
 
 .sidebar-nav > .sidebar-brand {
-	height: 65px;
+	height: 40px;
 	font-size: 18px;
-	line-height: 60px;
+	line-height: 40px;
 }
 
 
@@ -136,6 +152,7 @@ input {
 
 
 @media(min-width:768px) {
+
 	#wrapper {
 		padding-left: 250px;
 	}
@@ -169,24 +186,15 @@ input {
 }
 
 
-@media only screen and (max-width : 480px)
+@media only screen and (max-width : 600px)
 {
  	h1 {
- 		font-size: 1.3em;
+ 		font-size: 1.5em;
  	}
 
  	h2 {
  		font-size: 1em;
  		margin-top: 10px;
- 	}
-
- 	p {
- 		font-size: 1em;
- 	}
-
- 	input {
- 		margin-bottom: 10px;
- 		width: 70%;
  	}
 
  	.listItem {
@@ -198,10 +206,6 @@ input {
  	.list-group-item {
  		padding-top: 5px;
  		padding-bottom: 5px;
- 	}
-
- 	.headings {
- 		display: none;
  	}
 
  	#mapDiv {

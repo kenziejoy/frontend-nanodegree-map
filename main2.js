@@ -39,42 +39,36 @@ var locations = [
 		name: "Alberta Co-op",
 		lat: 45.5589522,
 		lng: -122.6517163,
-		latLng: {lat: 45.5589522, lng: -122.6517163},
 		id: "4abed3f9f964a5201e9020e3"
 	},
 	{
 		name: "Bolt",
 		lat: 45.5589988,
 		lng: -122.6430478,
-		latLng: {lat: 45.5589988, lng: -122.6430478 },
 		id: "4a8b071cf964a520390b20e3"
 	},
 	{
 		name: "Collage",
 		lat: 45.559221,
 		lng: -122.6479731,
-		latLng: {lat: 45.559221, lng: -122.6479731},
 		id: "4b22dccdf964a520014f24e3"
 	},
 	{
 		name: "Cruz Room",
 		lat: 45.5590117,
 		lng: -122.6412912,
-		latLng: {lat: 45.5590117, lng: -122.6412912},
 		id: "cruzroompdx"
 	},
 	{
 		name: "Just Bob",
 		lat: 45.5591934,
 		lng: -122.6409898,
-		latLng: {lat: 45.5591934, lng: -122.6409898},
 		id: "56745d56498e87c836b36813"
 	},
 	{
 		name: "Salt & Straw",
 		lat: 45.5592398,
 		lng: -122.6442831,
-		latLng: {lat: 45.5592398, lng: -122.6442831},
 		id: "4ddf0d1cfa76b3b015f7a683"
 	}
 ];
@@ -82,18 +76,17 @@ var locations = [
 /******************CONSTRUCTOR***************/
 var Place = function(data) {
 	"use strict";
-	this.address = ko.observable('');
-	this.canonicalUrl = ko.observable('');
-	this.checkins = ko.observable('');
-	this.contentString = ko.observable('');
-	//this.currently = ko.observable('');
-	this.id = ko.observable(data.id);
-	this.lat = ko.observable(data.lat);
-	this.lng = ko.observable(data.lng);
-	this.marker = ko.observable();
-	this.name = ko.observable(data.name);
-	this.summary = ko.observable('');
-	this.url = ko.observable('');
+	var self = this;
+	self.address = ko.observable('');
+	self.canonicalUrl = ko.observable('');
+	self.checkins = ko.observable('');
+	self.contentString = ko.observable('');
+	self.id = ko.observable(data.id);
+	self.lat = ko.observable(data.lat);
+	self.lng = ko.observable(data.lng);
+	self.marker = ko.observable();
+	self.name = ko.observable(data.name);
+	self.url = ko.observable('');
 };
 
 /******************VIEW MODEL*****************/
@@ -103,10 +96,8 @@ var ViewModel = function () {
 	//variables
 	var self = this;
 
-	var	//contentString,
-		CLIENT_ID = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
+	var	CLIENT_ID = '3SHNM1LPOMY3CXWGFPDTAH3WP31ZSIEMWIY3UTUYVDMUPSSD',
 		CLIENT_SECRET = 'RBLLKYWKSTAUXJVKLSA42VX4LQ4ANYRCUBPRY1AQ1EOLY4C4',
-		//hereNow,
 		image = 'artsy.png',
 		infowindow = new google.maps.InfoWindow({maxWidth:200}),
 		location,
@@ -117,7 +108,7 @@ var ViewModel = function () {
 		venue;
 
 	//array of places
-	this.places = ko.observableArray([]);
+	self.places = ko.observableArray([]);
 	
 	//call the constructor!
 	locations.forEach(function(placeItem) {
@@ -146,8 +137,7 @@ var ViewModel = function () {
 					'&client_id='+ CLIENT_ID +
 					'&client_secret='+ CLIENT_SECRET +
 					'&v=20130815',
-					//+
-					//'&m=foursquare',
+
 			async: true,
 
 			// If data call is successful - check for various properties and assign them to observables
@@ -162,13 +152,6 @@ var ViewModel = function () {
 						placeItem.address(location.address || '');
 					}
 
-			   	// If the venue has a property hereNow set it to hereNow
-				//hereNow = venue.hasOwnProperty('hereNow') ? venue.hereNow : '';
-					//If new hereNow has prop summary set it to observable
-					//if (hereNow.hasOwnProperty('summary')) {
-					//	placeItem.currently(hereNow.summary || '');
-					//}
-
 				stats = venue.hasOwnProperty('stats') ? venue.stats : '';
 					if (stats.hasOwnProperty('checkinsCount')) {
 						placeItem.checkins(stats.checkinsCount || '');
@@ -176,16 +159,14 @@ var ViewModel = function () {
 
 				url = venue.hasOwnProperty('url') ? venue.url : '';
 					placeItem.url(url || '');
-					placeItem.canonicalUrl(venue.canonicalUrl);
 
 				// Infowindow code is in the success function so that the error message
 
 				// Content of the infowindow
-				placeItem.contentString = '<div id="iWindow"><h4>' + placeItem.name() + '</h4>'
+				placeItem.contentString = '<div id="iWindow"><h3>' + placeItem.name() + '</h3>'
 						+'<p>' + placeItem.address() + '</p><p>Checkins: ' + placeItem.checkins() +
 						'</p><p><a href=' + placeItem.url() + '>' + placeItem.url() +
-						'</a></p><p><a target="_blank" href=' + placeItem.canonicalUrl() +
-						'>Foursquare Page</a></p><p><a target="_blank" href=https://www.google.com/maps/dir/Current+Location/' +
+						'</a></p><p><a target="_blank" href=https://www.google.com/maps/dir/Current+Location/' +
 						placeItem.lat() + ',' + placeItem.lng() + '>Directions</a></p></div>';
 
 				// Add infowindows
@@ -237,6 +218,8 @@ var ViewModel = function () {
 	self.filterMarkers = function () {
 		// Set all markers and places to not visible.
 		searchInput = self.userInput().toLowerCase();
+		//close current infowindows when search term entered
+		infowindow.close();
 		self.visible.removeAll();
 		
 		self.places().forEach(function (place) {
