@@ -18,7 +18,7 @@ h4 {
 }
 
 input {
-	width: 80%;
+	width: 90%;
 }
 
 #center-search {
@@ -193,17 +193,8 @@ input {
  	}
 
  	h2 {
- 		font-size: 0.75em;
- 		margin-top: 10px;
- 	}
-
- 	p {
  		font-size: 1em;
- 	}
-
- 	input {
- 		margin-bottom: 10px;
- 		width: 70%;
+ 		margin-top: 10px;
  	}
 
  	.listItem {
@@ -215,10 +206,6 @@ input {
  	.list-group-item {
  		padding-top: 5px;
  		padding-bottom: 5px;
- 	}
-
- 	.headings {
- 		display: none;
  	}
 
  	#mapDiv {
