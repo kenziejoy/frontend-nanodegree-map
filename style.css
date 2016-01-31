@@ -49,10 +49,6 @@ input {
 	color: purple;
 }
 
-#menu-toggle {
-	text-align:right;
-}
-
 /*From Black Rock Digital*/
 /* Toggle Styles */
 
@@ -75,7 +71,8 @@ input {
 	position: fixed;
 	left: 260px;
 	width: 0;
-	height: calc(100%-176px);
+	height: 100%;
+	top:0px;
 	margin-left: -250px;
 	overflow-y: auto;
 	background: #98AFC7;
@@ -103,7 +100,7 @@ input {
 	margin-right: -250px;
 }
 
-#sidebar-wrapper.toggled {
+#sidebar-wrapper.open {
 		width: 250px;
 	}
 

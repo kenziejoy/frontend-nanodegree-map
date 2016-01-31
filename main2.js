@@ -111,6 +111,14 @@ var ViewModel = function () {
 	//array of places
 	self.places = ko.observableArray([]);
 	
+	//toggle sidebar
+	//observable to keep track of sidebar width class starts off
+	self.sidebarWide = ko.observable(false);
+	//observable that sets the width class to true
+	self.openSidebar = ko.observable:function(){
+		self.sidebarWide(true);
+	}
+
 	//foursquare error ko
 	self.showMessage = ko.observable(false);
 
@@ -205,6 +213,7 @@ var ViewModel = function () {
 	// Activate the right marker when the user clicks the list
 	self.showInfo = function (placeItem) {
 		google.maps.event.trigger(placeItem.marker, 'click');
+		self.sidebarWide(false);
 	};
 
 	// Array containing markers based on search
