@@ -113,10 +113,10 @@ var ViewModel = function () {
 	
 	//toggle sidebar
 	//observable to keep track of sidebar width class starts off
-	self.sidebarWide = ko.observable(false);
+	self.sidebarWide = ko.observable(true);
 	//observable that sets the width class to true
 	self.openSidebar = function(){
-		self.sidebarWide(true);
+		self.sidebarWide() == true;
 	}
 
 	//foursquare error ko
