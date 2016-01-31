@@ -49,6 +49,10 @@ input {
 	color: purple;
 }
 
+.openSidebar {
+	width:250px;
+}
+
 /*From Black Rock Digital*/
 /* Toggle Styles */
 
@@ -99,10 +103,6 @@ input {
 	position: absolute;
 	margin-right: -250px;
 }
-
-/*#sidebar-wrapper.open {
-		width: 250px;
-	}*/
 
 /* Sidebar Styles */
 
@@ -203,8 +203,4 @@ input {
  	#mapDiv {
 		width: 100%;
  	}
-
-	#sidebar-wrapper{
-		width:0;
-	}
  }
