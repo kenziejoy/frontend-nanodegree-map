@@ -115,7 +115,7 @@ var ViewModel = function () {
 	//observable to keep track of sidebar width class starts off
 	self.sidebarWide = ko.observable(false);
 	//observable that sets the width class to true
-	self.openSidebar = ko.observable:function(){
+	self.openSidebar = function(){
 		self.sidebarWide(true);
 	}
 
