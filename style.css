@@ -44,8 +44,9 @@ input {
 	height: 450px;
 	width: 100%;
 }
-#error {
+.error {
 	text-align: center;
+	color: purple;
 }
 
 #menu-toggle {
@@ -74,7 +75,7 @@ input {
 	position: fixed;
 	left: 260px;
 	width: 0;
-	height: 100%;
+	height: calc(100%-176px);
 	margin-left: -250px;
 	overflow-y: auto;
 	background: #98AFC7;

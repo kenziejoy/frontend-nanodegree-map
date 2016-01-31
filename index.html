@@ -23,7 +23,12 @@
 					</a>
 					<hr>
 				</div>
-				<div id ="error"></div>
+				<div class ="error" data-bind="visible: showMessage">
+					<h4>Foursquare data is unavailable. Please try refreshing the page.</h4>
+				</div>
+				<div  class ="error" data-bind="visible: showMapMessage">
+					<h2>Google Maps is not loading. Please try refreshing the page.</h2>
+				</div>
 			</div>
 			<!--Sidebar-->
 			<div id="wrapper row">
@@ -40,7 +45,7 @@
 					<!--List-->
 					<div>
 						<ul class="sidebar-nav list-group-item" data-bind="foreach: visible">
-							<li class="listItem sidebar-brand" data-bind="text: name, click: $parent.showInfo"></a>
+							<li class="listItem sidebar-brand" data-bind="text: name, click: $parent.showInfo">
 							</li>
 						</ul>
 					</div>

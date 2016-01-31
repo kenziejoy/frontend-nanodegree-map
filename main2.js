@@ -1,6 +1,7 @@
 /*******************MAP**********************/
 // create map
 var map;
+showMapMessage = ko.observable(false);
 
 function initMap() {
 	"use strict";
@@ -30,7 +31,7 @@ function initMap() {
 //error message
 function googleError() {
 "use strict";
-document.getElementById("mapDiv").innerHTML = "		<h2>Google Maps is not loading. Please try refreshing the page.</h2>";
+	showMapMessage(true);
 }
 
 /******************MODEL**********************/
@@ -110,6 +111,9 @@ var ViewModel = function () {
 	//array of places
 	self.places = ko.observableArray([]);
 	
+	//foursquare error ko
+	self.showMessage = ko.observable(false);
+
 	//call the constructor!
 	locations.forEach(function(placeItem) {
 		self.places.push(new Place(placeItem));
@@ -184,7 +188,7 @@ var ViewModel = function () {
 			// Alert the user on error
 			error: function (e) {
 				infowindow.setContent('<h5>Foursquare data is unavailable.</h5>');
-				document.getElementById("error").innerHTML = "<h4>Foursquare data is unavailable. Please try refreshing.</h4>";
+				self.showMessage(true);
 		}
 		});
 		
