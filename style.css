@@ -88,13 +88,11 @@ input {
 	width: 250px;
 }
 
-
 #page-content-wrapper {
 	width: 100%;
 	position: absolute;
 	padding: 15px;
 }
-
 
 #wrapper.toggled #page-content-wrapper {
 	position: absolute;
@@ -102,7 +100,6 @@ input {
 }
 
 /* Sidebar Styles */
-
 
 .sidebar-nav {
 	position: absolute;
@@ -112,7 +109,6 @@ input {
 	list-style: none;
 }
 
-
 .sidebar-nav li {
 	text-indent: 20px;
 	line-height: 40px;
@@ -120,7 +116,6 @@ input {
 	text-decoration: none;
 	color: #000058;
 }
-
 
 .sidebar-nav li:hover {
 	text-decoration: none;
@@ -139,12 +134,10 @@ input {
 	color: #999999;
 }
 
-
 .sidebar-nav > .sidebar-brand a:hover {
 	color: #fff;
 	background: none;
 }
-
 
 @media(min-width:768px) {
 
@@ -160,19 +153,16 @@ input {
 		padding-left: 0;
 	}
 
-
 	#page-content-wrapper {
 		padding: 20px;
 		position: relative;
 	}
-
 
 	#wrapper.toggled #page-content-wrapper {
 		position: relative;
 		margin-right: 0;
 	}
 }
-
 
 @media only screen and (max-width : 600px)
 {

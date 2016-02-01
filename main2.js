@@ -6,8 +6,8 @@ showMapMessage = ko.observable(false);
 function initMap() {
 	"use strict";
 	var mapOptions = {
-		zoom: 16,
-		center: {lat: 45.5590561, lng: -122.6447018},
+		zoom: 17,
+		center: {lat: 45.5590561, lng: -122.6428132},
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		disableDefaultUI: true,
 		scrollwheel: false,
