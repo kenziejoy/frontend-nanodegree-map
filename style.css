@@ -49,7 +49,6 @@ input {
 	color: purple;
 }
 
-
 /*From Black Rock Digital*/
 /* Toggle Styles */
 
@@ -141,6 +140,11 @@ input {
 
 @media(min-width:768px) {
 
+
+	button {
+		display:none;
+	}
+
 	#wrapper {
 		padding-left: 250px;
 	}
@@ -174,6 +178,10 @@ input {
  		font-size: 1em;
  		margin-top: 10px;
  	}
+
+	button {
+		display:block;
+	}
 
  	.listItem {
  		font-size: 0.7em;

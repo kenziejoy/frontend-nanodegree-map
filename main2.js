@@ -7,7 +7,7 @@ function initMap() {
 	"use strict";
 	var mapOptions = {
 		zoom: 17,
-		center: {lat: 45.5590561, lng: -122.6428132},
+		center: {lat: 45.5590561, lng: -122.6468012},
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		disableDefaultUI: true,
 		scrollwheel: false,
@@ -114,6 +114,7 @@ var ViewModel = function () {
 	//toggle sidebar
 	//observable to keep track of sidebar width class starts off
 	self.sidebarSmall = ko.observable(0);
+
 	//observable that sets the width class to true
 	self.changeSidebar = function(){
 		//If small is on then turn off
