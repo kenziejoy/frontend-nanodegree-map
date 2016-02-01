@@ -29,7 +29,7 @@ No installation neccessary
 
 ## Demo
 
-You can view the [demo site here](http://kenziejoy.github.io/frontend-nanodegree-map/).
+You can view the [demo site here](http://kenziejoy.github.io/frontend-nanodegree-map/), or open download the Github repository and open index.html.
 
 **[Back to top](#table-of-contents)**
 
