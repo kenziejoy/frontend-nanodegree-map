@@ -49,9 +49,6 @@ input {
 	color: purple;
 }
 
-#sidebar-wrapper {
-		width: 250px;
-	}
 
 /*From Black Rock Digital*/
 /* Toggle Styles */
@@ -70,7 +67,7 @@ input {
 }
 
 
-.sidebarClose {
+#sidebar-wrapper {
 	z-index: 1000;
 	position: fixed;
 	left: 260px;
@@ -155,6 +152,9 @@ input {
 		padding-left: 250px;
 	}
 
+	#sidebar-wrapper {
+		width: 250px;
+	}
 
 	#wrapper.toggled {
 		padding-left: 0;
