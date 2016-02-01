@@ -188,4 +188,8 @@ input {
  	#mapDiv {
 		width: 100%;
  	}
+
+	#sidebar-wrapper {
+		width:0;
+	}
  }
