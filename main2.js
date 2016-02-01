@@ -107,24 +107,22 @@ var ViewModel = function () {
 		stats,
 		url,
 		venue;
+	
+	//function for changing sidebar
+	self.openSidebar = ko.observable(1)
+
+	var changeSidebar = function() {
+		if (openSidebar > 0 ) {
+			openSidebar(1);
+		} else {
+			if(openSidebar<1) {
+				openSidebar(0);
+			}
+		}
+	}
 
 	//array of places
 	self.places = ko.observableArray([]);
-	
-	//toggle sidebar
-	//observable to keep track of sidebar width class starts off
-	self.sidebarMobileLarge = ko.observable(0);
-
-	//observable that sets the width class to true
-	self.changeSidebar = function(){
-		//If small is on then turn off
-		if (self.sidebarMobileLarge(1)) {
-			self.sidebarMobileLarge(0);
-		//If it is 0 then it is turned small
-		} else {
-			self.sidebarMobileLarge(1);
-		}
-	}
 
 	//foursquare error ko
 	self.showMessage = ko.observable(false);
