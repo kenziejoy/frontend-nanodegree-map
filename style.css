@@ -50,7 +50,7 @@ input {
 }
 
 #menu-toggle {
-	text-align: right;
+	float: right;
 }
 
 /*From Black Rock Digital*/
