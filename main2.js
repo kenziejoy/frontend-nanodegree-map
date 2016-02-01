@@ -113,17 +113,17 @@ var ViewModel = function () {
 	
 	//toggle sidebar
 	//observable to keep track of sidebar width class starts off
-	self.sidebarWide = ko.observable(0);
+	self.sidebarSmall = ko.observable(0);
 	//observable that sets the width class to true
 	self.changeSidebar = function(){
-		if (self.sidebarWide(1)) {
-			self.sidebarWide(0);
+		//If small is on then turn off
+		if (self.sidebarSmall(1)) {
+			self.sidebarSmall(0);
+		//If it is 0 then it is turned small
 		} else {
-			self.sidebarWide(1);
+			self.sidebarSmall(1);
 		}
 	}
-
-
 
 	//foursquare error ko
 	self.showMessage = ko.observable(false);
