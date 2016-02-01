@@ -116,7 +116,7 @@ var ViewModel = function () {
 	self.sidebarMobileLarge = ko.observable(0);
 
 	//observable that sets the width class to true
-	changeSidebar = function(){
+	self.changeSidebar = function(){
 		//If small is on then turn off
 		if (self.sidebarMobileLarge(1)) {
 			self.sidebarMobileLarge(0);
