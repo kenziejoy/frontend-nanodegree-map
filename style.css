@@ -149,9 +149,9 @@ input {
 		padding-left: 250px;
 	}
 
-	/*#sidebar-wrapper {
+	#sidebar-wrapper {
 		width: 250px;
-	}*/
+	}
 
 	#wrapper.toggled {
 		padding-left: 0;
