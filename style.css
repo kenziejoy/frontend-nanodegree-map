@@ -21,6 +21,10 @@ input {
 	width: 90%;
 }
 
+button {
+		display:none;
+	}
+
 #center-search {
 	margin-left:10%;
 }
@@ -140,10 +144,6 @@ input {
 
 @media(min-width:768px) {
 
-
-	button {
-		display:none;
-	}
 
 	#wrapper {
 		padding-left: 250px;
