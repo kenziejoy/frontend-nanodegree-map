@@ -112,7 +112,7 @@ var ViewModel = function () {
 	self.visibleSidebar = ko.observable(false),
 
 	self.hideSidebar = function() {
-		self.openSidebar(false);
+		self.visibleSidebar(false);
 		return true;
 	}
 
@@ -219,7 +219,7 @@ var ViewModel = function () {
 	// Activate the right marker when the user clicks the list
 	self.showInfo = function (placeItem) {
 		google.maps.event.trigger(placeItem.marker, 'click');
-		self.openSidebar(0);
+		self.hideSidebar();
 	};
 
 	// Array containing markers based on search
