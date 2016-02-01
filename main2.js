@@ -111,7 +111,7 @@ var ViewModel = function () {
 	//function for changing sidebar
 	self.openSidebar = ko.observable(1)
 
-	var changeSidebar = function() {
+	self.changeSidebar = function() {
 		if (openSidebar > 0 ) {
 			openSidebar(1);
 		} else {
