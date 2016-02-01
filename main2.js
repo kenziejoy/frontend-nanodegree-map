@@ -109,17 +109,18 @@ var ViewModel = function () {
 		venue;
 	
 	//function for changing sidebar
-	self.openSidebar = ko.observable(1)
+	self.visibleSidebar = ko.observable(false),
 
-	self.changeSidebar = function() {
-		if (openSidebar > 0 ) {
-			openSidebar(1);
-		} else {
-			if(openSidebar<1) {
-				openSidebar(0);
-			}
+		self.hideSidebar = function() {
+		self.openSidebar(false);
+		return true;
 		}
-	}
+
+		self.openSidebar: function () {
+		var oppositeSidebarState = !( self.visibleSidebar() );
+		self.visibleSidebar(oppositeSidebarState);
+		return true;
+		}
 
 	//array of places
 	self.places = ko.observableArray([]);

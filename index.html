@@ -19,8 +19,8 @@
 					<hr>
 					<h1>Alberta Arts Neighborhood</h1>
 					<hr>
-					<button id="menu-toggle" data-bind="click:changeSidebar" class="btn btn-info">
-						Show List
+					<button id="menu-toggle" data-bind="click: openSidebar, clickBubble: false" class="btn btn-info">
+						☰
 					</button>
 				</div>
 				<div class ="error" data-bind="visible: showMessage">
@@ -31,8 +31,8 @@
 				</div>
 			</div>
 			<!--Sidebar-->
-			<div id="wrapper row">
-				<div id="sidebar-wrapper" data-bind="css: {toggled: openSidebar()<1}">
+			<div id="wrapper" data-bind="css: {'toggled':  visibleSidebar}, click:null, clickBubble: false">
+				<div id="sidebar-wrapper">
 					<!--Search-->
 					<div>
 						<h2>Explore</h2>
@@ -52,7 +52,7 @@
 				</div>
 
 				<div id="page-content-wrapper">
-					<div class="container-fluid col-md-12">
+					<div class="container-fluid col-md-12" data-bind="click:  hideSidebar">
 						<div id="mapDiv"></div>
 					</div>
 				</div>
