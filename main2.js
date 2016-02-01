@@ -111,16 +111,16 @@ var ViewModel = function () {
 	//function for changing sidebar
 	self.visibleSidebar = ko.observable(false),
 
-		self.hideSidebar = function() {
+	self.hideSidebar = function() {
 		self.openSidebar(false);
 		return true;
-		}
+	}
 
-		self.openSidebar: function () {
+	self.openSidebar = function () {
 		var oppositeSidebarState = !( self.visibleSidebar() );
 		self.visibleSidebar(oppositeSidebarState);
 		return true;
-		}
+	}
 
 	//array of places
 	self.places = ko.observableArray([]);
